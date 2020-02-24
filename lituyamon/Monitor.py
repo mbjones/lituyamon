@@ -1,5 +1,3 @@
-# Monitor class
-
 class Monitor:
     version = "0.1.0"
     status = "Stopped"
