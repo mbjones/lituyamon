@@ -5,8 +5,8 @@ class TestStringMethods(unittest.TestCase):
 
     def test_status(self):
         monitor = Monitor()
-        monitor.set_status("Running")
-        self.assertEqual(monitor.get_status(), 'Running')
+        monitor.start()
+        self.assertEqual(monitor._status, 'Running')
 
     def test_isupper(self):
         self.assertTrue('FOO'.isupper())
