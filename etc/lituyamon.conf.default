@@ -1,7 +1,5 @@
 {
-    "lituyamon":{
-        "version":"0.2.0"
-    },
+    "vessel":"Lituya",
     "sensors":
             {
             "cputemp1":{

@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="lituyamon", # Replace with your own username
-    version="0.2.0",
+    version="0.3.0",
     author="Matt Jones",
     author_email="gitcode@magisa.org",
     description="Lituya monitoring package",

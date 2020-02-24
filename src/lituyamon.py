@@ -2,7 +2,7 @@ import json
 from gpiozero import CPUTemperature
 
 class Monitor:
-    _version = "0.1.0"
+    _version = "0.3.0"
     _status = "Stopped"
     _config_file = '/etc/lituyamon.conf'
 
