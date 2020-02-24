@@ -1,6 +1,6 @@
 import unittest
-from lituyamon.Monitor import Monitor
-from lituyamon.Sensor import CPUTemp
+from lituyamon import Monitor
+from lituyamon import CPUTemp
 
 class TestStringMethods(unittest.TestCase):
 
