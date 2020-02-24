@@ -1,5 +1,6 @@
 import unittest
 from lituyamon.Monitor import Monitor
+from lituyamon.Sensor import CPUTemp
 
 class TestStringMethods(unittest.TestCase):
 
@@ -14,12 +15,11 @@ class TestStringMethods(unittest.TestCase):
         self.assertEqual(monitor.cfg['lituyamon']['version'], '0.2.0')
         self.assertEqual(monitor.cfg['sensors']['cputemp1']['class'], 'CPUTemperature')
 
-    def test_split(self):
-        s = 'hello world'
-        self.assertEqual(s.split(), ['hello', 'world'])
-        # check that s.split fails when the separator is not a string
-        with self.assertRaises(TypeError):
-            s.split(2)
+    def test_read_sensor(self):
+        sensor = CPUTemp()
+        value = sensor.read_sensor()
+        self.assertTrue(value > 315)
+        self.assertTrue(value < 335)
 
 if __name__ == '__main__':
     unittest.main()

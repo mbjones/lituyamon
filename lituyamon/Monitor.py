@@ -1,4 +1,5 @@
 import json
+from Sensor import *
 
 class Monitor:
     _version = "0.1.0"
@@ -10,6 +11,8 @@ class Monitor:
 
     def start(self):
         self._status = "Running"
+        sensor = CPUTemp()
+        print(sensor.read_sensor())
 
     def _load_config(self):
         self._config_file
