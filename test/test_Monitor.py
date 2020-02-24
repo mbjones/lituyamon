@@ -8,9 +8,11 @@ class TestStringMethods(unittest.TestCase):
         monitor.start()
         self.assertEqual(monitor._status, 'Running')
 
-    def test_isupper(self):
-        self.assertTrue('FOO'.isupper())
-        self.assertFalse('Foo'.isupper())
+    def test_config(self):
+        monitor = Monitor()
+        self.assertTrue(isinstance(monitor.cfg, dict))
+        self.assertEqual(monitor.cfg['lituyamon']['version'], '0.2.0')
+        self.assertEqual(monitor.cfg['sensors']['cputemp1']['class'], 'CPUTemperature')
 
     def test_split(self):
         s = 'hello world'

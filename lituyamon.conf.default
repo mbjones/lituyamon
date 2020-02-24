@@ -1,0 +1,13 @@
+{
+    "lituyamon":{
+        "version":"0.2.0"
+    },
+    "sensors":
+            {
+            "cputemp1":{
+                "name": "CPU Temperature",
+                "class": "CPUTemperature",
+                "location":"LituyaMon"
+            }
+        }
+}
