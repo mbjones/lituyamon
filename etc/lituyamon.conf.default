@@ -4,8 +4,9 @@
             {
             "cputemp1":{
                 "name": "CPU Temperature",
-                "class": "CPUTemperature",
-                "location":"LituyaMon"
+                "class": "CPUTemp",
+                "location":"LituyaMon",
+                "sk_key": "environment.inside.lituyamon.temperature"
             }
         }
 }

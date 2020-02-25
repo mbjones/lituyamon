@@ -1,18 +1,15 @@
 import json
 from gpiozero import CPUTemperature
+import sys
 
 class Monitor:
     _version = "0.3.0"
     _status = "Stopped"
     _config_file = '/etc/lituyamon.conf'
+    cfg = None
 
     def __init__(self):
         self._load_config()
-
-    def start(self):
-        self._status = "Running"
-        sensor = CPUTemp()
-        print(sensor.read_sensor())
 
     def _load_config(self):
         self._config_file
@@ -21,6 +18,21 @@ class Monitor:
                 self.cfg = json.load(cfg_file)
         except OSError as e:
             print("Config file not opened: " + e.strerror + " " + e.filename)
+    
+    def start(self):
+        self._status = "Running"
+        sensor = CPUTemp()
+        print(sensor.read_sensor())
+        for sensor_task in (self.cfg['sensors']).keys():
+            print("Reading from sensor: " + sensor_task)
+            sk_key = self.cfg['sensors'][sensor_task]['sk_key']
+            current_module = sys.modules[__name__]
+            SensorClass = getattr(current_module, self.cfg['sensors'][sensor_task]['class'])
+            sensor = SensorClass()
+            value = sensor.read_sensor()
+            print(sk_key +": " + str(value))
+
+
 
 class Sensor:
     _status = "Unconfigured"
