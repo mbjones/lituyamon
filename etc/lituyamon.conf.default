@@ -1,12 +1,10 @@
 {
-    "vessel":"Lituya",
-    "sensors":
-            {
-            "cputemp1":{
-                "name": "CPU Temperature",
-                "class": "CPUTemp",
-                "location":"LituyaMon",
-                "sk_key": "environment.inside.lituyamon.temperature"
-            }
+    "vessel": "Lituya",
+    "sensors": {
+        "environment.inside.lituyamon.temperature": {
+            "name": "CPU Temperature",
+            "class": "CPUTemp",
+            "location": "LituyaMon"
         }
+    }
 }

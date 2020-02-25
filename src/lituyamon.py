@@ -21,16 +21,13 @@ class Monitor:
     
     def start(self):
         self._status = "Running"
-        sensor = CPUTemp()
-        print(sensor.read_sensor())
-        for sensor_task in (self.cfg['sensors']).keys():
-            print("Reading from sensor: " + sensor_task)
-            sk_key = self.cfg['sensors'][sensor_task]['sk_key']
+        for sensor_key in (self.cfg['sensors']).keys():
+            print("Reading from sensor: " + sensor_key)
             current_module = sys.modules[__name__]
-            SensorClass = getattr(current_module, self.cfg['sensors'][sensor_task]['class'])
+            SensorClass = getattr(current_module, self.cfg['sensors'][sensor_key]['class'])
             sensor = SensorClass()
             value = sensor.read_sensor()
-            print(sk_key +": " + str(value))
+            print(sensor_key +": " + str(value))
 
 
 
