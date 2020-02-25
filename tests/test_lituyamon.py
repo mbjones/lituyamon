@@ -13,7 +13,7 @@ class TestStringMethods(unittest.TestCase):
         monitor = Monitor()
         self.assertTrue(isinstance(monitor.cfg, dict))
         self.assertEqual(monitor.cfg['vessel'], 'Lituya')
-        self.assertEqual(monitor.cfg['sensors']['cputemp1']['class'], 'CPUTemperature')
+        self.assertEqual(monitor.cfg['sensors']['environment.inside.lituyamon.temperature']['class'], 'CPUTemp')
 
     def test_read_sensor(self):
         sensor = CPUTemp()
