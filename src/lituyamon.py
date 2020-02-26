@@ -1,6 +1,11 @@
+import asyncio
 import json
-from gpiozero import CPUTemperature
+import os
 import sys
+
+from datetime import datetime
+from apscheduler.schedulers.asyncio import AsyncIOScheduler
+from gpiozero import CPUTemperature
 
 class Monitor:
     _version = "0.3.0"
@@ -20,15 +25,26 @@ class Monitor:
             print("Config file not opened: " + e.strerror + " " + e.filename)
     
     def start(self):
+        scheduler = AsyncIOScheduler()
         self._status = "Running"
         for sensor_key in (self.cfg['sensors']).keys():
-            print("Reading from sensor: " + sensor_key)
-            current_module = sys.modules[__name__]
-            SensorClass = getattr(current_module, self.cfg['sensors'][sensor_key]['class'])
-            sensor = SensorClass()
-            value = sensor.read_sensor()
-            print(sensor_key +": " + str(value))
+            sensor_class = self.cfg['sensors'][sensor_key]['class']
+            scheduler.add_job(lambda: self.sample(sensor_key, sensor_class), 'interval', seconds=3)
+        scheduler.start()
+        print('Press Ctrl+{0} to exit'.format('Break' if os.name == 'nt' else 'C'))
 
+        # Execution will block here until Ctrl+C (Ctrl+Break on Windows) is pressed.
+        try:
+            asyncio.get_event_loop().run_forever()
+        except (KeyboardInterrupt, SystemExit):
+            pass
+
+    def sample(self, sensor_key, sensor_class):
+        current_module = sys.modules[__name__]
+        SensorClass = getattr(current_module, sensor_class)
+        sensor = SensorClass()
+        value = sensor.read_sensor()
+        print('%s: %s (%s)' % (sensor_key, value, datetime.now()))
 
 
 class Sensor:
@@ -43,6 +59,7 @@ class Sensor:
     def read_sensor(self):
         value = 1  
         return(value)
+
 
 class CPUTemp(Sensor):
     _status = "Unconfigured"
