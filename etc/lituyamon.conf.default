@@ -4,7 +4,14 @@
         "environment.inside.lituyamon.temperature": {
             "name": "CPU Temperature",
             "class": "CPUTemp",
-            "location": "LituyaMon"
+            "location": "LituyaMon",
+            "interval": 1
+        },
+        "environment.inside.cpu.temperature": {
+            "name": "CPU Temperature",
+            "class": "CPUTemp",
+            "location": "LituyaMon",
+            "interval": 3
         }
     }
 }
