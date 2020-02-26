@@ -6,8 +6,7 @@ class TestStringMethods(unittest.TestCase):
 
     def test_status(self):
         monitor = Monitor()
-        monitor.start()
-        self.assertEqual(monitor._status, 'Running')
+        self.assertEqual(monitor._status, 'Stopped')
 
     def test_config(self):
         monitor = Monitor()
