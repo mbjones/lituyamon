@@ -2,9 +2,11 @@ import asyncio
 import json
 import os
 import sys
+import time
 
 from datetime import datetime
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
+from apscheduler.schedulers.background import BackgroundScheduler
 from gpiozero import CPUTemperature
 
 class Monitor:
@@ -31,7 +33,7 @@ class Monitor:
             sensor_class = self.cfg['sensors'][sensor_key]['class']
             sensor_interval = self.cfg['sensors'][sensor_key]['interval']
             print('Scheduling: %s (%s)' % (sensor_key, sensor_interval))
-            scheduler.add_job(lambda: self.sample(sensor_key, sensor_class), 'interval', seconds=sensor_interval)
+            scheduler.add_job(self.sample, 'interval', args = [sensor_key, sensor_class], seconds=sensor_interval, max_instances=3)
         scheduler.print_jobs()
         scheduler.start()
         print('Press Ctrl+{0} to exit'.format('Break' if os.name == 'nt' else 'C'))
