@@ -11,7 +11,7 @@ from apscheduler.schedulers.background import BackgroundScheduler
 from gpiozero import CPUTemperature
 
 class Monitor:
-    _version = "0.3.0"
+    _version = "0.4.0"
     _status = "Stopped"
     _config_file = '/etc/lituyamon.conf'
     _sk_server = None
@@ -20,10 +20,8 @@ class Monitor:
     def __init__(self):
         self._load_config()
         self._sk_server = SignalK(self.cfg['signalk']['host'], self.cfg['signalk']['port'])
-        
 
     def _load_config(self):
-        self._config_file
         try:
             with open(self._config_file) as cfg_file:
                 self.cfg = json.load(cfg_file)
@@ -48,6 +46,7 @@ class Monitor:
         except (KeyboardInterrupt, SystemExit):
             pass
 
+
     def sample(self, sensor_key, sensor_class):
         current_module = sys.modules[__name__]
         SensorClass = getattr(current_module, sensor_class)
@@ -57,27 +56,18 @@ class Monitor:
         self._sk_server.send(sensor_key, value)
 
 class SignalK:
-    _sock = None
     _host = None
     _port = None
 
     def __init__(self, host, port):
         self._host = host
         self._port = int(port)
-        self._sock = self._create_socket()
-
-    def _create_socket(self):
-        # Initiate socket
-        sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        # socket.AF_INET is  Internet
-        # socket.SOCK_DGRAM) is  UDP
-        return(sock)
 
     def send(self, path, value):
         sk_delta_msg='{"updates": [{"$source": "lituyamon","values":[ {"path":"'+ path +'","value":'+ str(value) + '}]}]}\n'
         print(sk_delta_msg.encode())
-        self._sock.sendto(sk_delta_msg.encode(), (self._host, self._port))
-
+        with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as _sock:
+            _sock.sendto(sk_delta_msg.encode(), (self._host, self._port))
 
 class Sensor:
     _status = "Unconfigured"
