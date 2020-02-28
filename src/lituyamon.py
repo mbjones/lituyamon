@@ -1,5 +1,7 @@
 import asyncio
 import json
+import logging
+import logging.config
 import os
 import socket
 import sys
@@ -19,6 +21,9 @@ class Monitor:
 
     def __init__(self):
         self._load_config()
+        logging.config.dictConfig(self.cfg['logging'])
+        #logging.basicConfig(level=logging.DEBUG)
+        logging.info('Started')
         self._sk_server = SignalK(self.cfg['signalk']['host'], self.cfg['signalk']['port'])
 
     def _load_config(self):
@@ -26,7 +31,7 @@ class Monitor:
             with open(self._config_file) as cfg_file:
                 self.cfg = json.load(cfg_file)
         except OSError as e:
-            print("Config file not opened: " + e.strerror + " " + e.filename)
+            logging.error("Config file not opened: " + e.strerror + " " + e.filename)
     
     def start(self):
         scheduler = AsyncIOScheduler()
@@ -34,11 +39,11 @@ class Monitor:
         for sensor_key in (self.cfg['sensors']).keys():
             sensor_class = self.cfg['sensors'][sensor_key]['class']
             sensor_interval = self.cfg['sensors'][sensor_key]['interval']
-            print('Scheduling: %s (%s)' % (sensor_key, sensor_interval))
+            logging.info('Scheduling: %s (%s)' % (sensor_key, sensor_interval))
             scheduler.add_job(self.sample, 'interval', args = [sensor_key, sensor_class], seconds=sensor_interval, max_instances=3)
         scheduler.print_jobs()
         scheduler.start()
-        print('Press Ctrl+{0} to exit'.format('Break' if os.name == 'nt' else 'C'))
+        logging.info('Press Ctrl+{0} to exit'.format('Break' if os.name == 'nt' else 'C'))
 
         # Execution will block here until Ctrl+C (Ctrl+Break on Windows) is pressed.
         try:
@@ -52,7 +57,7 @@ class Monitor:
         SensorClass = getattr(current_module, sensor_class)
         sensor = SensorClass()
         value = sensor.read_sensor()
-        print('%s: %s (%s)' % (sensor_key, value, datetime.now()))
+        logging.debug('%s: %s (%s)' % (sensor_key, value, datetime.now()))
         self._sk_server.send(sensor_key, value)
 
 class SignalK:
@@ -65,7 +70,7 @@ class SignalK:
 
     def send(self, path, value):
         sk_delta_msg='{"updates": [{"$source": "lituyamon","values":[ {"path":"'+ path +'","value":'+ str(value) + '}]}]}\n'
-        print(sk_delta_msg.encode())
+        logging.debug(sk_delta_msg.encode())
         with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as _sock:
             _sock.sendto(sk_delta_msg.encode(), (self._host, self._port))
 
