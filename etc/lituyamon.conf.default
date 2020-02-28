@@ -52,23 +52,6 @@
                 "class": "logging.StreamHandler",
                 "formatter": "brief",
                 "stream" : "ext://sys.stdout"
-            },
-            "file_handler": {
-                "level": "INFO",
-                "class": "logging.handlers.WatchedFileHandler",
-                "formatter": "verbose",
-                "filename": "/tmp/file_handler.log",
-                "mode": "a",
-                "encoding": "utf-8"
-            },
-            "smtp": {
-                "level": "ERROR",
-                "class": "logging.handlers.SMTPHandler",
-                "formatter": "multiline",
-                "mailhost": ["127.0.0.1", 60025],
-                "fromaddr": "sender@example.com",
-                "toaddrs": ["recipient@example.com"],
-                "subject": "Something went wrong"
             }
         },
         "loggers": { },
