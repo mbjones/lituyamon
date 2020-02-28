@@ -17,13 +17,15 @@ class Monitor:
     _status = "Stopped"
     _config_file = '/etc/lituyamon.json'
     _sk_server = None
+    _log = None
     cfg = None
 
     def __init__(self):
         self._load_config()
         logging.config.dictConfig(self.cfg['logging'])
         #logging.basicConfig(level=logging.DEBUG)
-        logging.info('Started')
+        self._log = logging.getLogger("lituyamon.monitor")
+        self._log.info('Started')
         self._sk_server = SignalK(self.cfg['signalk']['host'], self.cfg['signalk']['port'])
 
     def _load_config(self):
@@ -39,11 +41,11 @@ class Monitor:
         for sensor_key in (self.cfg['sensors']).keys():
             sensor_class = self.cfg['sensors'][sensor_key]['class']
             sensor_interval = self.cfg['sensors'][sensor_key]['interval']
-            logging.info('Scheduling: %s (%s)' % (sensor_key, sensor_interval))
+            self._log.info('Scheduling: %s (%s)' % (sensor_key, sensor_interval))
             scheduler.add_job(self.sample, 'interval', args = [sensor_key, sensor_class], seconds=sensor_interval, max_instances=3)
         scheduler.print_jobs()
         scheduler.start()
-        logging.info('Press Ctrl+{0} to exit'.format('Break' if os.name == 'nt' else 'C'))
+        self._log.info('Press Ctrl+{0} to exit'.format('Break' if os.name == 'nt' else 'C'))
 
         # Execution will block here until Ctrl+C (Ctrl+Break on Windows) is pressed.
         try:
@@ -57,20 +59,22 @@ class Monitor:
         SensorClass = getattr(current_module, sensor_class)
         sensor = SensorClass()
         value = sensor.read_sensor()
-        logging.debug('%s: %s (%s)' % (sensor_key, value, datetime.now()))
+        self._log.debug('%s: %s (%s)' % (sensor_key, value, datetime.now()))
         self._sk_server.send(sensor_key, value)
 
 class SignalK:
     _host = None
     _port = None
+    _log = None
 
     def __init__(self, host, port):
         self._host = host
         self._port = int(port)
+        self._log = logging.getLogger("lituyamon.signalk")
 
     def send(self, path, value):
         sk_delta_msg='{"updates": [{"$source": "lituyamon","values":[ {"path":"'+ path +'","value":'+ str(value) + '}]}]}\n'
-        logging.debug(sk_delta_msg.encode())
+        self._log.debug(sk_delta_msg.encode())
         with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as _sock:
             _sock.sendto(sk_delta_msg.encode(), (self._host, self._port))
 

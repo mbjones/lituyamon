@@ -19,7 +19,7 @@
             "brief": {
                 "class": "logging.Formatter",
                 "datefmt": "%I:%M:%S",
-                "format": "%(levelname)-8s; %(message)s"
+                "format": "%(levelname)-8s; %(name)-15s; %(message)s"
             },
             "single-line": {
                 "class": "logging.Formatter",
@@ -54,10 +54,16 @@
                 "stream" : "ext://sys.stdout"
             }
         },
-        "loggers": { },
-        "root": {
-            "handlers": ["console"],
-            "level": "DEBUG"
+        "loggers": {
+            "lituyamon":{
+                "handlers": ["console"],
+                "level": "DEBUG",
+                "propagate": "false"
+            },
+            "root": {
+                "handlers": ["console"],
+                "level": "WARNING"
+            }    
         }
     }
 }
