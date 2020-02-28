@@ -4,8 +4,8 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="lituyamon", # Replace with your own username
-    version="0.3.0",
+    name="lituyamon",
+    version="0.4.0",
     author="Matt Jones",
     author_email="gitcode@magisa.org",
     description="Lituya monitoring package",
