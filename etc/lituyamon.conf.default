@@ -1,13 +1,11 @@
 {
     "vessel": "Lituya",
+    "signalk": {
+        "host": "localhost",
+        "port": "55557"
+    },
     "sensors": {
         "environment.inside.lituyamon.temperature": {
-            "name": "CPU Temperature",
-            "class": "CPUTemp",
-            "location": "LituyaMon",
-            "interval": 1
-        },
-        "environment.inside.cpu.temperature": {
             "name": "CPU Temperature",
             "class": "CPUTemp",
             "location": "LituyaMon",

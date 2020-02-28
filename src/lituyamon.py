@@ -1,6 +1,7 @@
 import asyncio
 import json
 import os
+import socket
 import sys
 import time
 
@@ -13,10 +14,13 @@ class Monitor:
     _version = "0.3.0"
     _status = "Stopped"
     _config_file = '/etc/lituyamon.conf'
+    _sk_server = None
     cfg = None
 
     def __init__(self):
         self._load_config()
+        self._sk_server = SignalK(self.cfg['signalk']['host'], self.cfg['signalk']['port'])
+        
 
     def _load_config(self):
         self._config_file
@@ -50,6 +54,29 @@ class Monitor:
         sensor = SensorClass()
         value = sensor.read_sensor()
         print('%s: %s (%s)' % (sensor_key, value, datetime.now()))
+        self._sk_server.send(sensor_key, value)
+
+class SignalK:
+    _sock = None
+    _host = None
+    _port = None
+
+    def __init__(self, host, port):
+        self._host = host
+        self._port = int(port)
+        self._sock = self._create_socket()
+
+    def _create_socket(self):
+        # Initiate socket
+        sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        # socket.AF_INET is  Internet
+        # socket.SOCK_DGRAM) is  UDP
+        return(sock)
+
+    def send(self, path, value):
+        sk_delta_msg='{"updates": [{"$source": "lituyamon","values":[ {"path":"'+ path +'","value":'+ str(value) + '}]}]}\n'
+        print(sk_delta_msg.encode())
+        self._sock.sendto(sk_delta_msg.encode(), (self._host, self._port))
 
 
 class Sensor:
