@@ -11,6 +11,8 @@ from datetime import datetime
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.schedulers.background import BackgroundScheduler
 from gpiozero import CPUTemperature
+from gpiozero import LED
+
 
 class Monitor:
     _version = "0.4.0"
@@ -18,6 +20,7 @@ class Monitor:
     _config_file = '/etc/lituyamon.json'
     _sk_server = None
     _log = None
+    _activity_led = None
     cfg = None
 
     def __init__(self):
@@ -27,6 +30,8 @@ class Monitor:
         self._log = logging.getLogger("lituyamon.monitor")
         self._log.info('Started')
         self._sk_server = SignalK(self.cfg['signalk']['host'], self.cfg['signalk']['port'])
+        activity_led_gpio = self.cfg['leds']['activity.led']['gpio']
+        self._activity_led = LED(activity_led_gpio)
 
     def _load_config(self):
         try:
@@ -53,14 +58,15 @@ class Monitor:
         except (KeyboardInterrupt, SystemExit):
             pass
 
-
     def sample(self, sensor_key, sensor_class):
+        self._activity_led.on()
         current_module = sys.modules[__name__]
         SensorClass = getattr(current_module, sensor_class)
         sensor = SensorClass()
         value = sensor.read_sensor()
         self._log.debug('%s: %s (%s)' % (sensor_key, value, datetime.now()))
         self._sk_server.send(sensor_key, value)
+        self._activity_led.off()
 
 class SignalK:
     _host = None

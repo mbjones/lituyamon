@@ -12,6 +12,13 @@
             "interval": 3
         }
     },
+    "leds": {
+        "activity.led": {
+            "name": "Activity LED",
+            "color": "green",
+            "gpio": 21
+        }
+    },
     "logging": {
         "version": 1,
         "disable_existing_loggers": true,
