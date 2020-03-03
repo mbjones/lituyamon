@@ -140,8 +140,8 @@ class DHT22(Sensor):
 
         if humidity is not None and temp_c is not None:
             temp_k = round(temp_c + 273.15, 1)
-            hum_perc = round(humidity, 1)
-            return([temp_k, hum_perc])
+            hum_ratio = round(humidity/100, 3)
+            return([temp_k, hum_ratio])
         else:
             self._log.error("Failed to retrieve data from DHT22 sensor")
             return(-99999)

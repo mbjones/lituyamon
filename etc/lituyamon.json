@@ -9,18 +9,18 @@
             "name": "CPU Temperature",
             "class": "CPUTemp",
             "location": "LituyaMon",
-            "interval": 3,
+            "interval": 60,
             "keys": ["environment.inside.lituyamon.temperature"]
         },
         "dht22.1": {
             "name": "Salon Temperature",
             "class": "DHT22",
             "location": "Salon",
-            "interval": 3,
+            "interval": 60,
             "gpio": 27,
             "keys": [
                 "environment.inside.salon.temperature",
-                "environment.inside.salon.humidity"
+                "environment.inside.salon.relativeHumidity"
             ]
         }
     },
