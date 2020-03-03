@@ -10,6 +10,20 @@
             "class": "CPUTemp",
             "location": "LituyaMon",
             "interval": 3
+        },
+        "environment.inside.salon.temperature": {
+            "name": "Salon Temperature",
+            "class": "DHT22",
+            "location": "Salon",
+            "interval": 3,
+            "gpio": 27
+        },
+        "environment.inside.salon.humidity": {
+            "name": "Salon Humidity",
+            "class": "DHT22",
+            "location": "Salon",
+            "interval": 3,
+            "gpio": 27
         }
     },
     "leds": {

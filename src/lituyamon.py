@@ -6,13 +6,13 @@ import os
 import socket
 import sys
 import time
+import Adafruit_DHT
 
 from datetime import datetime
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.schedulers.background import BackgroundScheduler
 from gpiozero import CPUTemperature
 from gpiozero import LED
-
 
 class Monitor:
     _version = "0.4.0"
@@ -46,8 +46,12 @@ class Monitor:
         for sensor_key in (self.cfg['sensors']).keys():
             sensor_class = self.cfg['sensors'][sensor_key]['class']
             sensor_interval = self.cfg['sensors'][sensor_key]['interval']
+            sensor_gpio = self.cfg['sensors'][sensor_key].get('gpio', None)
             self._log.info('Scheduling: %s (%s)' % (sensor_key, sensor_interval))
-            scheduler.add_job(self.sample, 'interval', args = [sensor_key, sensor_class], seconds=sensor_interval, max_instances=3)
+            if (sensor_gpio is None):
+                scheduler.add_job(self.sample, 'interval', args = [sensor_key, sensor_class], seconds=sensor_interval, max_instances=3)
+            else:
+                scheduler.add_job(self.sample, 'interval', args = [sensor_key, sensor_class, sensor_gpio], seconds=sensor_interval, max_instances=3)
         scheduler.print_jobs()
         scheduler.start()
         self._log.info('Press Ctrl+{0} to exit'.format('Break' if os.name == 'nt' else 'C'))
@@ -58,12 +62,12 @@ class Monitor:
         except (KeyboardInterrupt, SystemExit):
             pass
 
-    def sample(self, sensor_key, sensor_class):
+    def sample(self, sensor_key, sensor_class, sensor_gpio=None):
         self._activity_led.on()
         current_module = sys.modules[__name__]
         SensorClass = getattr(current_module, sensor_class)
         sensor = SensorClass()
-        value = sensor.read_sensor()
+        value = sensor.read_sensor(sensor_gpio)
         self._log.debug('%s: %s (%s)' % (sensor_key, value, datetime.now()))
         self._sk_server.send(sensor_key, value)
         self._activity_led.off()
@@ -93,7 +97,7 @@ class Sensor:
     def initialize(self):
         self._status = "Initialized"
 
-    def read_sensor(self):
+    def read_sensor(self, gpio=None):
         value = 1  
         return(value)
 
@@ -106,10 +110,34 @@ class CPUTemp(Sensor):
         self.cpu = CPUTemperature()
         self._status = "Initialized"
 
-    def read_sensor(self):    
+    def read_sensor(self, gpio=None): 
         temp_c = self.cpu.temperature
         temp_k = round(temp_c + 273.15, 1)
         return(temp_k)
+
+class DHT22(Sensor):
+    _status = "Unconfigured"
+    _log = None
+    _DHT_SENSOR = Adafruit_DHT.DHT22
+    cpu = None
+
+    def initialize(self):
+        self._log = logging.getLogger("lituyamon.DHT22")
+        self.cpu = CPUTemperature()
+        self._status = "Initialized"
+
+    def read_sensor(self, gpio=None):
+        self._log.debug("GPIO: {}".format(gpio))
+
+        humidity, temp_c = Adafruit_DHT.read_retry(self._DHT_SENSOR, gpio)
+
+        if humidity is not None and temp_c is not None:
+            temp_k = round(temp_c + 273.15, 1)
+            return(temp_k)
+        else:
+            self._log.error("Failed to retrieve data from DHT22 sensor")
+            return(-99999)
+
 
 if __name__ == "__main__":
     m = Monitor()
