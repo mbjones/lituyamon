@@ -5,25 +5,23 @@
         "port": "55557"
     },
     "sensors": {
-        "environment.inside.lituyamon.temperature": {
+        "cputemp.1": {
             "name": "CPU Temperature",
             "class": "CPUTemp",
             "location": "LituyaMon",
-            "interval": 3
+            "interval": 3,
+            "keys": ["environment.inside.lituyamon.temperature"]
         },
-        "environment.inside.salon.temperature": {
+        "dht22.1": {
             "name": "Salon Temperature",
             "class": "DHT22",
             "location": "Salon",
             "interval": 3,
-            "gpio": 27
-        },
-        "environment.inside.salon.humidity": {
-            "name": "Salon Humidity",
-            "class": "DHT22",
-            "location": "Salon",
-            "interval": 3,
-            "gpio": 27
+            "gpio": 27,
+            "keys": [
+                "environment.inside.salon.temperature",
+                "environment.inside.salon.humidity"
+            ]
         }
     },
     "leds": {
@@ -81,6 +79,11 @@
                 "level": "DEBUG",
                 "propagate": "false"
             },
+            "lituyamon.signalk":{
+                "handlers": ["console"],
+                "level": "WARNING",
+                "propagate": "false"
+            },           
             "root": {
                 "handlers": ["console"],
                 "level": "WARNING"

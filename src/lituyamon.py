@@ -43,15 +43,16 @@ class Monitor:
     def start(self):
         scheduler = AsyncIOScheduler()
         self._status = "Running"
-        for sensor_key in (self.cfg['sensors']).keys():
-            sensor_class = self.cfg['sensors'][sensor_key]['class']
-            sensor_interval = self.cfg['sensors'][sensor_key]['interval']
-            sensor_gpio = self.cfg['sensors'][sensor_key].get('gpio', None)
-            self._log.info('Scheduling: %s (%s)' % (sensor_key, sensor_interval))
+        for sensor_id in (self.cfg['sensors']).keys():
+            sensor_class = self.cfg['sensors'][sensor_id]['class']
+            sensor_interval = self.cfg['sensors'][sensor_id]['interval']
+            sensor_gpio = self.cfg['sensors'][sensor_id].get('gpio', None)
+            sensor_keys = self.cfg['sensors'][sensor_id]['keys']
+            self._log.info('Scheduling: %s (%s)' % (sensor_id, sensor_interval))
             if (sensor_gpio is None):
-                scheduler.add_job(self.sample, 'interval', args = [sensor_key, sensor_class], seconds=sensor_interval, max_instances=3)
+                scheduler.add_job(self.sample, 'interval', args = [sensor_id, sensor_class, sensor_keys], seconds=sensor_interval, max_instances=3)
             else:
-                scheduler.add_job(self.sample, 'interval', args = [sensor_key, sensor_class, sensor_gpio], seconds=sensor_interval, max_instances=3)
+                scheduler.add_job(self.sample, 'interval', args = [sensor_id, sensor_class, sensor_keys, sensor_gpio], seconds=sensor_interval, max_instances=3)
         scheduler.print_jobs()
         scheduler.start()
         self._log.info('Press Ctrl+{0} to exit'.format('Break' if os.name == 'nt' else 'C'))
@@ -62,14 +63,20 @@ class Monitor:
         except (KeyboardInterrupt, SystemExit):
             pass
 
-    def sample(self, sensor_key, sensor_class, sensor_gpio=None):
+    def sample(self, sensor_id, sensor_class, sensor_keys, sensor_gpio=None):
         self._activity_led.on()
         current_module = sys.modules[__name__]
         SensorClass = getattr(current_module, sensor_class)
         sensor = SensorClass()
-        value = sensor.read_sensor(sensor_gpio)
-        self._log.debug('%s: %s (%s)' % (sensor_key, value, datetime.now()))
-        self._sk_server.send(sensor_key, value)
+        values = sensor.read_sensor(sensor_gpio)
+        if len(sensor_keys) == len(values):
+            i = 0
+            for key in sensor_keys:
+                self._log.debug('%s: %s (%s)' % (key, values[i], datetime.now()))
+                self._sk_server.send(key, values[i])
+                i = i + 1
+        else:
+            self._log.warning("Omitting {}: length of sensor keys does not match number of values returned from sensor. Check the configuration file.".format(sensor_id))
         self._activity_led.off()
 
 class SignalK:
@@ -98,8 +105,8 @@ class Sensor:
         self._status = "Initialized"
 
     def read_sensor(self, gpio=None):
-        value = 1  
-        return(value)
+        values = [1]  
+        return(values)
 
 
 class CPUTemp(Sensor):
@@ -113,7 +120,7 @@ class CPUTemp(Sensor):
     def read_sensor(self, gpio=None): 
         temp_c = self.cpu.temperature
         temp_k = round(temp_c + 273.15, 1)
-        return(temp_k)
+        return([temp_k])
 
 class DHT22(Sensor):
     _status = "Unconfigured"
@@ -133,7 +140,8 @@ class DHT22(Sensor):
 
         if humidity is not None and temp_c is not None:
             temp_k = round(temp_c + 273.15, 1)
-            return(temp_k)
+            hum_perc = round(humidity, 1)
+            return([temp_k, hum_perc])
         else:
             self._log.error("Failed to retrieve data from DHT22 sensor")
             return(-99999)
