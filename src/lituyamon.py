@@ -1,4 +1,5 @@
 import asyncio
+import glob
 import json
 import logging
 import logging.config
@@ -15,7 +16,7 @@ from gpiozero import CPUTemperature
 from gpiozero import LED
 
 class Monitor:
-    _version = "0.4.0"
+    _version = "0.5.0"
     _status = "Stopped"
     _config_file = '/etc/lituyamon.json'
     _sk_server = None
@@ -47,12 +48,10 @@ class Monitor:
             sensor_class = self.cfg['sensors'][sensor_id]['class']
             sensor_interval = self.cfg['sensors'][sensor_id]['interval']
             sensor_gpio = self.cfg['sensors'][sensor_id].get('gpio', None)
+            sensor_identifier = self.cfg['sensors'][sensor_id].get('identifier', None)
             sensor_keys = self.cfg['sensors'][sensor_id]['keys']
             self._log.info('Scheduling: %s (%s)' % (sensor_id, sensor_interval))
-            if (sensor_gpio is None):
-                scheduler.add_job(self.sample, 'interval', args = [sensor_id, sensor_class, sensor_keys], seconds=sensor_interval, max_instances=3)
-            else:
-                scheduler.add_job(self.sample, 'interval', args = [sensor_id, sensor_class, sensor_keys, sensor_gpio], seconds=sensor_interval, max_instances=3)
+            scheduler.add_job(self.sample, 'interval', args = [sensor_id, sensor_class, sensor_keys, sensor_gpio, sensor_identifier], seconds=sensor_interval, max_instances=3)
         scheduler.print_jobs()
         scheduler.start()
         self._log.info('Press Ctrl+{0} to exit'.format('Break' if os.name == 'nt' else 'C'))
@@ -63,12 +62,12 @@ class Monitor:
         except (KeyboardInterrupt, SystemExit):
             pass
 
-    def sample(self, sensor_id, sensor_class, sensor_keys, sensor_gpio=None):
+    def sample(self, sensor_id, sensor_class, sensor_keys, sensor_gpio=None, sensor_identifier=None):
         self._activity_led.on()
         current_module = sys.modules[__name__]
         SensorClass = getattr(current_module, sensor_class)
         sensor = SensorClass()
-        values = sensor.read_sensor(sensor_gpio)
+        values = sensor.read_sensor(sensor_gpio, sensor_identifier)
         if len(sensor_keys) == len(values):
             i = 0
             for key in sensor_keys:
@@ -104,7 +103,7 @@ class Sensor:
     def initialize(self):
         self._status = "Initialized"
 
-    def read_sensor(self, gpio=None):
+    def read_sensor(self, gpio=None, identifier=None):
         values = [1]  
         return(values)
 
@@ -117,7 +116,7 @@ class CPUTemp(Sensor):
         self.cpu = CPUTemperature()
         self._status = "Initialized"
 
-    def read_sensor(self, gpio=None): 
+    def read_sensor(self, gpio=None, identifier=None): 
         temp_c = self.cpu.temperature
         temp_k = round(temp_c + 273.15, 1)
         return([temp_k])
@@ -126,14 +125,12 @@ class DHT22(Sensor):
     _status = "Unconfigured"
     _log = None
     _DHT_SENSOR = Adafruit_DHT.DHT22
-    cpu = None
 
     def initialize(self):
         self._log = logging.getLogger("lituyamon.DHT22")
-        self.cpu = CPUTemperature()
         self._status = "Initialized"
 
-    def read_sensor(self, gpio=None):
+    def read_sensor(self, gpio=None, identifier=None):
         self._log.debug("GPIO: {}".format(gpio))
 
         humidity, temp_c = Adafruit_DHT.read_retry(self._DHT_SENSOR, gpio)
@@ -145,6 +142,41 @@ class DHT22(Sensor):
         else:
             self._log.error("Failed to retrieve data from DHT22 sensor")
             return(-99999)
+
+class DS18B20(Sensor):
+    _status = "Unconfigured"
+    _base_dir = '/sys/bus/w1/devices/'
+    _log = None
+    _identifer = None
+
+    def initialize(self):
+        self._log = logging.getLogger("lituyamon.DS18B20")
+        self._status = "Initialized"
+
+    def read_sensor(self, gpio=None, identifier=None):
+        device_file = self._base_dir + identifier + '/w1_slave'
+        self._log.debug("Reading from: {}".format(identifier))
+        temp_k = self._read_temp(device_file)
+        return([temp_k])
+
+    def _read_temp_raw(self, device_file):
+        f = open(device_file, 'r')
+        lines = f.readlines()
+        f.close()
+        return lines
+
+    def _read_temp(self, device_file):
+        lines = self._read_temp_raw(device_file)
+        while lines[0].strip()[-3:] != 'YES':
+            time.sleep(0.2)
+            lines = self._read_temp_raw(device_file)
+        equals_pos = lines[1].find('t=')
+        if equals_pos != -1:
+            temp_string = lines[1][equals_pos+2:]
+            temp_c = float(temp_string) / 1000.0
+            #temp_f = temp_c * 9.0 / 5.0 + 32.0
+            temp_k = round(temp_c + 273.15, 1)
+            return temp_k
 
 
 if __name__ == "__main__":

@@ -5,10 +5,10 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="lituyamon",
-    version="0.4.0",
+    version="0.5.0",
     author="Matt Jones",
     author_email="gitcode@magisa.org",
-    description="Lituya monitoring package",
+    description="Shipboard monitoring package",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/mbjones/lituyamon",

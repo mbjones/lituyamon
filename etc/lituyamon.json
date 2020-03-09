@@ -9,18 +9,38 @@
             "name": "CPU Temperature",
             "class": "CPUTemp",
             "location": "LituyaMon",
-            "interval": 60,
+            "interval": 3,
             "keys": ["environment.inside.lituyamon.temperature"]
         },
         "dht22.1": {
             "name": "Salon Temperature",
             "class": "DHT22",
             "location": "Salon",
-            "interval": 60,
+            "interval": 13,
             "gpio": 27,
             "keys": [
                 "environment.inside.salon.temperature",
                 "environment.inside.salon.relativeHumidity"
+            ]
+        },
+        "ds18b20.1": {
+            "name": "Engine Room Temperature",
+            "class": "DS18B20",
+            "location": "Engine Room",
+            "interval": 5,
+            "identifier": "28-01192d62eb82",
+            "keys": [
+                "environment.inside.engineroom.temperature"
+            ]
+        },
+        "ds18b20.2": {
+            "name": "Forward Stateroom Temperature",
+            "class": "DS18B20",
+            "location": "Foreward Stateroom",
+            "interval": 10,
+            "identifier": "28-01192d61416d",
+            "keys": [
+                "environment.inside.fwd_stateroom.temperature"
             ]
         }
     },
