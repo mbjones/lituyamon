@@ -18,6 +18,13 @@ The DS18B20 temperature sensor is a digital sensor that uses the 1-wire protocol
 - 28-01192d67a561 - Engine Exhaust Elbow
 - 28-01192d4fffe6 - Lazarette
 
+Calibrating sensors is done by testing the sensors in ice water and boiling water, and using the following forula:
+
+- CorrectedValue = (((RawValue – RawLow) * ReferenceRange) / RawRange) + ReferenceLow
+- example: (((20 - 2) * 100) / 99) + 0 = 18.18
+
+See: https://learn.adafruit.com/calibrating-sensors/two-point-calibration
+
 ## DHT22 Humidity and Temperature sensors
 
 The DHT22 sensor is a digital temperature and humidity sensor that can can be sampled every two seconds and read off of any GPIO pin. We have two DHT22 sensors that are configured to operate as follows:
