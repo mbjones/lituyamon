@@ -67,15 +67,18 @@ class Monitor:
         current_module = sys.modules[__name__]
         SensorClass = getattr(current_module, sensor_class)
         sensor = SensorClass()
-        values = sensor.read_sensor(sensor_gpio, sensor_identifier)
-        if len(sensor_keys) == len(values):
-            i = 0
-            for key in sensor_keys:
-                self._log.debug('%s: %s (%s)' % (key, values[i], datetime.now()))
-                self._sk_server.send(key, values[i])
-                i = i + 1
-        else:
-            self._log.warning("Omitting {}: length of sensor keys does not match number of values returned from sensor. Check the configuration file.".format(sensor_id))
+        try:
+            values = sensor.read_sensor(sensor_gpio, sensor_identifier)
+            if len(sensor_keys) == len(values):
+                i = 0
+                for key in sensor_keys:
+                    self._log.debug('%s: %s (%s)' % (key, values[i], datetime.now()))
+                    self._sk_server.send(key, values[i])
+                    i = i + 1
+            else:
+                self._log.warning("Omitting {}: length of sensor keys does not match number of values returned from sensor. Check the configuration file.".format(sensor_id))
+        except SensorNotFoundError as e:
+            self._log.warning(e)
         self._activity_led.off()
 
 class SignalK:
@@ -131,9 +134,9 @@ class DHT22(Sensor):
         self._status = "Initialized"
 
     def read_sensor(self, gpio=None, identifier=None):
-        self._log.debug("GPIO: {}".format(gpio))
+        self._log.debug("Enter GPIO: {}".format(gpio))
 
-        humidity, temp_c = Adafruit_DHT.read_retry(self._DHT_SENSOR, gpio)
+        humidity, temp_c = Adafruit_DHT.read_retry(self._DHT_SENSOR, gpio, retries=2)
 
         if humidity is not None and temp_c is not None:
             temp_k = round(temp_c + 273.15, 1)
@@ -141,7 +144,7 @@ class DHT22(Sensor):
             return([temp_k, hum_ratio])
         else:
             self._log.error("Failed to retrieve data from DHT22 sensor")
-            return(-99999)
+            raise SensorNotFoundError("GPIO: {}".format(gpio))
 
 class DS18B20(Sensor):
     _status = "Unconfigured"
@@ -156,7 +159,10 @@ class DS18B20(Sensor):
     def read_sensor(self, gpio=None, identifier=None):
         device_file = self._base_dir + identifier + '/w1_slave'
         self._log.debug("Reading from: {}".format(identifier))
-        temp_k = self._read_temp(device_file)
+        try:
+            temp_k = self._read_temp(device_file)
+        except:
+            raise SensorNotFoundError(identifier)
         return([temp_k])
 
     def _read_temp_raw(self, device_file):
@@ -178,6 +184,19 @@ class DS18B20(Sensor):
             temp_k = round(temp_c + 273.15, 1)
             return temp_k
 
+class SensorNotFoundError(Exception):
+    """Raised when attempting to read from a sensor that can not be found.
+
+    Attributes:
+        sensor -- identifier or pin of the sensor that was not found
+        message -- explanation of the error
+    """
+
+    def __init__(self,  sensor, message=None):
+        self.sensor = sensor
+        if message is None:
+            message = "Sensor not found: {}. Please check that it is connected.".format(self.sensor)
+        super(SensorNotFoundError, self).__init__(message)
 
 if __name__ == "__main__":
     m = Monitor()
