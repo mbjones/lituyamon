@@ -16,7 +16,7 @@
             "name": "Salon Temperature and Humidity",
             "class": "DHT22",
             "location": "Salon",
-            "interval": 13,
+            "interval": 5,
             "gpio": 27,
             "keys": [
                 "environment.inside.salon.temperature",
@@ -27,8 +27,8 @@
             "name": "Engine Room Temperature and Humidity",
             "class": "DHT22",
             "location": "Salon",
-            "interval": 13,
-            "gpio": 27,
+            "interval": 5,
+            "gpio": 28,
             "keys": [
                 "environment.inside.engineroom.temperature",
                 "environment.inside.engineroom.relativeHumidity"
@@ -52,6 +52,16 @@
             "identifier": "28-01192d61416d",
             "keys": [
                 "environment.inside.fwd_cabin.temperature"
+            ]
+        },
+        "ds18b20.3": {
+            "name": "Aft Cabin Temperature",
+            "class": "DS18B20",
+            "location": "Aft Cabin",
+            "interval": 5,
+            "identifier": "28-01192d3ee042",
+            "keys": [
+                "environment.inside.aft_cabin.temperature"
             ]
         }
     },
