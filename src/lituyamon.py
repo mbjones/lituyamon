@@ -9,6 +9,7 @@ import sys
 import time
 import Adafruit_DHT
 
+from Adafruit_IO import Client
 from datetime import datetime
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.schedulers.background import BackgroundScheduler
@@ -96,6 +97,13 @@ class SignalK:
         self._log.debug(sk_delta_msg.encode())
         with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as _sock:
             _sock.sendto(sk_delta_msg.encode(), (self._host, self._port))
+
+        # Also send to AdaFruit.IO using their REST API
+        #ADAFRUIT_IO_USERNAME = "UNAME_GOIS_HERE"
+        #ADAFRUIT_IO_KEY = "KEY_GOES_HERE"
+        #aio = Client(ADAFRUIT_IO_USERNAME, ADAFRUIT_IO_KEY)
+        #feed = aio.feeds('fwd-cabin-temperature')
+        #aio.send_data(feed.key, value)
 
 class Sensor:
     _status = "Unconfigured"
