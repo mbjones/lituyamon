@@ -99,8 +99,8 @@ class SignalK:
             _sock.sendto(sk_delta_msg.encode(), (self._host, self._port))
 
         # Also send to AdaFruit.IO using their REST API
-        #ADAFRUIT_IO_USERNAME = "UNAME_GOIS_HERE"
-        #ADAFRUIT_IO_KEY = "KEY_GOES_HERE"
+        ADAFRUIT_IO_USERNAME = "UNAME_GOES_HERE"
+        ADAFRUIT_IO_KEY = "KEY_GOES_HERE"
         #aio = Client(ADAFRUIT_IO_USERNAME, ADAFRUIT_IO_KEY)
         #feed = aio.feeds('fwd-cabin-temperature')
         #aio.send_data(feed.key, value)
