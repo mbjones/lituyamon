@@ -10,7 +10,8 @@
             "class": "CPUTemp",
             "location": "LituyaMon",
             "interval": 3,
-            "keys": ["environment.inside.lituyamon.temperature"]
+            "keys": ["environment.inside.lituyamon.temperature"],
+            "enabled": true
         },
         "dht22.1": {
             "name": "Salon Temperature and Humidity",
@@ -21,7 +22,8 @@
             "keys": [
                 "environment.inside.salon.temperature",
                 "environment.inside.salon.relativeHumidity"
-            ]
+            ],
+            "enabled": true
         },
         "dht22.2": {
             "name": "Engine Room Temperature and Humidity",
@@ -32,7 +34,8 @@
             "keys": [
                 "environment.inside.engineroom.temperature",
                 "environment.inside.engineroom.relativeHumidity"
-            ]
+            ],
+            "enabled": false
         },
         "ds18b20.1": {
             "name": "Engine Block Temperature",
@@ -42,7 +45,8 @@
             "identifier": "28-01192d62eb82",
             "keys": [
                 "propulsion.qsc83.temperature"
-            ]
+            ],
+            "enabled": false
         },
         "ds18b20.2": {
             "name": "Fwd Cabin Temperature",
@@ -52,7 +56,8 @@
             "identifier": "28-01192d61416d",
             "keys": [
                 "environment.inside.fwd_cabin.temperature"
-            ]
+            ],
+            "enabled": true
         },
         "ds18b20.3": {
             "name": "Aft Cabin Temperature",
@@ -62,7 +67,8 @@
             "identifier": "28-01192d3ee042",
             "keys": [
                 "environment.inside.aft_cabin.temperature"
-            ]
+            ],
+            "enabled": true
         }
     },
     "leds": {

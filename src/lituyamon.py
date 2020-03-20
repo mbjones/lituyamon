@@ -23,6 +23,7 @@ class Monitor:
     _sk_server = None
     _log = None
     _activity_led = None
+    _jobs = None
     cfg = None
 
     def __init__(self):
@@ -34,6 +35,7 @@ class Monitor:
         self._sk_server = SignalK(self.cfg['signalk']['host'], self.cfg['signalk']['port'])
         activity_led_gpio = self.cfg['leds']['activity.led']['gpio']
         self._activity_led = LED(activity_led_gpio)
+        self._jobs = set()
 
     def _load_config(self):
         try:
@@ -51,9 +53,15 @@ class Monitor:
             sensor_gpio = self.cfg['sensors'][sensor_id].get('gpio', None)
             sensor_identifier = self.cfg['sensors'][sensor_id].get('identifier', None)
             sensor_keys = self.cfg['sensors'][sensor_id]['keys']
-            self._log.info('Scheduling: %s (%s)' % (sensor_id, sensor_interval))
-            scheduler.add_job(self.sample, 'interval', args = [sensor_id, sensor_class, sensor_keys, sensor_gpio, sensor_identifier], seconds=sensor_interval, max_instances=3)
-        scheduler.print_jobs()
+            sensor_enabled = self.cfg['sensors'][sensor_id]['enabled']
+            if (sensor_enabled):
+                self._log.info('Scheduling: %s (%s)' % (sensor_id, sensor_interval))
+                job = scheduler.add_job(self.sample, 'interval', args = [sensor_id, sensor_class, sensor_keys, sensor_gpio, sensor_identifier], seconds=sensor_interval, max_instances=3, id = sensor_id)
+                self._jobs.add(sensor_id)
+            else:
+                self._log.debug('Sensor disabled: %s (%s)' % (sensor_id, sensor_interval))
+        #scheduler.print_jobs()
+        self._log.debug(str(self._jobs))
         scheduler.start()
         self._log.info('Press Ctrl+{0} to exit'.format('Break' if os.name == 'nt' else 'C'))
 
