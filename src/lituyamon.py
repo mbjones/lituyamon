@@ -15,6 +15,7 @@ from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.schedulers.background import BackgroundScheduler
 from gpiozero import CPUTemperature
 from gpiozero import LED
+from watchgod import arun_process
 
 class Monitor:
     _version = "0.5.0"
@@ -43,7 +44,14 @@ class Monitor:
                 self.cfg = json.load(cfg_file)
         except OSError as e:
             logging.error("Config file not opened: " + e.strerror + " " + e.filename)
-    
+
+    # TODO: incorporate this into start() to register the watchdog
+    async def main():
+        await arun_process('/etc/lituyamon.json', self._reload, args=(1, 2, 3))
+
+    def _reload(self, a, b, c):
+        self._log.debug("_reload called.")
+
     def start(self):
         scheduler = AsyncIOScheduler()
         self._status = "Running"
