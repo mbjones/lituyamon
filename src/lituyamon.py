@@ -69,7 +69,9 @@ class Monitor:
         try:
             asyncio.get_event_loop().run_forever()
         except (KeyboardInterrupt, SystemExit):
-            pass
+            for job_id in self._jobs:
+                scheduler.remove_job(job_id=job_id)
+            self._log.info("Lituyamon shut down cleanly.")
 
     def sample(self, sensor_id, sensor_class, sensor_keys, sensor_gpio=None, sensor_identifier=None):
         self._activity_led.on()
