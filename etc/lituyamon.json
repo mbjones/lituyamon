@@ -9,7 +9,7 @@
             "name": "CPU Temperature",
             "class": "CPUTemp",
             "location": "LituyaMon",
-            "interval": 3,
+            "interval": 30,
             "keys": ["environment.inside.lituyamon.temperature"],
             "enabled": true
         },
@@ -17,7 +17,7 @@
             "name": "Salon Temperature and Humidity",
             "class": "DHT22",
             "location": "Salon",
-            "interval": 5,
+            "interval": 30,
             "gpio": 27,
             "keys": [
                 "environment.inside.salon.temperature",
@@ -29,7 +29,7 @@
             "name": "Engine Room Temperature and Humidity",
             "class": "DHT22",
             "location": "Salon",
-            "interval": 5,
+            "interval": 30,
             "gpio": 28,
             "keys": [
                 "environment.inside.engineroom.temperature",
@@ -41,18 +41,18 @@
             "name": "Engine Block Temperature",
             "class": "DS18B20",
             "location": "Engine Block",
-            "interval": 5,
+            "interval": 30,
             "identifier": "28-01192d62eb82",
             "keys": [
                 "propulsion.qsc83.temperature"
             ],
-            "enabled": false
+            "enabled": true
         },
         "ds18b20.2": {
             "name": "Fwd Cabin Temperature",
             "class": "DS18B20",
             "location": "Fwd Cabin",
-            "interval": 5,
+            "interval": 30,
             "identifier": "28-01192d61416d",
             "keys": [
                 "environment.inside.fwd_cabin.temperature"
@@ -63,7 +63,7 @@
             "name": "Aft Cabin Temperature",
             "class": "DS18B20",
             "location": "Aft Cabin",
-            "interval": 5,
+            "interval": 30,
             "identifier": "28-01192d3ee042",
             "keys": [
                 "environment.inside.aft_cabin.temperature"

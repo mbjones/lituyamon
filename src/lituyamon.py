@@ -164,7 +164,7 @@ class DHT22(Sensor):
         self._status = "Initialized"
 
     def read_sensor(self, gpio=None, identifier=None):
-        self._log.debug("Enter GPIO: {}".format(gpio))
+        self._log.debug("Reading from GPIO: {}".format(gpio))
 
         humidity, temp_c = Adafruit_DHT.read_retry(self._DHT_SENSOR, gpio, retries=2)
 
