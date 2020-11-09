@@ -9,7 +9,7 @@
             "name": "CPU Temperature",
             "class": "CPUTemp",
             "location": "LituyaMon",
-            "interval": 30,
+            "interval": 5,
             "keys": ["environment.inside.lituyamon.temperature"],
             "enabled": true
         },
@@ -23,14 +23,14 @@
                 "environment.inside.salon.temperature",
                 "environment.inside.salon.relativeHumidity"
             ],
-            "enabled": true
+            "enabled": false
         },
         "dht22.2": {
             "name": "Engine Room Temperature and Humidity",
             "class": "DHT22",
             "location": "Salon",
             "interval": 30,
-            "gpio": 28,
+            "gpio": 22,
             "keys": [
                 "environment.inside.engineroom.temperature",
                 "environment.inside.engineroom.relativeHumidity"
@@ -41,7 +41,7 @@
             "name": "Engine Block Temperature",
             "class": "DS18B20",
             "location": "Engine Block",
-            "interval": 30,
+            "interval": 5,
             "identifier": "28-01192d62eb82",
             "keys": [
                 "propulsion.qsc83.temperature"
@@ -57,7 +57,7 @@
             "keys": [
                 "environment.inside.fwd_cabin.temperature"
             ],
-            "enabled": true
+            "enabled": false
         },
         "ds18b20.3": {
             "name": "Aft Cabin Temperature",
@@ -68,7 +68,7 @@
             "keys": [
                 "environment.inside.aft_cabin.temperature"
             ],
-            "enabled": true
+            "enabled": false
         }
     },
     "leds": {
