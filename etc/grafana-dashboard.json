@@ -161,7 +161,7 @@
         "x": 4,
         "y": 1
       },
-      "id": 17,
+      "id": 12,
       "interval": "",
       "links": [],
       "options": {
@@ -179,7 +179,7 @@
       "pluginVersion": "7.2.0",
       "targets": [
         {
-          "alias": "Aft Cabin Temperature",
+          "alias": "Pilot Temperature",
           "groupBy": [
             {
               "params": [
@@ -197,7 +197,7 @@
           "measurement": "environment.inside.lituyamon.temperature",
           "orderByTime": "ASC",
           "policy": "boatdata",
-          "query": "SELECT (9/5)*(value-273.15)+32 FROM \"one_year\".\"environment.inside.aft_cabin.temperature\" WHERE $timeFilter\n",
+          "query": "SELECT (9/5)*(value-273.15)+32 FROM \"one_year\".\"environment.inside.pilot.temperature\" WHERE $timeFilter\n",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -220,7 +220,7 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Aft Cabin",
+      "title": "Pilot",
       "transparent": true,
       "type": "gauge"
     },
@@ -257,103 +257,7 @@
         "x": 8,
         "y": 1
       },
-      "id": 12,
-      "interval": "",
-      "links": [],
-      "options": {
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "last"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showThresholdLabels": false,
-        "showThresholdMarkers": true
-      },
-      "pluginVersion": "7.2.0",
-      "targets": [
-        {
-          "alias": "LituyaMon Temperature",
-          "groupBy": [
-            {
-              "params": [
-                "$__interval"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "measurement": "environment.inside.lituyamon.temperature",
-          "orderByTime": "ASC",
-          "policy": "boatdata",
-          "query": "SELECT (9/5)*(value-273.15)+32 FROM \"one_year\".\"environment.inside.salon.temperature\" WHERE $timeFilter\n",
-          "rawQuery": true,
-          "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "value"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ]
-          ],
-          "tags": []
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Salon",
-      "transparent": true,
-      "type": "gauge"
-    },
-    {
-      "datasource": "InfluxDB",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {},
-          "decimals": 1,
-          "links": [],
-          "mappings": [],
-          "max": 300,
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 200
-              }
-            ]
-          },
-          "unit": "fahrenheit"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 4,
-        "x": 12,
-        "y": 1
-      },
-      "id": 15,
+      "id": 24,
       "interval": "",
       "links": [],
       "options": {
@@ -413,6 +317,103 @@
       "timeFrom": null,
       "timeShift": null,
       "title": "Engine Room",
+      "transparent": true,
+      "type": "gauge"
+    },
+    {
+      "datasource": "InfluxDB",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "decimals": 1,
+          "links": [],
+          "mappings": [],
+          "max": 300,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 200
+              }
+            ]
+          },
+          "unit": "fahrenheit"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 12,
+        "y": 1
+      },
+      "id": 17,
+      "interval": "",
+      "links": [],
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "7.2.0",
+      "targets": [
+        {
+          "alias": "Aft Cabin Temperature",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "environment.inside.lituyamon.temperature",
+          "orderByTime": "ASC",
+          "policy": "boatdata",
+          "query": "SELECT (9/5)*(value-273.15)+32 FROM \"one_year\".\"environment.inside.lazarette.temperature\" WHERE $timeFilter\n",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Lazarette",
       "transparent": true,
       "type": "gauge"
     },
@@ -499,7 +500,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "alias": "Salon",
+          "alias": "Pilot",
           "groupBy": [
             {
               "params": [
@@ -518,7 +519,7 @@
           "measurement": "environment.inside.lituyamon.temperature",
           "orderByTime": "ASC",
           "policy": "boatdata",
-          "query": "SELECT (9/5)*(value-273.15)+32 FROM \"one_year\".\"environment.inside.salon.temperature\" WHERE $timeFilter\n ",
+          "query": "SELECT (9/5)*(value-273.15)+32 FROM \"one_year\".\"environment.inside.pilot.temperature\" WHERE $timeFilter\n ",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -554,6 +555,7 @@
               "type": "fill"
             }
           ],
+          "hide": false,
           "measurement": "environment.inside.lituyamon.temperature",
           "orderByTime": "ASC",
           "policy": "boatdata",
@@ -593,7 +595,7 @@
               "type": "fill"
             }
           ],
-          "hide": true,
+          "hide": false,
           "measurement": "environment.inside.lituyamon.temperature",
           "orderByTime": "ASC",
           "policy": "boatdata",
@@ -618,7 +620,7 @@
           "tags": []
         },
         {
-          "alias": "Aft Cabin",
+          "alias": "Lazarette",
           "groupBy": [
             {
               "params": [
@@ -633,10 +635,11 @@
               "type": "fill"
             }
           ],
+          "hide": false,
           "measurement": "environment.inside.lituyamon.temperature",
           "orderByTime": "ASC",
           "policy": "boatdata",
-          "query": "SELECT (9/5)*(value-273.15)+32 FROM \"one_year\".\"environment.inside.aft_cabin.temperature\" WHERE $timeFilter\n ",
+          "query": "SELECT (9/5)*(value-273.15)+32 FROM \"one_year\".\"environment.inside.lazarette.temperature\" WHERE $timeFilter\n ",
           "rawQuery": true,
           "refId": "D",
           "resultFormat": "time_series",
@@ -701,6 +704,7 @@
       }
     },
     {
+      "collapsed": true,
       "datasource": null,
       "gridPos": {
         "h": 1,
@@ -709,108 +713,110 @@
         "y": 12
       },
       "id": 19,
-      "title": "Humidity",
-      "type": "row"
-    },
-    {
-      "datasource": "InfluxDB",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {},
-          "decimals": 1,
-          "links": [],
-          "mappings": [],
-          "max": 100,
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "yellow",
-                "value": null
-              },
-              {
-                "color": "green",
-                "value": 30
-              },
-              {
-                "color": "red",
-                "value": 70
-              }
-            ]
-          },
-          "unit": "humidity"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 4,
-        "x": 8,
-        "y": 13
-      },
-      "id": 16,
-      "interval": "",
-      "links": [],
-      "options": {
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "last"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showThresholdLabels": false,
-        "showThresholdMarkers": true
-      },
-      "pluginVersion": "7.2.0",
-      "targets": [
+      "panels": [
         {
-          "alias": "Humidity",
-          "groupBy": [
-            {
-              "params": [
-                "$__interval"
-              ],
-              "type": "time"
+          "datasource": "InfluxDB",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "decimals": 1,
+              "links": [],
+              "mappings": [],
+              "max": 100,
+              "min": 0,
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "yellow",
+                    "value": null
+                  },
+                  {
+                    "color": "green",
+                    "value": 30
+                  },
+                  {
+                    "color": "red",
+                    "value": 70
+                  }
+                ]
+              },
+              "unit": "humidity"
             },
-            {
-              "params": [
-                "null"
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 5,
+            "w": 4,
+            "x": 8,
+            "y": 13
+          },
+          "id": 16,
+          "interval": "",
+          "links": [],
+          "options": {
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "last"
               ],
-              "type": "fill"
+              "fields": "",
+              "values": false
+            },
+            "showThresholdLabels": false,
+            "showThresholdMarkers": true
+          },
+          "pluginVersion": "7.2.0",
+          "targets": [
+            {
+              "alias": "Humidity",
+              "groupBy": [
+                {
+                  "params": [
+                    "$__interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "environment.inside.lituyamon.temperature",
+              "orderByTime": "ASC",
+              "policy": "boatdata",
+              "query": "SELECT value FROM \"one_year\".\"environment.inside.salon.humidity\" WHERE $timeFilter\n",
+              "rawQuery": true,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": []
             }
           ],
-          "measurement": "environment.inside.lituyamon.temperature",
-          "orderByTime": "ASC",
-          "policy": "boatdata",
-          "query": "SELECT value FROM \"one_year\".\"environment.inside.salon.humidity\" WHERE $timeFilter\n",
-          "rawQuery": true,
-          "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "value"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ]
-          ],
-          "tags": []
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Salon Humidity",
+          "transparent": true,
+          "type": "gauge"
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Salon Humidity",
-      "transparent": true,
-      "type": "gauge"
+      "title": "",
+      "type": "row"
     },
     {
       "collapsed": false,
@@ -819,7 +825,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 18
+        "y": 13
       },
       "id": 7,
       "panels": [],
@@ -857,7 +863,7 @@
         "h": 5,
         "w": 5,
         "x": 0,
-        "y": 19
+        "y": 14
       },
       "id": 2,
       "interval": "",
@@ -976,7 +982,7 @@
         "h": 5,
         "w": 4,
         "x": 5,
-        "y": 19
+        "y": 14
       },
       "hiddenSeries": false,
       "id": 3,
@@ -1127,7 +1133,7 @@
         "h": 5,
         "w": 5,
         "x": 9,
-        "y": 19
+        "y": 14
       },
       "id": 21,
       "interval": "",
@@ -1229,7 +1235,7 @@
         "h": 5,
         "w": 4,
         "x": 14,
-        "y": 19
+        "y": 14
       },
       "hiddenSeries": false,
       "id": 23,
@@ -1239,7 +1245,7 @@
         "max": false,
         "min": false,
         "rightSide": false,
-        "show": true,
+        "show": false,
         "total": false,
         "values": false
       },
@@ -1350,13 +1356,13 @@
       }
     },
     {
-      "collapsed": false,
+      "collapsed": true,
       "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 24
+        "y": 19
       },
       "id": 9,
       "panels": [],
@@ -1392,5 +1398,5 @@
   "timezone": "",
   "title": "Lituya Status",
   "uid": "wcuuRJkgz",
-  "version": 48
+  "version": 51
 }

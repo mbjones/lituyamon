@@ -17,7 +17,7 @@
             "name": "Salon Temperature and Humidity",
             "class": "DHT22",
             "location": "Salon",
-            "interval": 30,
+            "interval": 5,
             "gpio": 27,
             "keys": [
                 "environment.inside.salon.temperature",
@@ -28,8 +28,8 @@
         "dht22.2": {
             "name": "Engine Room Temperature and Humidity",
             "class": "DHT22",
-            "location": "Salon",
-            "interval": 30,
+            "location": "Engine Room",
+            "interval": 5,
             "gpio": 22,
             "keys": [
                 "environment.inside.engineroom.temperature",
@@ -52,23 +52,45 @@
             "name": "Fwd Cabin Temperature",
             "class": "DS18B20",
             "location": "Fwd Cabin",
-            "interval": 30,
+            "interval": 11,
             "identifier": "28-01192d61416d",
             "keys": [
                 "environment.inside.fwd_cabin.temperature"
             ],
-            "enabled": false
+            "enabled": true
         },
         "ds18b20.3": {
-            "name": "Aft Cabin Temperature",
+            "name": "Pilot House Temperature",
             "class": "DS18B20",
-            "location": "Aft Cabin",
-            "interval": 30,
+            "location": "Pilor House",
+            "interval": 9,
             "identifier": "28-01192d3ee042",
             "keys": [
-                "environment.inside.aft_cabin.temperature"
+                "environment.inside.pilot.temperature"
             ],
-            "enabled": false
+            "enabled": true
+        },
+        "ds18b20.4": {
+            "name": "Engine Room Temperature",
+            "class": "DS18B20",
+            "location": "Engine Room",
+            "interval": 6,
+            "identifier": "28-01192d67a561",
+            "keys": [
+                "environment.inside.engineroom.temperature"
+            ],
+            "enabled": true
+        },
+        "ds18b20.5": {
+            "name": "Lazarette Temperature",
+            "class": "DS18B20",
+            "location": "Lazarette",
+            "interval": 7,
+            "identifier": "28-01192d4fffe6",
+            "keys": [
+                "environment.inside.lazarette.temperature"
+            ],
+            "enabled": true
         }
     },
     "leds": {
