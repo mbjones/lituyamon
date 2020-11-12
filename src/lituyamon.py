@@ -237,18 +237,19 @@ class MCP3008(Sensor):
 
     # Read SPI data from MCP3008
     # Channel indexed from 0-7
+    # MCP3008 is 10-bit, so return value is 0-1023
     def _read_channel(self, channel):
         adc = self.spi.xfer2([1, (8+channel)<<4,0])
         data = ((adc[1]&3) << 8) + adc[2]
         return data
 
     # Convert binary reading to voltage, rounded to places
-    def _convert_volts(self, data, places):
-        volts_out = (data*3.3)/float(1023)
+    def _convert_volts(self, level, places):
+        volts_out = (level*3.3)/float(1023)
         # volts_out is measured after a voltage divider, so adjust
         # using calibration based on actual resistance ratio
-        # this is currently based on using a 10kohm and 3.3kohm resistors
-        volts_in = 4.011*volts_out + 0.024
+        # this is currently based on using a 100kohm and 25.3kohm resistors
+        volts_in = 0.0176827*level - 0.02211458
         volts = round(volts_in, places)
         return volts
     
