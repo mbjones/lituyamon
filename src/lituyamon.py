@@ -229,21 +229,21 @@ class MCP3008(Sensor):
         self._status = "Initialized"
 
     def read_sensor(self, gpio=None, identifier=None): 
-        volts_chan = 0
-        self._log.debug("Reading from: {}".format(volts_chan))
-        volt_level = self.ReadChannel(volts_chan)
-        volts = self.ConvertVolts(volt_level, 2)
+        channel = int(identifier)
+        level = self._read_channel(channel)
+        self._log.debug("Channel/Level: {}/{}".format(channel, level))
+        volts = self._convert_volts(level, 2)
         return([volts])
 
-    # Function to read SPI data from MCP3008
+    # Read SPI data from MCP3008
     # Channel indexed from 0-7
-    def ReadChannel(self, channel):
+    def _read_channel(self, channel):
         adc = self.spi.xfer2([1, (8+channel)<<4,0])
         data = ((adc[1]&3) << 8) + adc[2]
         return data
 
     # Convert binary reading to voltage, rounded to places
-    def ConvertVolts(self, data, places):
+    def _convert_volts(self, data, places):
         volts_out = (data*3.3)/float(1023)
         # volts_out is measured after a voltage divider, so adjust
         # using calibration based on actual resistance ratio
