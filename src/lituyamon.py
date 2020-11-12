@@ -8,6 +8,8 @@ import socket
 import sys
 import time
 import Adafruit_DHT
+import spidev
+
 
 from Adafruit_IO import Client
 from datetime import datetime
@@ -214,6 +216,42 @@ class DS18B20(Sensor):
             temp_k = round(temp_c + 273.15, 1)
             return temp_k
 
+class MCP3008(Sensor):
+    _status = "Unconfigured"
+    _log = None
+    spi = None
+
+    def initialize(self):
+        self._log = logging.getLogger("lituyamon.MCP3008")
+        self.spi = spidev.SpiDev()
+        self.spi.open(0,0)
+        self.spi.max_speed_hz=1000000
+        self._status = "Initialized"
+
+    def read_sensor(self, gpio=None, identifier=None): 
+        volts_chan = 0
+        self._log.debug("Reading from: {}".format(volts_chan))
+        volt_level = self.ReadChannel(volts_chan)
+        volts = self.ConvertVolts(volt_level, 2)
+        return([volts])
+
+    # Function to read SPI data from MCP3008
+    # Channel indexed from 0-7
+    def ReadChannel(self, channel):
+        adc = self.spi.xfer2([1, (8+channel)<<4,0])
+        data = ((adc[1]&3) << 8) + adc[2]
+        return data
+
+    # Convert binary reading to voltage, rounded to places
+    def ConvertVolts(self, data, places):
+        volts_out = (data*3.3)/float(1023)
+        # volts_out is measured after a voltage divider, so adjust
+        # using calibration based on actual resistance ratio
+        # this is currently based on using a 10kohm and 3.3kohm resistors
+        volts_in = 4.011*volts_out + 0.024
+        volts = round(volts_in, places)
+        return volts
+    
 class SensorNotFoundError(Exception):
     """Raised when attempting to read from a sensor that can not be found.
 

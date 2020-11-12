@@ -91,6 +91,17 @@
                 "environment.inside.lazarette.temperature"
             ],
             "enabled": true
+        },
+        "voltage.1": {
+            "name": "House Battery Voltage",
+            "class": "MCP3008",
+            "location": "Pilot",
+            "interval": 5,
+            "identifier": "0",
+            "keys": [
+                "electrical.batteries.house.voltage"
+            ],
+            "enabled": true
         }
     },
     "leds": {
