@@ -41,7 +41,9 @@ The RPI has an internal CPU temperature sensor, which we expose.
 The MCP3008 10-bit analog to digital converter is an IC that uses SPI to communicate with the Raspberry PI and provides 8 pins for analog input. In this project, I wired the chip to use the SPI hardware ports of the pi (although it could have also been set up with software SPI with other GPIO ports). The current analog channels are connected:
 
 - Channel 0: Pin 1 (Channel 0) is connected to a voltage divider that takes the input voltage from the house battery bank and divides it to normalize a maximum voltage value of 18V DC down to a maximum 3.3V as input to channel 0.  This is accomplished using a voltage divider with three resistors: vin -> R1 (100 kohm) -> R2 (22 kohm -> R3 (3.3 kohm) -> GND. The vout is connected between R1 and R2. with this setup, the voltage is divided as (R2 + R3) / (R1 + R2 + R3), which is (22+3.3)/(100+22+3.3), which equals 0.193 time vin.
-
+    - After calibrating the readings with an accurate voltmeter, I determined that the binary level values from the MCP3008 could be converted through the following linear model to actual voltages:
+        - volts_in = 0.0176827*level - 0.02211458
+    - In lituyamon, this calibrated voltage is feeding to the signalk key `electrical.batteries.house.voltage`
 
 # Future Sensors
 
