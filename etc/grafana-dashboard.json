@@ -40,18 +40,22 @@
           "decimals": 1,
           "links": [],
           "mappings": [],
-          "max": 300,
+          "max": 90,
           "min": 0,
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "blue",
                 "value": null
               },
               {
+                "color": "green",
+                "value": 32
+              },
+              {
                 "color": "red",
-                "value": 200
+                "value": 80
               }
             ]
           },
@@ -136,18 +140,22 @@
           "decimals": 1,
           "links": [],
           "mappings": [],
-          "max": 300,
+          "max": 90,
           "min": 0,
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "blue",
                 "value": null
               },
               {
+                "color": "green",
+                "value": 32
+              },
+              {
                 "color": "red",
-                "value": 200
+                "value": 80
               }
             ]
           },
@@ -226,24 +234,29 @@
     },
     {
       "datasource": "InfluxDB",
+      "description": "",
       "fieldConfig": {
         "defaults": {
           "custom": {},
           "decimals": 1,
           "links": [],
           "mappings": [],
-          "max": 300,
+          "max": 90,
           "min": 0,
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "blue",
                 "value": null
               },
               {
+                "color": "green",
+                "value": 32
+              },
+              {
                 "color": "red",
-                "value": 200
+                "value": 80
               }
             ]
           },
@@ -255,103 +268,6 @@
         "h": 5,
         "w": 4,
         "x": 8,
-        "y": 1
-      },
-      "id": 24,
-      "interval": "",
-      "links": [],
-      "options": {
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "last"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showThresholdLabels": false,
-        "showThresholdMarkers": true
-      },
-      "pluginVersion": "7.2.0",
-      "targets": [
-        {
-          "alias": "Engine Room Temperature",
-          "groupBy": [
-            {
-              "params": [
-                "$__interval"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "measurement": "environment.inside.lituyamon.temperature",
-          "orderByTime": "ASC",
-          "policy": "boatdata",
-          "query": "SELECT (9/5)*(value-273.15)+32 FROM \"one_year\".\"environment.inside.engineroom.temperature\" WHERE $timeFilter\n",
-          "rawQuery": true,
-          "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "value"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ]
-          ],
-          "tags": []
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Engine Room",
-      "transparent": true,
-      "type": "gauge"
-    },
-    {
-      "datasource": "InfluxDB",
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {},
-          "decimals": 1,
-          "links": [],
-          "mappings": [],
-          "max": 300,
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 200
-              }
-            ]
-          },
-          "unit": "fahrenheit"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 4,
-        "x": 12,
         "y": 1
       },
       "id": 17,
@@ -418,36 +334,104 @@
       "type": "gauge"
     },
     {
-      "dashboardFilter": "",
-      "dashboardTags": [],
-      "datasource": null,
+      "datasource": "InfluxDB",
       "fieldConfig": {
         "defaults": {
-          "custom": {}
+          "custom": {},
+          "decimals": 1,
+          "links": [],
+          "mappings": [],
+          "max": 200,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 32
+              },
+              {
+                "color": "red",
+                "value": 100
+              }
+            ]
+          },
+          "unit": "fahrenheit"
         },
         "overrides": []
       },
-      "folderId": null,
       "gridPos": {
-        "h": 10,
-        "w": 5,
-        "x": 18,
+        "h": 5,
+        "w": 4,
+        "x": 14,
         "y": 1
       },
-      "id": 5,
-      "limit": 10,
-      "nameFilter": "",
-      "onlyAlertsOnDashboard": false,
-      "show": "current",
-      "sortOrder": 1,
-      "stateFilter": [
-        "alerting"
+      "id": 24,
+      "interval": "",
+      "links": [],
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "7.2.0",
+      "targets": [
+        {
+          "alias": "Engine Room Temperature",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "environment.inside.lituyamon.temperature",
+          "orderByTime": "ASC",
+          "policy": "boatdata",
+          "query": "SELECT (9/5)*(value-273.15)+32 FROM \"one_year\".\"environment.inside.engineroom.temperature\" WHERE $timeFilter\n",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        }
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Alerts",
+      "title": "Engine Room",
       "transparent": true,
-      "type": "alertlist"
+      "type": "gauge"
     },
     {
       "aliasColors": {},
@@ -751,10 +735,10 @@
       "gridPos": {
         "h": 5,
         "w": 4,
-        "x": 8,
+        "x": 0,
         "y": 13
       },
-      "id": 16,
+      "id": 27,
       "interval": "",
       "links": [],
       "options": {
@@ -818,57 +802,62 @@
       "type": "gauge"
     },
     {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
       "datasource": "InfluxDB",
       "description": "",
       "fieldConfig": {
         "defaults": {
           "custom": {},
-          "links": []
+          "decimals": 1,
+          "links": [],
+          "mappings": [],
+          "max": 100,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "yellow",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 30
+              },
+              {
+                "color": "red",
+                "value": 70
+              }
+            ]
+          },
+          "unit": "humidity"
         },
         "overrides": []
       },
-      "fill": 0,
-      "fillGradient": 0,
       "gridPos": {
         "h": 5,
-        "w": 6,
-        "x": 12,
+        "w": 4,
+        "x": 4,
         "y": 13
       },
-      "hiddenSeries": false,
-      "id": 26,
-      "legend": {
-        "avg": false,
-        "current": true,
-        "max": false,
-        "min": false,
-        "rightSide": false,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 2,
-      "nullPointMode": "null",
+      "id": 16,
+      "interval": "",
+      "links": [],
       "options": {
-        "alertThreshold": true
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
       },
-      "percentage": false,
       "pluginVersion": "7.2.0",
-      "pointradius": 3,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
       "targets": [
         {
-          "alias": "House Battery Voltage",
+          "alias": "Humidity",
           "groupBy": [
             {
               "params": [
@@ -886,7 +875,7 @@
           "measurement": "environment.inside.lituyamon.temperature",
           "orderByTime": "ASC",
           "policy": "boatdata",
-          "query": "SELECT value FROM \"one_year\".\"electrical.batteries.house.voltage\" WHERE $timeFilter\n ",
+          "query": "SELECT value FROM \"one_year\".\"environment.inside.engineroom.humidity\" WHERE $timeFilter\n",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -907,67 +896,177 @@
           "tags": []
         }
       ],
-      "thresholds": [
-        {
-          "colorMode": "ok",
-          "fill": false,
-          "fillColor": "rgba(51, 162, 229, 0.2)",
-          "line": false,
-          "lineColor": "rgba(31, 96, 196, 0.6)",
-          "op": "gt",
-          "value": 12.6,
-          "yaxis": "left"
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "ER Humidity",
+      "transparent": true,
+      "type": "gauge"
+    },
+    {
+      "datasource": "InfluxDB",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "decimals": 1,
+          "links": [],
+          "mappings": [],
+          "max": 16,
+          "min": 11,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 12
+              },
+              {
+                "color": "green",
+                "value": 12.2
+              },
+              {
+                "color": "red",
+                "value": 14.75
+              }
+            ]
+          },
+          "unit": "volt"
         },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 9,
+        "y": 13
+      },
+      "id": 28,
+      "interval": "",
+      "links": [],
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "7.2.0",
+      "targets": [
         {
-          "colorMode": "critical",
-          "fill": true,
-          "line": false,
-          "op": "lt",
-          "value": 12.2,
-          "yaxis": "left"
+          "alias": "Engine Temperature",
+          "groupBy": [],
+          "measurement": "environment.inside.lituyamon.temperature",
+          "orderByTime": "ASC",
+          "policy": "one_year",
+          "query": "SELECT value  FROM \"one_year\".\"electrical.batteries.house.voltage\" WHERE $timeFilter",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": []
         }
       ],
       "timeFrom": null,
-      "timeRegions": [],
       "timeShift": null,
-      "title": "",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
+      "title": "House Battery",
       "transparent": true,
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
+      "type": "gauge"
+    },
+    {
+      "datasource": "InfluxDB",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
           "decimals": 1,
-          "format": "volt",
-          "label": "",
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
+          "links": [],
+          "mappings": [],
+          "max": 300,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 190
+              }
+            ]
+          },
+          "unit": "fahrenheit"
         },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 14,
+        "y": 13
+      },
+      "id": 21,
+      "interval": "",
+      "links": [],
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "7.2.0",
+      "targets": [
         {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
+          "alias": "Engine Temperature",
+          "groupBy": [],
+          "measurement": "environment.inside.lituyamon.temperature",
+          "orderByTime": "ASC",
+          "policy": "one_year",
+          "query": "SELECT (9/5)*(value-273.15)+32  FROM \"one_year\".\"propulsion.qsc83.temperature\" WHERE $timeFilter",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": []
         }
       ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Engine Temperature",
+      "transparent": true,
+      "type": "gauge"
     },
     {
       "collapsed": false,
@@ -1012,7 +1111,7 @@
       },
       "gridPos": {
         "h": 5,
-        "w": 5,
+        "w": 4,
         "x": 0,
         "y": 19
       },
@@ -1254,62 +1353,75 @@
       }
     },
     {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
       "datasource": "InfluxDB",
+      "description": "",
       "fieldConfig": {
         "defaults": {
           "custom": {},
-          "decimals": 1,
-          "links": [],
-          "mappings": [],
-          "max": 300,
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 190
-              }
-            ]
-          },
-          "unit": "fahrenheit"
+          "links": []
         },
         "overrides": []
       },
+      "fill": 0,
+      "fillGradient": 0,
       "gridPos": {
         "h": 5,
         "w": 5,
         "x": 9,
         "y": 19
       },
-      "id": 21,
-      "interval": "",
-      "links": [],
-      "options": {
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "last"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showThresholdLabels": false,
-        "showThresholdMarkers": true
+      "hiddenSeries": false,
+      "id": 26,
+      "legend": {
+        "avg": false,
+        "current": true,
+        "max": false,
+        "min": false,
+        "rightSide": false,
+        "show": true,
+        "total": false,
+        "values": true
       },
+      "lines": true,
+      "linewidth": 2,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
       "pluginVersion": "7.2.0",
+      "pointradius": 3,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
       "targets": [
         {
-          "alias": "Engine Temperature",
-          "groupBy": [],
+          "alias": "House Battery Voltage",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
           "measurement": "environment.inside.lituyamon.temperature",
           "orderByTime": "ASC",
-          "policy": "one_year",
-          "query": "SELECT (9/5)*(value-273.15)+32  FROM \"one_year\".\"propulsion.qsc83.temperature\" WHERE $timeFilter",
+          "policy": "boatdata",
+          "query": "SELECT value FROM \"one_year\".\"electrical.batteries.house.voltage\" WHERE $timeFilter\n ",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -1320,17 +1432,77 @@
                   "value"
                 ],
                 "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
               }
             ]
           ],
           "tags": []
         }
       ],
+      "thresholds": [
+        {
+          "colorMode": "ok",
+          "fill": false,
+          "fillColor": "rgba(51, 162, 229, 0.2)",
+          "line": false,
+          "lineColor": "rgba(31, 96, 196, 0.6)",
+          "op": "gt",
+          "value": 12.6,
+          "yaxis": "left"
+        },
+        {
+          "colorMode": "critical",
+          "fill": true,
+          "line": false,
+          "op": "lt",
+          "value": 12.2,
+          "yaxis": "left"
+        }
+      ],
       "timeFrom": null,
+      "timeRegions": [],
       "timeShift": null,
-      "title": "Engine Temperature",
+      "title": "House Battery",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
       "transparent": true,
-      "type": "gauge"
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "decimals": 1,
+          "format": "volt",
+          "label": "",
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
     },
     {
       "alert": {
@@ -1549,5 +1721,6 @@
   "timezone": "",
   "title": "Lituya Status",
   "uid": "wcuuRJkgz",
-  "version": 54
+  "version": 56
 }
+
