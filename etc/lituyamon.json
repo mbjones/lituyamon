@@ -105,10 +105,20 @@
         }
     },
     "leds": {
-        "activity.led": {
-            "name": "Activity LED",
+        "green.led": {
+            "name": "Green LED",
             "color": "green",
-            "gpio": 21
+            "gpio": 5
+        },
+        "yellow.led": {
+            "name": "Yellow LED",
+            "color": "yellow",
+            "gpio": 6
+        },
+        "red.led": {
+            "name": "Red LED",
+            "color": "red",
+            "gpio": 25
         }
     },
     "logging": {

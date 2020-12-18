@@ -10,7 +10,6 @@ import time
 import Adafruit_DHT
 import spidev
 
-
 from Adafruit_IO import Client
 from datetime import datetime
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
@@ -20,12 +19,14 @@ from gpiozero import LED
 from watchgod import arun_process
 
 class Monitor:
-    _version = "0.5.0"
+    _version = "0.6.0"
     _status = "Stopped"
     _config_file = '/etc/lituyamon.json'
     _sk_server = None
     _log = None
-    _activity_led = None
+    _green_led = None
+    _yellow_led = None
+    _red_led = None
     _jobs = None
     cfg = None
 
@@ -36,8 +37,12 @@ class Monitor:
         self._log = logging.getLogger("lituyamon.monitor")
         self._log.info('Started')
         self._sk_server = SignalK(self.cfg['signalk']['host'], self.cfg['signalk']['port'])
-        activity_led_gpio = self.cfg['leds']['activity.led']['gpio']
-        self._activity_led = LED(activity_led_gpio)
+        green_led_gpio = self.cfg['leds']['green.led']['gpio']
+        self._green_led = LED(green_led_gpio)
+        yellow_led_gpio = self.cfg['leds']['yellow.led']['gpio']
+        self._yellow_led = LED(yellow_led_gpio)
+        red_led_gpio = self.cfg['leds']['red.led']['gpio']
+        self._red_led = LED(red_led_gpio)
         self._jobs = set()
 
     def _load_config(self):
@@ -75,9 +80,13 @@ class Monitor:
         scheduler.start()
         self._log.info('Press Ctrl+{0} to exit'.format('Break' if os.name == 'nt' else 'C'))
 
+        self._green_led.on()
+        self._yellow_led.on()
+        self._red_led.on()
         # Execution will block here until Ctrl+C (Ctrl+Break on Windows) is pressed.
         try:
             loop = asyncio.get_event_loop()
+            self._red_led.off()
             loop.run_forever()
         except (KeyboardInterrupt, SystemExit):
             loop.stop()
@@ -85,10 +94,13 @@ class Monitor:
                 scheduler.remove_job(job_id=job_id)
         finally:
             loop.close()
+            self._green_led.off()
+            self._yellow_led.off()
+            self._red_led.off()
             self._log.info("Lituyamon shut down cleanly.")
 
     def sample(self, sensor_id, sensor_class, sensor_keys, sensor_gpio=None, sensor_identifier=None):
-        self._activity_led.on()
+        self._yellow_led.on()
         current_module = sys.modules[__name__]
         SensorClass = getattr(current_module, sensor_class)
         sensor = SensorClass()
@@ -103,8 +115,10 @@ class Monitor:
             else:
                 self._log.warning("Omitting {}: length of sensor keys does not match number of values returned from sensor. Check the configuration file.".format(sensor_id))
         except SensorNotFoundError as e:
+            self._red_led.on()
             self._log.warning(e)
-        self._activity_led.off()
+            
+        self._yellow_led.off()
 
 class SignalK:
     _host = None
@@ -245,11 +259,12 @@ class MCP3008(Sensor):
 
     # Convert binary reading to voltage, rounded to places
     def _convert_volts(self, level, places):
-        volts_out = (level*3.3)/float(1023)
+        # volts_out = (level*3.3)/float(1023)
         # volts_out is measured after a voltage divider, so adjust
         # using calibration based on actual resistance ratio
-        # this is currently based on using a 100kohm and 25.3kohm resistors
-        volts_in = 0.0176827*level - 0.02211458
+        # this is currently based on using a 100kohm and 22.1kohm resistors,
+        # and the conversion below was determined experimentally
+        volts_in = 0.019281*level - 0.001144
         volts = round(volts_in, places)
         return volts
     
