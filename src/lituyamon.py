@@ -19,7 +19,7 @@ from gpiozero import LED
 from watchgod import arun_process
 
 class Monitor:
-    _version = "0.6.0"
+    _version = "0.7.0"
     _status = "Stopped"
     _config_file = '/etc/lituyamon.json'
     _sk_server = None
