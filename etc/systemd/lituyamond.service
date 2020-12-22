@@ -4,7 +4,7 @@ Requires=influxd.service
 After=network.target influxd.service
 
 [Service]
-ExecStart=/usr/local/bin/lituyamon
+ExecStart=/usr/local/bin/lituyamond
 Restart=always
 StandardOutput=syslog
 StandardError=syslog
