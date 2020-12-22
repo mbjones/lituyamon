@@ -1,6 +1,7 @@
 [Unit]
-Description=LituyaMon
-After=influxdb.service,network-online.target
+Description=lituyamond sensor monitoring service
+Requires=influxd.service
+After=network.target influxd.service
 
 [Service]
 ExecStart=/usr/local/bin/lituyamon
@@ -13,4 +14,4 @@ User=pi
 
 [Install]
 WantedBy=multi-user.target
-Alias=lituyamon.service
+Alias=lituyamond.service
