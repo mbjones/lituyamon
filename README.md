@@ -6,6 +6,26 @@ This is a python package for monitoring systems on Lituya.
 
 Configuration is accomplished through the `/etc/lituyamon.json` config file, which enables setting general vessel parameters, as well as the list of sensors to expose, and logging parameters for the application.
 
+## Auto start as systemd service
+
+The lituyamon python entrypoint gets installed to `/usr/local/bin/lituyamon`, and that script runs the monitoring service. It is configured to start on boot from the systemd service. This is enabled through the configuration file located in `/lib/systemd/system/lituyamond.service`. An example of this configuration file is included in the package as `etc/systemd/lituyamond.service`. To start the service, use:
+
+```sh
+sudo systemctl start lituyamond
+```
+
+To enable the service to be started automatically on boot, use:
+
+```sh
+sudo systemctl enable lituyamond
+```
+
+To see the status of the service, use:
+
+```sh
+sudo systemctl status lituyamond
+```
+
 # Current Sensors
 
 ## DS18B20 temperature sensors
