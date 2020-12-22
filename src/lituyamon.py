@@ -19,7 +19,6 @@ from gpiozero import LED
 from watchgod import arun_process
 
 class Monitor:
-    _version = "0.7.0"
     _status = "Stopped"
     _config_file = '/etc/lituyamon.json'
     _sk_server = None
@@ -282,6 +281,9 @@ class SensorNotFoundError(Exception):
             message = "Sensor not found: {}. Please check that it is connected.".format(self.sensor)
         super(SensorNotFoundError, self).__init__(message)
 
-if __name__ == "__main__":
+def main():
     m = Monitor()
     m.start()
+
+if __name__ == "__main__":
+    main()
