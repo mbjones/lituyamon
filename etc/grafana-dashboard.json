@@ -449,7 +449,7 @@
       "fill": 0,
       "fillGradient": 0,
       "gridPos": {
-        "h": 6,
+        "h": 5,
         "w": 18,
         "x": 0,
         "y": 6
@@ -694,7 +694,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 12
+        "y": 11
       },
       "id": 19,
       "panels": [],
@@ -736,7 +736,7 @@
         "h": 5,
         "w": 4,
         "x": 0,
-        "y": 13
+        "y": 12
       },
       "id": 27,
       "interval": "",
@@ -837,7 +837,7 @@
         "h": 5,
         "w": 4,
         "x": 4,
-        "y": 13
+        "y": 12
       },
       "id": 16,
       "interval": "",
@@ -941,7 +941,7 @@
         "h": 5,
         "w": 4,
         "x": 9,
-        "y": 13
+        "y": 12
       },
       "id": 28,
       "interval": "",
@@ -966,7 +966,7 @@
           "measurement": "environment.inside.lituyamon.temperature",
           "orderByTime": "ASC",
           "policy": "one_year",
-          "query": "SELECT value  FROM \"one_year\".\"electrical.batteries.house.voltage\" WHERE $timeFilter",
+          "query": "SELECT moving_average(value, 10)  FROM \"one_year\".\"electrical.batteries.house.voltage\" WHERE $timeFilter",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -1020,7 +1020,7 @@
         "h": 5,
         "w": 4,
         "x": 14,
-        "y": 13
+        "y": 12
       },
       "id": 21,
       "interval": "",
@@ -1075,7 +1075,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 18
+        "y": 17
       },
       "id": 7,
       "panels": [],
@@ -1113,7 +1113,7 @@
         "h": 5,
         "w": 4,
         "x": 0,
-        "y": 19
+        "y": 18
       },
       "id": 2,
       "interval": "",
@@ -1232,7 +1232,7 @@
         "h": 5,
         "w": 4,
         "x": 5,
-        "y": 19
+        "y": 18
       },
       "hiddenSeries": false,
       "id": 3,
@@ -1372,7 +1372,7 @@
         "h": 5,
         "w": 5,
         "x": 9,
-        "y": 19
+        "y": 18
       },
       "hiddenSeries": false,
       "id": 26,
@@ -1421,7 +1421,7 @@
           "measurement": "environment.inside.lituyamon.temperature",
           "orderByTime": "ASC",
           "policy": "boatdata",
-          "query": "SELECT value FROM \"one_year\".\"electrical.batteries.house.voltage\" WHERE $timeFilter\n ",
+          "query": "SELECT moving_average(value, 10) FROM \"one_year\".\"electrical.batteries.house.voltage\" WHERE $timeFilter\n ",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -1558,7 +1558,7 @@
         "h": 5,
         "w": 4,
         "x": 14,
-        "y": 19
+        "y": 18
       },
       "hiddenSeries": false,
       "id": 23,
@@ -1685,7 +1685,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 24
+        "y": 23
       },
       "id": 9,
       "panels": [],
@@ -1721,6 +1721,5 @@
   "timezone": "",
   "title": "Lituya Status",
   "uid": "wcuuRJkgz",
-  "version": 56
+  "version": 57
 }
-
