@@ -254,6 +254,7 @@ class MCP3008(Sensor):
     def _read_channel(self, channel):
         adc = self.spi.xfer2([1, (8+channel)<<4,0])
         data = ((adc[1]&3) << 8) + adc[2]
+        self.spi.close()
         return data
 
     # Convert binary reading to voltage, rounded to places
