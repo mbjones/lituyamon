@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="lituyamon",
-    version="0.8.2",
+    version="0.8.3",
     author="Matt Jones",
     author_email="gitcode@magisa.org",
     description="Shipboard monitoring package",

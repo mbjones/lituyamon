@@ -4,6 +4,7 @@ import json
 import logging
 import logging.config
 import os
+import signal
 import socket
 import sys
 import time
@@ -29,7 +30,11 @@ class Monitor:
     _jobs = None
     cfg = None
 
+    def exit_gracefully(self, signum, frame):
+        raise SystemExit('Shutdown requested with signal %s' % signum)
+
     def __init__(self):
+        signal.signal(signal.SIGTERM, self.exit_gracefully)
         self._load_config()
         logging.config.dictConfig(self.cfg['logging'])
         #logging.basicConfig(level=logging.DEBUG)
@@ -99,6 +104,7 @@ class Monitor:
             self._log.info("Lituyamon shut down cleanly.")
 
     def sample(self, sensor_id, sensor_class, sensor_keys, sensor_gpio=None, sensor_identifier=None):
+        self._red_led.off()
         self._yellow_led.on()
         current_module = sys.modules[__name__]
         SensorClass = getattr(current_module, sensor_class)
