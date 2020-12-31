@@ -109,7 +109,7 @@ Potential site for hosting feed data.
 curl -H "Content-Type: application/json" -d '{"value": 42, "lat": 23.1, "lon": "-73.3"}'  -H "X-AIO-Key: {io_key}" https://io.adafruit.com/api/v2/{username}/feeds/{feed_key}/data
 ```
 
-But see the Adafruit IO Pythin library: https://github.com/adafruit/Adafruit_IO_Python
+But see the Adafruit IO Python library: https://github.com/adafruit/Adafruit_IO_Python
 
     - `pip install adafruit-io`
 
@@ -137,3 +137,13 @@ aio.create_data('Test', data)
 # Raspberry Pi Pinout, from pinout.xyz
 
 ![](doc/img/raspberry-pi-pinout.png)
+
+# Accessing lituyamon via openvpn
+
+To enable systemd to start an openvpn connection on boot, use:
+
+```bash
+sudo systemctl enable openvpn-client@lituyavps
+```
+
+Where `lituyavps` refers to the name of the client openvpn connection that should be started, and that corresponds to the configuration file in `/etc/openvpn/lituyavps.conf`. How to configure openvpn is described in its documentation.
