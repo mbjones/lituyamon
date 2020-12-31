@@ -55,7 +55,7 @@
             "interval": 11,
             "identifier": "28-01192d61416d",
             "keys": [
-                "environment.inside.fwd_cabin.temperature"
+                "environment.inside.fwdcabin.temperature"
             ],
             "enabled": true
         },
