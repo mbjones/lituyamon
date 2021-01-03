@@ -37,7 +37,7 @@
       "fieldConfig": {
         "defaults": {
           "custom": {},
-          "decimals": 1,
+          "decimals": 0,
           "links": [],
           "mappings": [],
           "max": 90,
@@ -84,7 +84,7 @@
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "7.2.0",
+      "pluginVersion": "7.3.6",
       "targets": [
         {
           "alias": "Fwd Cabin Temperature",
@@ -105,7 +105,7 @@
           "measurement": "environment.inside.lituyamon.temperature",
           "orderByTime": "ASC",
           "policy": "boatdata",
-          "query": "SELECT (9/5)*(value-273.15)+32 FROM \"one_year\".\"environment.inside.fwd_cabin.temperature\" WHERE $timeFilter\n",
+          "query": "SELECT (9/5)*(value-273.15)+32 FROM \"one_year\".\"environment.inside.fwdcabin.temperature\" WHERE $timeFilter\n",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -137,7 +137,7 @@
       "fieldConfig": {
         "defaults": {
           "custom": {},
-          "decimals": 1,
+          "decimals": 0,
           "links": [],
           "mappings": [],
           "max": 90,
@@ -184,7 +184,7 @@
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "7.2.0",
+      "pluginVersion": "7.3.6",
       "targets": [
         {
           "alias": "Pilot Temperature",
@@ -238,7 +238,7 @@
       "fieldConfig": {
         "defaults": {
           "custom": {},
-          "decimals": 1,
+          "decimals": 0,
           "links": [],
           "mappings": [],
           "max": 90,
@@ -285,7 +285,7 @@
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "7.2.0",
+      "pluginVersion": "7.3.6",
       "targets": [
         {
           "alias": "Aft Cabin Temperature",
@@ -338,7 +338,7 @@
       "fieldConfig": {
         "defaults": {
           "custom": {},
-          "decimals": 1,
+          "decimals": 0,
           "links": [],
           "mappings": [],
           "max": 200,
@@ -385,7 +385,7 @@
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "7.2.0",
+      "pluginVersion": "7.3.6",
       "targets": [
         {
           "alias": "Engine Room Temperature",
@@ -434,6 +434,73 @@
       "type": "gauge"
     },
     {
+      "dashboardFilter": "",
+      "dashboardTags": [],
+      "datasource": null,
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 6,
+        "x": 18,
+        "y": 1
+      },
+      "id": 30,
+      "limit": 10,
+      "nameFilter": "",
+      "onlyAlertsOnDashboard": true,
+      "pluginVersion": "7.3.6",
+      "show": "current",
+      "sortOrder": 3,
+      "stateFilter": [],
+      "targets": [
+        {
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Alerts",
+      "type": "alertlist"
+    },
+    {
       "aliasColors": {},
       "bars": false,
       "dashLength": 10,
@@ -474,7 +541,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.2.0",
+      "pluginVersion": "7.3.6",
       "pointradius": 3,
       "points": true,
       "renderer": "flot",
@@ -543,7 +610,7 @@
           "measurement": "environment.inside.lituyamon.temperature",
           "orderByTime": "ASC",
           "policy": "boatdata",
-          "query": "SELECT (9/5)*(value-273.15)+32 FROM \"one_year\".\"environment.inside.fwd_cabin.temperature\" WHERE $timeFilter\n ",
+          "query": "SELECT (9/5)*(value-273.15)+32 FROM \"one_year\".\"environment.inside.fwdcabin.temperature\" WHERE $timeFilter\n ",
           "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series",
@@ -667,10 +734,10 @@
         {
           "decimals": null,
           "format": "fahrenheit",
-          "label": null,
+          "label": "",
           "logBase": 1,
-          "max": "100",
-          "min": "50",
+          "max": null,
+          "min": null,
           "show": true
         },
         {
@@ -697,6 +764,839 @@
         "y": 11
       },
       "id": 19,
+      "panels": [],
+      "title": "",
+      "type": "row"
+    },
+    {
+      "datasource": "InfluxDB",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "decimals": 1,
+          "links": [],
+          "mappings": [],
+          "max": 16,
+          "min": 11,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 12
+              },
+              {
+                "color": "green",
+                "value": 12.2
+              },
+              {
+                "color": "red",
+                "value": 14.75
+              }
+            ]
+          },
+          "unit": "volt"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 0,
+        "y": 12
+      },
+      "id": 28,
+      "interval": "",
+      "links": [],
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "7.3.6",
+      "targets": [
+        {
+          "alias": "Engine Temperature",
+          "groupBy": [],
+          "measurement": "environment.inside.lituyamon.temperature",
+          "orderByTime": "ASC",
+          "policy": "one_year",
+          "query": "SELECT moving_average(value, 10)  FROM \"one_year\".\"electrical.batteries.house.voltage\" WHERE $timeFilter",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "House Battery",
+      "transparent": true,
+      "type": "stat"
+    },
+    {
+      "alert": {
+        "alertRuleTags": {
+          "priority": "critical"
+        },
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [
+                13
+              ],
+              "type": "lt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": [
+                "A",
+                "1m",
+                "now"
+              ]
+            },
+            "reducer": {
+              "params": [],
+              "type": "avg"
+            },
+            "type": "query"
+          }
+        ],
+        "executionErrorState": "alerting",
+        "for": "3m",
+        "frequency": "1m",
+        "handler": 1,
+        "message": "House battery voltage dropped below 13.0V.",
+        "name": "House Battery alert",
+        "noDataState": "no_data",
+        "notifications": [
+          {
+            "uid": "oi3xdRWgz"
+          }
+        ]
+      },
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "InfluxDB",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
+      "fill": 0,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 5,
+        "w": 5,
+        "x": 4,
+        "y": 12
+      },
+      "hiddenSeries": false,
+      "id": 26,
+      "legend": {
+        "avg": false,
+        "current": true,
+        "max": false,
+        "min": false,
+        "rightSide": false,
+        "show": false,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 2,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.3.6",
+      "pointradius": 3,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "House Battery Voltage",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "environment.inside.lituyamon.temperature",
+          "orderByTime": "ASC",
+          "policy": "boatdata",
+          "query": "SELECT moving_average(value, 10) FROM \"one_year\".\"electrical.batteries.house.voltage\" WHERE $timeFilter\n ",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "thresholds": [
+        {
+          "colorMode": "critical",
+          "fill": true,
+          "line": true,
+          "op": "lt",
+          "value": 13
+        }
+      ],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "House Battery",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "transparent": true,
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "decimals": 1,
+          "format": "volt",
+          "label": "",
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "datasource": "InfluxDB",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "decimals": 0,
+          "links": [],
+          "mappings": [],
+          "max": 300,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 190
+              }
+            ]
+          },
+          "unit": "fahrenheit"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 9,
+        "y": 12
+      },
+      "id": 21,
+      "interval": "",
+      "links": [],
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "7.3.6",
+      "targets": [
+        {
+          "alias": "Engine Temperature",
+          "groupBy": [],
+          "measurement": "environment.inside.lituyamon.temperature",
+          "orderByTime": "ASC",
+          "policy": "one_year",
+          "query": "SELECT (9/5)*(value-273.15)+32  FROM \"one_year\".\"propulsion.qsc83.temperature\" WHERE $timeFilter",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Engine Temperature",
+      "transparent": true,
+      "type": "gauge"
+    },
+    {
+      "alert": {
+        "alertRuleTags": {},
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [
+                180
+              ],
+              "type": "gt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": [
+                "A",
+                "1m",
+                "now"
+              ]
+            },
+            "reducer": {
+              "params": [],
+              "type": "max"
+            },
+            "type": "query"
+          }
+        ],
+        "executionErrorState": "alerting",
+        "for": "",
+        "frequency": "1m",
+        "handler": 1,
+        "name": "Engine Temperature alert",
+        "noDataState": "no_data",
+        "notifications": []
+      },
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "InfluxDB",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 5,
+        "w": 5,
+        "x": 13,
+        "y": 12
+      },
+      "hiddenSeries": false,
+      "id": 23,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "rightSide": false,
+        "show": false,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 2,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.3.6",
+      "pointradius": 3,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "Engine Temperature",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "environment.inside.lituyamon.temperature",
+          "orderByTime": "ASC",
+          "policy": "boatdata",
+          "query": "SELECT (9/5)*(value-273.15)+32 FROM \"one_year\".\"propulsion.qsc83.temperature\" WHERE $timeFilter\n ",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "thresholds": [
+        {
+          "colorMode": "critical",
+          "fill": true,
+          "line": true,
+          "op": "gt",
+          "value": 180
+        }
+      ],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Engine Temperature",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "transparent": true,
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "decimals": 0,
+          "format": "fahrenheit",
+          "label": "",
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "collapsed": false,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 17
+      },
+      "id": 7,
+      "panels": [],
+      "title": "",
+      "type": "row"
+    },
+    {
+      "datasource": "InfluxDB",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "decimals": 0,
+          "links": [],
+          "mappings": [],
+          "max": 300,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 150
+              },
+              {
+                "color": "red",
+                "value": 185
+              }
+            ]
+          },
+          "unit": "fahrenheit"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 9,
+        "y": 18
+      },
+      "id": 2,
+      "interval": "",
+      "links": [],
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "7.3.6",
+      "targets": [
+        {
+          "alias": "LituyaMon Temperature",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "environment.inside.lituyamon.temperature",
+          "orderByTime": "ASC",
+          "policy": "boatdata",
+          "query": "SELECT (9/5)*(value-273.15)+32 FROM \"one_year\".\"environment.inside.lituyamon.temperature\" WHERE $timeFilter\n",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "CPU Temperature",
+      "transparent": true,
+      "type": "gauge"
+    },
+    {
+      "alert": {
+        "alertRuleTags": {},
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [
+                140
+              ],
+              "type": "gt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": [
+                "A",
+                "5m",
+                "now"
+              ]
+            },
+            "reducer": {
+              "params": [],
+              "type": "max"
+            },
+            "type": "query"
+          }
+        ],
+        "executionErrorState": "alerting",
+        "for": "0m",
+        "frequency": "1m",
+        "handler": 1,
+        "message": "Lituyamon CPU temperature alert",
+        "name": "CPU Temperature alert",
+        "noDataState": "no_data",
+        "notifications": [
+          {
+            "uid": "oi3xdRWgz"
+          }
+        ]
+      },
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "InfluxDB",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 5,
+        "w": 5,
+        "x": 13,
+        "y": 18
+      },
+      "hiddenSeries": false,
+      "id": 3,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "rightSide": false,
+        "show": false,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 2,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.3.6",
+      "pointradius": 3,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "LituyaMon Temperature",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "environment.inside.lituyamon.temperature",
+          "orderByTime": "ASC",
+          "policy": "boatdata",
+          "query": "SELECT (9/5)*(value-273.15)+32 FROM \"one_year\".\"environment.inside.lituyamon.temperature\" WHERE $timeFilter\n ",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "thresholds": [
+        {
+          "colorMode": "critical",
+          "fill": true,
+          "line": true,
+          "op": "gt",
+          "value": 140
+        }
+      ],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "CPU Temperature",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "transparent": true,
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "fahrenheit",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "collapsed": true,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 23
+      },
+      "id": 9,
       "panels": [],
       "title": "",
       "type": "row"
@@ -736,7 +1636,7 @@
         "h": 5,
         "w": 4,
         "x": 0,
-        "y": 12
+        "y": 24
       },
       "id": 27,
       "interval": "",
@@ -753,7 +1653,7 @@
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "7.2.0",
+      "pluginVersion": "7.3.6",
       "targets": [
         {
           "alias": "Humidity",
@@ -836,8 +1736,8 @@
       "gridPos": {
         "h": 5,
         "w": 4,
-        "x": 4,
-        "y": 12
+        "x": 5,
+        "y": 24
       },
       "id": 16,
       "interval": "",
@@ -854,7 +1754,7 @@
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "7.2.0",
+      "pluginVersion": "7.3.6",
       "targets": [
         {
           "alias": "Humidity",
@@ -901,796 +1801,6 @@
       "title": "ER Humidity",
       "transparent": true,
       "type": "gauge"
-    },
-    {
-      "datasource": "InfluxDB",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {},
-          "decimals": 1,
-          "links": [],
-          "mappings": [],
-          "max": 16,
-          "min": 11,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "red",
-                "value": null
-              },
-              {
-                "color": "#EAB839",
-                "value": 12
-              },
-              {
-                "color": "green",
-                "value": 12.2
-              },
-              {
-                "color": "red",
-                "value": 14.75
-              }
-            ]
-          },
-          "unit": "volt"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 4,
-        "x": 9,
-        "y": 12
-      },
-      "id": 28,
-      "interval": "",
-      "links": [],
-      "options": {
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "last"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showThresholdLabels": false,
-        "showThresholdMarkers": true
-      },
-      "pluginVersion": "7.2.0",
-      "targets": [
-        {
-          "alias": "Engine Temperature",
-          "groupBy": [],
-          "measurement": "environment.inside.lituyamon.temperature",
-          "orderByTime": "ASC",
-          "policy": "one_year",
-          "query": "SELECT moving_average(value, 10)  FROM \"one_year\".\"electrical.batteries.house.voltage\" WHERE $timeFilter",
-          "rawQuery": true,
-          "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "value"
-                ],
-                "type": "field"
-              }
-            ]
-          ],
-          "tags": []
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "House Battery",
-      "transparent": true,
-      "type": "gauge"
-    },
-    {
-      "datasource": "InfluxDB",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {},
-          "decimals": 1,
-          "links": [],
-          "mappings": [],
-          "max": 300,
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 190
-              }
-            ]
-          },
-          "unit": "fahrenheit"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 4,
-        "x": 14,
-        "y": 12
-      },
-      "id": 21,
-      "interval": "",
-      "links": [],
-      "options": {
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "last"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showThresholdLabels": false,
-        "showThresholdMarkers": true
-      },
-      "pluginVersion": "7.2.0",
-      "targets": [
-        {
-          "alias": "Engine Temperature",
-          "groupBy": [],
-          "measurement": "environment.inside.lituyamon.temperature",
-          "orderByTime": "ASC",
-          "policy": "one_year",
-          "query": "SELECT (9/5)*(value-273.15)+32  FROM \"one_year\".\"propulsion.qsc83.temperature\" WHERE $timeFilter",
-          "rawQuery": true,
-          "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "value"
-                ],
-                "type": "field"
-              }
-            ]
-          ],
-          "tags": []
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Engine Temperature",
-      "transparent": true,
-      "type": "gauge"
-    },
-    {
-      "collapsed": false,
-      "datasource": null,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 17
-      },
-      "id": 7,
-      "panels": [],
-      "title": "",
-      "type": "row"
-    },
-    {
-      "datasource": "InfluxDB",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {},
-          "decimals": 1,
-          "links": [],
-          "mappings": [],
-          "max": 300,
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 200
-              }
-            ]
-          },
-          "unit": "fahrenheit"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 4,
-        "x": 0,
-        "y": 18
-      },
-      "id": 2,
-      "interval": "",
-      "links": [],
-      "options": {
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "last"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showThresholdLabels": false,
-        "showThresholdMarkers": true
-      },
-      "pluginVersion": "7.2.0",
-      "targets": [
-        {
-          "alias": "LituyaMon Temperature",
-          "groupBy": [
-            {
-              "params": [
-                "$__interval"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "measurement": "environment.inside.lituyamon.temperature",
-          "orderByTime": "ASC",
-          "policy": "boatdata",
-          "query": "SELECT (9/5)*(value-273.15)+32 FROM \"one_year\".\"environment.inside.lituyamon.temperature\" WHERE $timeFilter\n",
-          "rawQuery": true,
-          "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "value"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ]
-          ],
-          "tags": []
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "CPU Temperature",
-      "transparent": true,
-      "type": "gauge"
-    },
-    {
-      "alert": {
-        "alertRuleTags": {},
-        "conditions": [
-          {
-            "evaluator": {
-              "params": [
-                150
-              ],
-              "type": "gt"
-            },
-            "operator": {
-              "type": "and"
-            },
-            "query": {
-              "params": [
-                "A",
-                "5m",
-                "now"
-              ]
-            },
-            "reducer": {
-              "params": [],
-              "type": "max"
-            },
-            "type": "query"
-          }
-        ],
-        "executionErrorState": "alerting",
-        "for": "0m",
-        "frequency": "1m",
-        "handler": 1,
-        "name": "CPU Temperature alert",
-        "noDataState": "no_data",
-        "notifications": []
-      },
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "InfluxDB",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {},
-          "links": []
-        },
-        "overrides": []
-      },
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 5,
-        "w": 4,
-        "x": 5,
-        "y": 18
-      },
-      "hiddenSeries": false,
-      "id": 3,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "rightSide": false,
-        "show": true,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 2,
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "7.2.0",
-      "pointradius": 3,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "alias": "LituyaMon Temperature",
-          "groupBy": [
-            {
-              "params": [
-                "$__interval"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "measurement": "environment.inside.lituyamon.temperature",
-          "orderByTime": "ASC",
-          "policy": "boatdata",
-          "query": "SELECT (9/5)*(value-273.15)+32 FROM \"one_year\".\"environment.inside.lituyamon.temperature\" WHERE $timeFilter\n ",
-          "rawQuery": true,
-          "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "value"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ]
-          ],
-          "tags": []
-        }
-      ],
-      "thresholds": [
-        {
-          "colorMode": "critical",
-          "fill": true,
-          "line": true,
-          "op": "gt",
-          "value": 150
-        }
-      ],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "CPU Temperature",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "transparent": true,
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "fahrenheit",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "InfluxDB",
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {},
-          "links": []
-        },
-        "overrides": []
-      },
-      "fill": 0,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 5,
-        "w": 5,
-        "x": 9,
-        "y": 18
-      },
-      "hiddenSeries": false,
-      "id": 26,
-      "legend": {
-        "avg": false,
-        "current": true,
-        "max": false,
-        "min": false,
-        "rightSide": false,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 2,
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "7.2.0",
-      "pointradius": 3,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "alias": "House Battery Voltage",
-          "groupBy": [
-            {
-              "params": [
-                "$__interval"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "measurement": "environment.inside.lituyamon.temperature",
-          "orderByTime": "ASC",
-          "policy": "boatdata",
-          "query": "SELECT moving_average(value, 10) FROM \"one_year\".\"electrical.batteries.house.voltage\" WHERE $timeFilter\n ",
-          "rawQuery": true,
-          "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "value"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ]
-          ],
-          "tags": []
-        }
-      ],
-      "thresholds": [
-        {
-          "colorMode": "ok",
-          "fill": false,
-          "fillColor": "rgba(51, 162, 229, 0.2)",
-          "line": false,
-          "lineColor": "rgba(31, 96, 196, 0.6)",
-          "op": "gt",
-          "value": 12.6,
-          "yaxis": "left"
-        },
-        {
-          "colorMode": "critical",
-          "fill": true,
-          "line": false,
-          "op": "lt",
-          "value": 12.2,
-          "yaxis": "left"
-        }
-      ],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "House Battery",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "transparent": true,
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "decimals": 1,
-          "format": "volt",
-          "label": "",
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "alert": {
-        "alertRuleTags": {},
-        "conditions": [
-          {
-            "evaluator": {
-              "params": [
-                180
-              ],
-              "type": "gt"
-            },
-            "operator": {
-              "type": "and"
-            },
-            "query": {
-              "params": [
-                "A",
-                "5m",
-                "now"
-              ]
-            },
-            "reducer": {
-              "params": [],
-              "type": "max"
-            },
-            "type": "query"
-          }
-        ],
-        "executionErrorState": "alerting",
-        "for": "0m",
-        "frequency": "1m",
-        "handler": 1,
-        "name": "Engine Temperature alert",
-        "noDataState": "no_data",
-        "notifications": []
-      },
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "InfluxDB",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {},
-          "links": []
-        },
-        "overrides": []
-      },
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 5,
-        "w": 4,
-        "x": 14,
-        "y": 18
-      },
-      "hiddenSeries": false,
-      "id": 23,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "rightSide": false,
-        "show": false,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 2,
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "7.2.0",
-      "pointradius": 3,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "alias": "Engine Temperature",
-          "groupBy": [
-            {
-              "params": [
-                "$__interval"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "measurement": "environment.inside.lituyamon.temperature",
-          "orderByTime": "ASC",
-          "policy": "boatdata",
-          "query": "SELECT (9/5)*(value-273.15)+32 FROM \"one_year\".\"propulsion.qsc83.temperature\" WHERE $timeFilter\n ",
-          "rawQuery": true,
-          "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "value"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ]
-          ],
-          "tags": []
-        }
-      ],
-      "thresholds": [
-        {
-          "colorMode": "critical",
-          "fill": true,
-          "line": true,
-          "op": "gt",
-          "value": 180
-        }
-      ],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "Engine Temperature",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "transparent": true,
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "fahrenheit",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "collapsed": true,
-      "datasource": null,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 23
-      },
-      "id": 9,
-      "panels": [],
-      "title": "",
-      "type": "row"
     }
   ],
   "refresh": "5s",
@@ -1721,5 +1831,5 @@
   "timezone": "",
   "title": "Lituya Status",
   "uid": "wcuuRJkgz",
-  "version": 57
+  "version": 71
 }
