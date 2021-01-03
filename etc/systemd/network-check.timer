@@ -1,0 +1,9 @@
+[Unit]
+Description=Run network-check periodically
+
+[Timer]
+OnBootSec=5min
+OnUnitActiveSec=60
+
+[Install]
+WantedBy=timers.target
