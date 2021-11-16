@@ -9,7 +9,7 @@
             "name": "CPU Temperature",
             "class": "CPUTemp",
             "location": "LituyaMon",
-            "interval": 5,
+            "interval": 15,
             "keys": ["environment.inside.lituyamon.temperature"],
             "enabled": true
         },
@@ -17,7 +17,7 @@
             "name": "Salon Temperature and Humidity",
             "class": "DHT22",
             "location": "Salon",
-            "interval": 5,
+            "interval": 58,
             "gpio": 27,
             "keys": [
                 "environment.inside.salon.temperature",
@@ -29,7 +29,7 @@
             "name": "Engine Room Temperature and Humidity",
             "class": "DHT22",
             "location": "Engine Room",
-            "interval": 5,
+            "interval": 59,
             "gpio": 22,
             "keys": [
                 "environment.inside.engineroom.temperature",
@@ -41,62 +41,62 @@
             "name": "Engine Block Temperature",
             "class": "DS18B20",
             "location": "Engine Block",
-            "interval": 5,
+            "interval": 57,
             "identifier": "28-01192d62eb82",
             "keys": [
                 "propulsion.qsc83.temperature"
             ],
-            "enabled": true
+            "enabled": false
         },
         "ds18b20.2": {
             "name": "Fwd Cabin Temperature",
             "class": "DS18B20",
             "location": "Fwd Cabin",
-            "interval": 11,
+            "interval": 61,
             "identifier": "28-01192d61416d",
             "keys": [
                 "environment.inside.fwdcabin.temperature"
             ],
-            "enabled": true
+            "enabled": false
         },
         "ds18b20.3": {
             "name": "Pilot House Temperature",
             "class": "DS18B20",
             "location": "Pilor House",
-            "interval": 9,
+            "interval": 62,
             "identifier": "28-01192d3ee042",
             "keys": [
                 "environment.inside.pilot.temperature"
             ],
-            "enabled": true
+            "enabled": false
         },
         "ds18b20.4": {
             "name": "Engine Room Temperature",
             "class": "DS18B20",
             "location": "Engine Room",
-            "interval": 6,
+            "interval": 60,
             "identifier": "28-01192d67a561",
             "keys": [
                 "environment.inside.engineroom.temperature"
             ],
-            "enabled": true
+            "enabled": false
         },
         "ds18b20.5": {
             "name": "Lazarette Temperature",
             "class": "DS18B20",
             "location": "Lazarette",
-            "interval": 7,
+            "interval": 70,
             "identifier": "28-01192d4fffe6",
             "keys": [
                 "environment.inside.lazarette.temperature"
             ],
-            "enabled": true
+            "enabled": false
         },
         "voltage.1": {
             "name": "House Battery Voltage",
             "class": "MCP3008",
             "location": "Pilot",
-            "interval": 5,
+            "interval": 60,
             "identifier": "0",
             "keys": [
                 "electrical.batteries.house.voltage"
