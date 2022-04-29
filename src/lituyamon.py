@@ -10,6 +10,7 @@ import sys
 import time
 import Adafruit_DHT
 import spidev
+import numpy as np
 
 from Adafruit_IO import Client
 from datetime import datetime
@@ -249,9 +250,15 @@ class MCP3008(Sensor):
 
     def read_sensor(self, gpio=None, identifier=None): 
         channel = int(identifier)
-        level = self._read_channel(channel)
-        self._log.debug("Channel/Level: {}/{}".format(channel, level))
-        volts = self._convert_volts(level, 2)
+        levels=[]
+        for i in range(100):    
+            level = self._read_channel(channel)
+            #self._log.debug("Channel/Level: {}/{}".format(channel, level))
+            levels.append(level)
+        level_avg = np.mean(levels)
+        self._log.debug("Level Average: {}".format(level_avg))
+        self.spi.close()
+        volts = self._convert_volts(level_avg, 2)
         return([volts])
 
     # Read SPI data from MCP3008
@@ -260,7 +267,6 @@ class MCP3008(Sensor):
     def _read_channel(self, channel):
         adc = self.spi.xfer2([1, (8+channel)<<4,0])
         data = ((adc[1]&3) << 8) + adc[2]
-        self.spi.close()
         return data
 
     # Convert binary reading to voltage, rounded to places
@@ -270,7 +276,8 @@ class MCP3008(Sensor):
         # using calibration based on actual resistance ratio
         # this is currently based on using a 100kohm and 22.1kohm resistors,
         # and the conversion below was determined experimentally
-        volts_in = 0.019281*level - 0.001144
+        volts_in = 0.019281*level - 0.001144 # first calibration, a little low but ok
+        #volts_in = 0.07897*level - 40.18013  # second calibration, too high, not right
         volts = round(volts_in, places)
         return volts
     
