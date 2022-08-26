@@ -65,6 +65,46 @@ The MCP3008 10-bit analog to digital converter is an IC that uses SPI to communi
         - volts_in = 0.019281*level - 0.001144
     - In lituyamon, this calibrated voltage is feeding to the signalk key `electrical.batteries.house.voltage`
 
+# Hardware shutdown using a button
+
+Based on the writeup by Matthijs Kooijman titled [Raspberry pi powerdown and
+powerup button](https://www.stderr.nl/Hardware/RaspberryPi/PowerButton.html). By
+connecting a momentary switch between GPIO3 and Ground as described below, we
+can shutdown the pi (if it is up) and restart it (if it is down).
+
+- If the PI is running, shorting GPIO3 to GND will shutdown the pi using systemctl as if `halt` had been called
+- Once the pi has been shutdown, it still has power, so shorting GPIO3 to GND again will boot the pi
+- If the power has been pulled from the pi, reconnecting it will boot the pi as normal
+
+All of this is enabled by adding a ling to the `/boot/config.txt` file with the following details, and then reboot:
+
+```
+# Enable hardware shutdown by shorting GPIO3 to GND
+dtoverlay=gpio-shutdown,gpio_pin=3
+```
+
+For lituyamon, I am wiring in a momentary switch that has 5 pins arranged like so:
+        --------
+      /         \
+     |           |  Pin 1 = (+) LED
+     | 1       5 |  Pin 5 = (-) LED
+      \  2 3 4  /   Pin 2 = NC1: Normally closed
+       ---------    Pin 3 = NO1: Normally open
+                    Pin 4 =  C1: Common
+
+By connecting C1 to Ground and NO1 to GPIO3, then when the button is pushed, the
+circuit is completed and the pi will shutdown or boot up as appropriate.
+
+In addition, by connecting Pin 1 (+) to another GPIO pin (like GPIO5), and Pin 5
+(-) to GND, the LED can be lit by turning on GPIO5. This can also be comfigured
+as the default in `/boot/config.txt` so that the LED lights up when the pi
+boots, and then shuts off during shutdown. This can be configured by adding the
+following line to `config.txt` and then rebooting:
+
+```
+gpio=5=op,dh
+```
+
 # Future Sensors
 
 ## Bilge water level
