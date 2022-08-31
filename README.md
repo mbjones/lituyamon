@@ -76,33 +76,33 @@ can shutdown the pi (if it is up) and restart it (if it is down).
 - Once the pi has been shutdown, it still has power, so shorting GPIO3 to GND again will boot the pi
 - If the power has been pulled from the pi, reconnecting it will boot the pi as normal
 
-All of this is enabled by adding a ling to the `/boot/config.txt` file with the following details, and then reboot:
+All of this is enabled by adding a line to the `/boot/config.txt` file with the following details, and then reboot:
 
 ```
 # Enable hardware shutdown by shorting GPIO3 to GND
 dtoverlay=gpio-shutdown,gpio_pin=3
 ```
 
-For lituyamon, I am wiring in a momentary switch that has 5 pins arranged like so:
+For lituyamon, I am wiring in a momentary switch that has 5 pins arranged like so (wire colors in parens):
         --------
       /         \
-     |           |  Pin 1 = (+) LED
-     | 1       5 |  Pin 5 = (-) LED
-      \  2 3 4  /   Pin 2 = NC1: Normally closed
-       ---------    Pin 3 = NO1: Normally open
-                    Pin 4 =  C1: Common
+     |           |  Pin 1 = (+) LED (Brown)
+     | 1       5 |  Pin 5 = (-) LED (Orange)
+      \  2 3 4  /   Pin 2 = NC1: Normally closed (not used)
+       ---------    Pin 3 = NO1: Normally open (Green)
+                    Pin 4 =  C1: Common (Blue)
 
 By connecting C1 to Ground and NO1 to GPIO3, then when the button is pushed, the
 circuit is completed and the pi will shutdown or boot up as appropriate.
 
-In addition, by connecting Pin 1 (+) to another GPIO pin (like GPIO5), and Pin 5
-(-) to GND, the LED can be lit by turning on GPIO5. This can also be comfigured
+In addition, by connecting Pin 1 (+) to another GPIO pin (like GPIO16), and Pin 5
+(-) to GND, the LED can be lit by turning on GPIO16. This can also be configured
 as the default in `/boot/config.txt` so that the LED lights up when the pi
 boots, and then shuts off during shutdown. This can be configured by adding the
 following line to `config.txt` and then rebooting:
 
 ```
-gpio=5=op,dh
+gpio=16=op,dh
 ```
 
 # Future Sensors
