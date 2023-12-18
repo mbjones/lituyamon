@@ -9,7 +9,7 @@
             "name": "CPU Temperature",
             "class": "CPUTemp",
             "location": "LituyaMon",
-            "interval": 15,
+            "interval": 30,
             "keys": ["environment.inside.lituyamon.temperature"],
             "enabled": true
         },
@@ -41,56 +41,56 @@
             "name": "Engine Block Temperature",
             "class": "DS18B20",
             "location": "Engine Block",
-            "interval": 57,
+            "interval": 51,
             "identifier": "28-01192d62eb82",
             "keys": [
                 "propulsion.qsc83.temperature"
             ],
-            "enabled": false
+            "enabled": true
         },
         "ds18b20.2": {
             "name": "Fwd Cabin Temperature",
             "class": "DS18B20",
             "location": "Fwd Cabin",
-            "interval": 61,
+            "interval": 55,
             "identifier": "28-01192d61416d",
             "keys": [
                 "environment.inside.fwdcabin.temperature"
             ],
-            "enabled": false
+            "enabled": true
         },
         "ds18b20.3": {
             "name": "Pilot House Temperature",
             "class": "DS18B20",
-            "location": "Pilor House",
-            "interval": 62,
+            "location": "Pilot House",
+            "interval": 59,
             "identifier": "28-01192d3ee042",
             "keys": [
                 "environment.inside.pilot.temperature"
             ],
-            "enabled": false
+            "enabled": true
         },
         "ds18b20.4": {
             "name": "Engine Room Temperature",
             "class": "DS18B20",
             "location": "Engine Room",
-            "interval": 60,
+            "interval": 63,
             "identifier": "28-01192d67a561",
             "keys": [
                 "environment.inside.engineroom.temperature"
             ],
-            "enabled": false
+            "enabled": true
         },
         "ds18b20.5": {
             "name": "Lazarette Temperature",
             "class": "DS18B20",
             "location": "Lazarette",
-            "interval": 70,
+            "interval": 67,
             "identifier": "28-01192d4fffe6",
             "keys": [
                 "environment.inside.lazarette.temperature"
             ],
-            "enabled": false
+            "enabled": true
         },
         "voltage.1": {
             "name": "House Battery Voltage",
@@ -176,7 +176,7 @@
             },           
             "root": {
                 "handlers": ["console"],
-                "level": "DEBUG"
+                "level": "WARNING"
             }    
         }
     }

@@ -35,7 +35,7 @@ The DS18B20 temperature sensor is a digital sensor that uses the 1-wire protocol
 - 28-01192d61416d - Fwd Cabin
 - 28-01192d3ee042 - Aft Cabin
 - 28-01192d62eb82 - Engine Block
-- 28-01192d67a561 - Engine Exhaust Elbow
+- 28-01192d67a561 - Engine Room
 - 28-01192d4fffe6 - Lazarette
 
 Calibrating sensors is done by testing the sensors in ice water and boiling water, and using the following forula:
