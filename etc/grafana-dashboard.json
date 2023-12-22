@@ -2,8 +2,12 @@
   "annotations": {
     "list": [
       {
+        "$$hashKey": "object:7",
         "builtIn": 1,
-        "datasource": "-- Grafana --",
+        "datasource": {
+          "type": "datasource",
+          "uid": "grafana"
+        },
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
@@ -13,14 +17,18 @@
     ]
   },
   "editable": true,
-  "gnetId": null,
+  "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": 1,
   "links": [],
+  "liveNow": false,
   "panels": [
     {
       "collapsed": false,
-      "datasource": null,
+      "datasource": {
+        "type": "influxdb",
+        "uid": "000000001"
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -29,14 +37,24 @@
       },
       "id": 11,
       "panels": [],
-      "title": "",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "000000001"
+          },
+          "refId": "A"
+        }
+      ],
       "type": "row"
     },
     {
-      "datasource": "InfluxDB",
+      "datasource": {
+        "type": "influxdb",
+        "uid": "000000001"
+      },
       "fieldConfig": {
         "defaults": {
-          "custom": {},
           "decimals": 0,
           "links": [],
           "mappings": [],
@@ -73,6 +91,8 @@
       "interval": "",
       "links": [],
       "options": {
+        "minVizHeight": 200,
+        "minVizWidth": 200,
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
@@ -82,12 +102,17 @@
           "values": false
         },
         "showThresholdLabels": false,
-        "showThresholdMarkers": true
+        "showThresholdMarkers": true,
+        "sizing": "auto"
       },
-      "pluginVersion": "7.3.6",
+      "pluginVersion": "10.2.3",
       "targets": [
         {
           "alias": "Fwd Cabin Temperature",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "000000001"
+          },
           "groupBy": [
             {
               "params": [
@@ -126,17 +151,17 @@
           "tags": []
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Fwd Cabin",
       "transparent": true,
       "type": "gauge"
     },
     {
-      "datasource": "InfluxDB",
+      "datasource": {
+        "type": "influxdb",
+        "uid": "000000001"
+      },
       "fieldConfig": {
         "defaults": {
-          "custom": {},
           "decimals": 0,
           "links": [],
           "mappings": [],
@@ -173,6 +198,8 @@
       "interval": "",
       "links": [],
       "options": {
+        "minVizHeight": 200,
+        "minVizWidth": 200,
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
@@ -182,12 +209,17 @@
           "values": false
         },
         "showThresholdLabels": false,
-        "showThresholdMarkers": true
+        "showThresholdMarkers": true,
+        "sizing": "auto"
       },
-      "pluginVersion": "7.3.6",
+      "pluginVersion": "10.2.3",
       "targets": [
         {
           "alias": "Pilot Temperature",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "000000001"
+          },
           "groupBy": [
             {
               "params": [
@@ -226,17 +258,17 @@
           "tags": []
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Pilot",
       "transparent": true,
       "type": "gauge"
     },
     {
-      "datasource": "InfluxDB",
+      "datasource": {
+        "type": "influxdb",
+        "uid": "000000001"
+      },
       "fieldConfig": {
         "defaults": {
-          "custom": {},
           "decimals": 0,
           "links": [],
           "mappings": [],
@@ -273,6 +305,8 @@
       "interval": "",
       "links": [],
       "options": {
+        "minVizHeight": 200,
+        "minVizWidth": 200,
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
@@ -282,12 +316,17 @@
           "values": false
         },
         "showThresholdLabels": false,
-        "showThresholdMarkers": true
+        "showThresholdMarkers": true,
+        "sizing": "auto"
       },
-      "pluginVersion": "7.3.6",
+      "pluginVersion": "10.2.3",
       "targets": [
         {
           "alias": "Engine Room Temperature",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "000000001"
+          },
           "groupBy": [
             {
               "params": [
@@ -326,18 +365,18 @@
           "tags": []
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Engine Room",
       "transparent": true,
       "type": "gauge"
     },
     {
-      "datasource": "InfluxDB",
+      "datasource": {
+        "type": "influxdb",
+        "uid": "000000001"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
-          "custom": {},
           "decimals": 0,
           "links": [],
           "mappings": [],
@@ -374,6 +413,8 @@
       "interval": "",
       "links": [],
       "options": {
+        "minVizHeight": 200,
+        "minVizWidth": 200,
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
@@ -383,12 +424,17 @@
           "values": false
         },
         "showThresholdLabels": false,
-        "showThresholdMarkers": true
+        "showThresholdMarkers": true,
+        "sizing": "auto"
       },
-      "pluginVersion": "7.3.6",
+      "pluginVersion": "10.2.3",
       "targets": [
         {
           "alias": "Engine Block",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "000000001"
+          },
           "groupBy": [],
           "measurement": "environment.inside.lituyamon.temperature",
           "orderByTime": "ASC",
@@ -410,18 +456,18 @@
           "tags": []
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Engine Block",
       "transparent": true,
       "type": "gauge"
     },
     {
-      "datasource": "InfluxDB",
+      "datasource": {
+        "type": "influxdb",
+        "uid": "000000001"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
-          "custom": {},
           "decimals": 0,
           "links": [],
           "mappings": [],
@@ -458,6 +504,8 @@
       "interval": "",
       "links": [],
       "options": {
+        "minVizHeight": 200,
+        "minVizWidth": 200,
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
@@ -467,12 +515,17 @@
           "values": false
         },
         "showThresholdLabels": false,
-        "showThresholdMarkers": true
+        "showThresholdMarkers": true,
+        "sizing": "auto"
       },
-      "pluginVersion": "7.3.6",
+      "pluginVersion": "10.2.3",
       "targets": [
         {
           "alias": "Aft Cabin Temperature",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "000000001"
+          },
           "groupBy": [
             {
               "params": [
@@ -511,8 +564,6 @@
           "tags": []
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Lazarette",
       "transparent": true,
       "type": "gauge"
@@ -522,10 +573,12 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "InfluxDB",
+      "datasource": {
+        "type": "influxdb",
+        "uid": "000000001"
+      },
       "fieldConfig": {
         "defaults": {
-          "custom": {},
           "links": []
         },
         "overrides": []
@@ -558,7 +611,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.3.6",
+      "pluginVersion": "10.2.3",
       "pointradius": 3,
       "points": true,
       "renderer": "flot",
@@ -569,6 +622,10 @@
       "targets": [
         {
           "alias": "Pilot",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "000000001"
+          },
           "groupBy": [
             {
               "params": [
@@ -609,6 +666,10 @@
         },
         {
           "alias": "Fwd Cabin",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "000000001"
+          },
           "groupBy": [
             {
               "params": [
@@ -649,6 +710,10 @@
         },
         {
           "alias": "Engine Room",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "000000001"
+          },
           "groupBy": [
             {
               "params": [
@@ -689,6 +754,10 @@
         },
         {
           "alias": "Lazarette",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "000000001"
+          },
           "groupBy": [
             {
               "params": [
@@ -729,6 +798,10 @@
         },
         {
           "alias": "Engine Block",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "000000001"
+          },
           "groupBy": [
             {
               "params": [
@@ -767,9 +840,7 @@
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
       "timeRegions": [],
-      "timeShift": null,
       "title": "Temperature",
       "tooltip": {
         "shared": true,
@@ -779,55 +850,201 @@
       "transparent": true,
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
       "yaxes": [
         {
-          "decimals": null,
+          "$$hashKey": "object:95",
           "format": "fahrenheit",
           "label": "",
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         },
         {
+          "$$hashKey": "object:96",
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": false
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     },
     {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "000000001"
+      },
+      "description": "Lituya Temperature",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 7,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "dashed"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "blue",
+                "value": 35
+              }
+            ]
+          },
+          "unit": "fahrenheit"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 20,
+        "x": 0,
+        "y": 13
+      },
+      "id": 29,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "alias": "Pilot",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "000000001"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "orderByTime": "ASC",
+          "policy": "one_year",
+          "query": "SELECT (9/5)*(value-273.15)+32 FROM \"one_year\".\"environment.inside.pilot.temperature\" WHERE $timeFilter",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        },
+        {
+          "alias": "Fwd cabin",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "000000001"
+          },
+          "hide": false,
+          "query": "SELECT (9/5)*(value-273.15)+32 FROM \"one_year\".\"environment.inside.fwdcabin.temperature\" WHERE $timeFilter",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series"
+        }
+      ],
+      "title": "Temp2",
+      "transparent": true,
+      "type": "timeseries"
+    },
+    {
       "collapsed": false,
-      "datasource": null,
+      "datasource": {
+        "type": "influxdb",
+        "uid": "000000001"
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 13
+        "y": 20
       },
       "id": 19,
       "panels": [],
-      "title": "",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "000000001"
+          },
+          "refId": "A"
+        }
+      ],
       "type": "row"
     },
     {
-      "datasource": "InfluxDB",
+      "datasource": {
+        "type": "influxdb",
+        "uid": "000000001"
+      },
       "fieldConfig": {
         "defaults": {
-          "custom": {},
           "decimals": 1,
           "links": [],
           "mappings": [],
@@ -862,7 +1079,7 @@
         "h": 5,
         "w": 4,
         "x": 0,
-        "y": 14
+        "y": 21
       },
       "id": 28,
       "interval": "",
@@ -879,12 +1096,17 @@
           "fields": "",
           "values": false
         },
-        "textMode": "auto"
+        "textMode": "auto",
+        "wideLayout": true
       },
-      "pluginVersion": "7.3.6",
+      "pluginVersion": "10.2.3",
       "targets": [
         {
           "alias": "Engine Temperature",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "000000001"
+          },
           "groupBy": [],
           "measurement": "environment.inside.lituyamon.temperature",
           "orderByTime": "ASC",
@@ -906,8 +1128,6 @@
           "tags": []
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "House Battery",
       "transparent": true,
       "type": "stat"
@@ -957,11 +1177,13 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "InfluxDB",
+      "datasource": {
+        "type": "influxdb",
+        "uid": "000000001"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
-          "custom": {},
           "links": []
         },
         "overrides": []
@@ -972,7 +1194,7 @@
         "h": 5,
         "w": 5,
         "x": 4,
-        "y": 14
+        "y": 21
       },
       "hiddenSeries": false,
       "id": 26,
@@ -993,7 +1215,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.3.6",
+      "pluginVersion": "10.2.3",
       "pointradius": 3,
       "points": false,
       "renderer": "flot",
@@ -1004,6 +1226,10 @@
       "targets": [
         {
           "alias": "House Battery Voltage",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "000000001"
+          },
           "groupBy": [
             {
               "params": [
@@ -1051,9 +1277,7 @@
           "value": 13
         }
       ],
-      "timeFrom": null,
       "timeRegions": [],
-      "timeShift": null,
       "title": "House Battery",
       "tooltip": {
         "shared": true,
@@ -1063,14 +1287,13 @@
       "transparent": true,
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
       "yaxes": [
         {
+          "$$hashKey": "object:196",
           "decimals": 1,
           "format": "volt",
           "label": "",
@@ -1080,24 +1303,23 @@
           "show": true
         },
         {
+          "$$hashKey": "object:197",
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     },
     {
-      "datasource": "InfluxDB",
+      "datasource": {
+        "type": "influxdb",
+        "uid": "000000001"
+      },
       "fieldConfig": {
         "defaults": {
-          "custom": {},
           "decimals": 0,
           "links": [],
           "mappings": [],
@@ -1128,12 +1350,14 @@
         "h": 5,
         "w": 4,
         "x": 9,
-        "y": 14
+        "y": 21
       },
       "id": 2,
       "interval": "",
       "links": [],
       "options": {
+        "minVizHeight": 200,
+        "minVizWidth": 200,
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
@@ -1143,12 +1367,17 @@
           "values": false
         },
         "showThresholdLabels": false,
-        "showThresholdMarkers": true
+        "showThresholdMarkers": true,
+        "sizing": "auto"
       },
-      "pluginVersion": "7.3.6",
+      "pluginVersion": "10.2.3",
       "targets": [
         {
           "alias": "LituyaMon Temperature",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "000000001"
+          },
           "groupBy": [
             {
               "params": [
@@ -1187,8 +1416,6 @@
           "tags": []
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "CPU Temperature",
       "transparent": true,
       "type": "gauge"
@@ -1238,10 +1465,12 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "InfluxDB",
+      "datasource": {
+        "type": "influxdb",
+        "uid": "000000001"
+      },
       "fieldConfig": {
         "defaults": {
-          "custom": {},
           "links": []
         },
         "overrides": []
@@ -1252,7 +1481,7 @@
         "h": 5,
         "w": 5,
         "x": 13,
-        "y": 14
+        "y": 21
       },
       "hiddenSeries": false,
       "id": 3,
@@ -1273,7 +1502,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.3.6",
+      "pluginVersion": "10.2.3",
       "pointradius": 3,
       "points": false,
       "renderer": "flot",
@@ -1284,6 +1513,10 @@
       "targets": [
         {
           "alias": "LituyaMon Temperature",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "000000001"
+          },
           "groupBy": [
             {
               "params": [
@@ -1331,9 +1564,7 @@
           "value": 190
         }
       ],
-      "timeFrom": null,
       "timeRegions": [],
-      "timeShift": null,
       "title": "CPU Temperature",
       "tooltip": {
         "shared": true,
@@ -1343,43 +1574,39 @@
       "transparent": true,
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
       "yaxes": [
         {
+          "$$hashKey": "object:962",
           "format": "fahrenheit",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         },
         {
+          "$$hashKey": "object:963",
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     },
     {
       "collapsed": true,
-      "datasource": null,
+      "datasource": {
+        "type": "influxdb",
+        "uid": "000000001"
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 19
+        "y": 26
       },
       "id": 7,
       "panels": [
@@ -1450,10 +1677,12 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "InfluxDB",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "000000001"
+          },
           "fieldConfig": {
             "defaults": {
-              "custom": {},
               "links": []
             },
             "overrides": []
@@ -1464,7 +1693,7 @@
             "h": 5,
             "w": 5,
             "x": 13,
-            "y": 3
+            "y": 28
           },
           "hiddenSeries": false,
           "id": 23,
@@ -1485,7 +1714,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "7.3.6",
+          "pluginVersion": "10.2.3",
           "pointradius": 3,
           "points": false,
           "renderer": "flot",
@@ -1496,6 +1725,10 @@
           "targets": [
             {
               "alias": "Engine Temperature",
+              "datasource": {
+                "type": "influxdb",
+                "uid": "000000001"
+              },
               "groupBy": [
                 {
                   "params": [
@@ -1543,9 +1776,7 @@
               "value": 180
             }
           ],
-          "timeFrom": null,
           "timeRegions": [],
-          "timeShift": null,
           "title": "Engine Temperature",
           "tooltip": {
             "shared": true,
@@ -1555,56 +1786,63 @@
           "transparent": true,
           "type": "graph",
           "xaxis": {
-            "buckets": null,
             "mode": "time",
-            "name": null,
             "show": true,
             "values": []
           },
           "yaxes": [
             {
+              "$$hashKey": "object:196",
               "decimals": 0,
               "format": "fahrenheit",
               "label": "",
               "logBase": 1,
-              "max": null,
-              "min": null,
               "show": true
             },
             {
+              "$$hashKey": "object:197",
               "format": "short",
-              "label": null,
               "logBase": 1,
-              "max": null,
-              "min": null,
               "show": true
             }
           ],
           "yaxis": {
-            "align": false,
-            "alignLevel": null
+            "align": false
           }
         }
       ],
-      "title": "",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "000000001"
+          },
+          "refId": "A"
+        }
+      ],
       "type": "row"
     },
     {
       "collapsed": true,
-      "datasource": null,
+      "datasource": {
+        "type": "influxdb",
+        "uid": "000000001"
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 20
+        "y": 27
       },
       "id": 9,
       "panels": [
         {
-          "datasource": "InfluxDB",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "000000001"
+          },
           "fieldConfig": {
             "defaults": {
-              "custom": {},
               "decimals": 1,
               "links": [],
               "mappings": [],
@@ -1635,12 +1873,14 @@
             "h": 5,
             "w": 4,
             "x": 0,
-            "y": 4
+            "y": 29
           },
           "id": 27,
           "interval": "",
           "links": [],
           "options": {
+            "minVizHeight": 200,
+            "minVizWidth": 200,
             "orientation": "auto",
             "reduceOptions": {
               "calcs": [
@@ -1650,12 +1890,17 @@
               "values": false
             },
             "showThresholdLabels": false,
-            "showThresholdMarkers": true
+            "showThresholdMarkers": true,
+            "sizing": "auto"
           },
-          "pluginVersion": "7.3.6",
+          "pluginVersion": "10.2.3",
           "targets": [
             {
               "alias": "Humidity",
+              "datasource": {
+                "type": "influxdb",
+                "uid": "000000001"
+              },
               "groupBy": [
                 {
                   "params": [
@@ -1694,18 +1939,18 @@
               "tags": []
             }
           ],
-          "timeFrom": null,
-          "timeShift": null,
           "title": "Salon Humidity",
           "transparent": true,
           "type": "gauge"
         },
         {
-          "datasource": "InfluxDB",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "000000001"
+          },
           "description": "",
           "fieldConfig": {
             "defaults": {
-              "custom": {},
               "decimals": 1,
               "links": [],
               "mappings": [],
@@ -1736,12 +1981,14 @@
             "h": 5,
             "w": 4,
             "x": 5,
-            "y": 4
+            "y": 29
           },
           "id": 16,
           "interval": "",
           "links": [],
           "options": {
+            "minVizHeight": 200,
+            "minVizWidth": 200,
             "orientation": "auto",
             "reduceOptions": {
               "calcs": [
@@ -1751,12 +1998,17 @@
               "values": false
             },
             "showThresholdLabels": false,
-            "showThresholdMarkers": true
+            "showThresholdMarkers": true,
+            "sizing": "auto"
           },
-          "pluginVersion": "7.3.6",
+          "pluginVersion": "10.2.3",
           "targets": [
             {
               "alias": "Humidity",
+              "datasource": {
+                "type": "influxdb",
+                "uid": "000000001"
+              },
               "groupBy": [
                 {
                   "params": [
@@ -1795,26 +2047,31 @@
               "tags": []
             }
           ],
-          "timeFrom": null,
-          "timeShift": null,
           "title": "ER Humidity",
           "transparent": true,
           "type": "gauge"
         }
       ],
-      "title": "",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "000000001"
+          },
+          "refId": "A"
+        }
+      ],
       "type": "row"
     }
   ],
   "refresh": "5s",
-  "schemaVersion": 26,
-  "style": "dark",
+  "schemaVersion": 39,
   "tags": [],
   "templating": {
     "list": []
   },
   "time": {
-    "from": "now-12h",
+    "from": "now-5d",
     "to": "now"
   },
   "timepicker": {
@@ -1834,5 +2091,6 @@
   "timezone": "",
   "title": "Lituya Status",
   "uid": "wcuuRJkgz",
-  "version": 104
+  "version": 105,
+  "weekStart": ""
 }
