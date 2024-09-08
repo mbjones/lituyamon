@@ -4,7 +4,7 @@ Requires=lituyamond.service
 After=network.target lituyamond.service
 
 [Service]
-ExecStart=/usr/local/bin/cerbo-read-values.sh
+ExecStart=/usr/local/bin/lituya-cerbo-read.sh
 Restart=always
 StandardOutput=syslog
 StandardError=syslog
