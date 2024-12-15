@@ -5,18 +5,16 @@ import paho.mqtt.client as mqtt
 def read_sensor(self, gpio=None, identifier=None):
     #self._log.debug("Reading from: {}".format(identifier))
     print("Reading from: {}".format(identifier))
-    try:
-        counter = 0
-        while identifier not in _sensor_vals and counter < 10:
-            counter = counter+1
-            time.sleep(1)
+    counter = 0
+    while identifier not in _sensor_vals and counter < 10:
+        counter = counter+1
+        time.sleep(1)
 
-        if identifier in _sensor_vals:
-            value = _sensor_vals[identifier]
-        else:
-            raise SensorNotFoundError(identifier)
-    except:
-        raise SensorNotFoundError(identifier)
+    if identifier in _sensor_vals:
+        value = _sensor_vals[identifier]
+    else:
+        value = None
+        print("Value not found for: " + identifier)
     return([value])
 
 # The callback for when the client receives a CONNACK response from the server.
