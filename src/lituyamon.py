@@ -276,8 +276,9 @@ class MCP3008(Sensor):
         # using calibration based on actual resistance ratio
         # this is currently based on using a 100kohm and 22.1kohm resistors,
         # and the conversion below was determined experimentally
-        volts_in = 0.019281*level - 0.001144 # first calibration, a little low but ok
+        #volts_in = 0.019281*level - 0.001144 # first calibration, a little low but ok
         #volts_in = 0.07897*level - 40.18013  # second calibration, too high, not right
+        volts_in = 0.01803*level + 1.09664 # third calibration, closer
         volts = round(volts_in, places)
         return volts
     
