@@ -11,6 +11,7 @@ import time
 import Adafruit_DHT
 import spidev
 import numpy as np
+import paho.mqtt.client as mqtt
 
 from Adafruit_IO import Client
 from datetime import datetime
@@ -282,6 +283,57 @@ class MCP3008(Sensor):
         volts = round(volts_in, places)
         return volts
     
+class MQTT(Sensor):
+    _status = "Unconfigured"
+    _log = None
+    _identifer = None
+    _mqttc = None
+    _sensor_vals = {}
+
+    def initialize(self):
+        self._log = logging.getLogger("lituyamon.MQTT")
+        self._status = "Initialized"
+
+        self._mqttc = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
+        self._mqttc.on_connect = self.on_connect
+        self._mqttc.on_message = self.on_message
+        self._mqttc.connect("venus.local", 1883, 60)
+        self._mqttc.loop_start()
+
+
+    def read_sensor(self, gpio=None, identifier=None):
+        self._log.debug("Reading from: {}".format(identifier))
+        try:
+            counter = 0
+            while identifier not in self._sensor_vals and counter < 10:
+                counter = counter+1
+                time.sleep(1)
+    
+            self._mqttc.loop_stop() # Stop polling for new sensor values
+            if identifier in self._sensor_vals:
+                value = self._sensor_vals[identifier]
+            else:
+                raise SensorNotFoundError(identifier)
+        except:
+            raise SensorNotFoundError(identifier)
+        return([value])
+
+    # The callback for when the client receives a CONNACK response from the server.
+    def on_connect(self, client, userdata, flags, reason_code, properties):
+        self._log.debug(f"Connected to MQTT with result code {reason_code}")
+        # Subscribing in on_connect() means that if we lose the connection and
+        # reconnect then subscriptions will be renewed.
+        #client.subscribe("$SYS/#")
+        #client.subscribe("N/c0619ab56440/vebus/276/Dc/0/Temperature")
+        client.subscribe("N/c0619ab56440/#")
+
+    # The callback for when a PUBLISH message is received from the server.
+    def on_message(self, client, userdata, msg):
+        self._log.debug(msg.topic+" "+str(msg.payload))
+        payload = json.loads(msg.payload)
+        self._sensor_vals[msg.topic] = payload["value"]
+
+
 class SensorNotFoundError(Exception):
     """Raised when attempting to read from a sensor that can not be found.
 
@@ -302,3 +354,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

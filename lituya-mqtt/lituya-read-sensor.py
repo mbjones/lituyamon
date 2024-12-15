@@ -1,6 +1,5 @@
 import time
 import json
-import paho
 import paho.mqtt.client as mqtt
 
 def read_sensor(self, gpio=None, identifier=None):

@@ -46,7 +46,7 @@
             "keys": [
                 "propulsion.qsc83.temperature"
             ],
-            "enabled": true
+            "enabled": false
         },
         "ds18b20.2": {
             "name": "Fwd Cabin Temperature",
@@ -79,7 +79,7 @@
             "keys": [
                 "environment.inside.engineroom.temperature"
             ],
-            "enabled": true
+            "enabled": false
         },
         "ds18b20.5": {
             "name": "Lazarette Temperature",
@@ -90,7 +90,7 @@
             "keys": [
                 "environment.inside.lazarette.temperature"
             ],
-            "enabled": true
+            "enabled": false
         },
         "voltage.1": {
             "name": "House Battery Voltage",
@@ -100,6 +100,17 @@
             "identifier": "0",
             "keys": [
                 "electrical.batteries.house.voltage"
+            ],
+            "enabled": true
+        },
+        "mqtt.1": {
+            "name": "Engine Room Temperature",
+            "class": "MQTT",
+            "location": "Engine Room",
+            "interval": 60,
+            "identifier": "N/c0619ab56440/vebus/276/Dc/0/Temperature",
+            "keys": [
+                "environment.inside.engineroom.temperature"
             ],
             "enabled": true
         }
