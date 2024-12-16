@@ -25,6 +25,975 @@
   "panels": [
     {
       "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 46,
+      "panels": [],
+      "title": "Multiplus AC",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "000000001"
+      },
+      "description": "Multiplus AC Power",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "orange",
+            "mode": "shades"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 25,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineStyle": {
+              "fill": "solid"
+            },
+            "lineWidth": 2,
+            "pointSize": 7,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "always",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "dashed"
+            }
+          },
+          "decimals": 1,
+          "fieldMinMax": false,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "watt"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 5,
+        "x": 0,
+        "y": 1
+      },
+      "id": 47,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "alias": "Power",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "000000001"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "orderByTime": "ASC",
+          "policy": "one_year",
+          "query": "SELECT value FROM \"one_year\".\"electrical.inverters.multiplus.ac.power\" WHERE $timeFilter",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "title": "AC L1 In Power",
+      "transparent": true,
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "000000001"
+      },
+      "description": "Multiplus AC Current",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "dark-blue",
+            "mode": "shades"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "axisSoftMax": 16,
+            "axisSoftMin": 11,
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 25,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineStyle": {
+              "fill": "solid"
+            },
+            "lineWidth": 2,
+            "pointSize": 7,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "always",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "dashed"
+            }
+          },
+          "decimals": 1,
+          "fieldMinMax": false,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "blue",
+                "value": 35
+              }
+            ]
+          },
+          "unit": "amp"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 5,
+        "x": 5,
+        "y": 1
+      },
+      "id": 48,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "alias": "Current",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "000000001"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "orderByTime": "ASC",
+          "policy": "one_year",
+          "query": "SELECT value FROM \"one_year\".\"electrical.inverters.multiplus.ac.current\" WHERE $timeFilter",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "title": "AC L1 In Current",
+      "transparent": true,
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "000000001"
+      },
+      "description": "House Battery Voltage",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "dark-purple",
+            "mode": "shades"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "axisSoftMax": 16,
+            "axisSoftMin": 11,
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 25,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineStyle": {
+              "fill": "solid"
+            },
+            "lineWidth": 2,
+            "pointSize": 7,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "always",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "dashed"
+            }
+          },
+          "decimals": 1,
+          "fieldMinMax": false,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "blue",
+                "value": 35
+              }
+            ]
+          },
+          "unit": "volt"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 5,
+        "x": 10,
+        "y": 1
+      },
+      "id": 49,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "alias": "Voltage",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "000000001"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "orderByTime": "ASC",
+          "policy": "one_year",
+          "query": "SELECT value FROM \"one_year\".\"electrical.batteries.house.voltage\" WHERE $timeFilter",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "title": "Voltage",
+      "transparent": true,
+      "type": "timeseries"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 7
+      },
+      "id": 41,
+      "panels": [],
+      "title": "House Battery",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "000000001"
+      },
+      "description": "House Battery Power",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "orange",
+            "mode": "shades"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 25,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineStyle": {
+              "fill": "solid"
+            },
+            "lineWidth": 2,
+            "pointSize": 7,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "always",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "dashed"
+            }
+          },
+          "decimals": 1,
+          "fieldMinMax": false,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "watt"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 5,
+        "x": 0,
+        "y": 8
+      },
+      "id": 43,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "alias": "Power",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "000000001"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "orderByTime": "ASC",
+          "policy": "one_year",
+          "query": "SELECT value FROM \"one_year\".\"electrical.batteries.house.power\" WHERE $timeFilter",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "title": "Power",
+      "transparent": true,
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "000000001"
+      },
+      "description": "House Battery Current",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "dark-blue",
+            "mode": "shades"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "axisSoftMax": 16,
+            "axisSoftMin": 11,
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 25,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineStyle": {
+              "fill": "solid"
+            },
+            "lineWidth": 2,
+            "pointSize": 7,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "always",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "dashed"
+            }
+          },
+          "decimals": 1,
+          "fieldMinMax": false,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "blue",
+                "value": 35
+              }
+            ]
+          },
+          "unit": "amp"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 5,
+        "x": 5,
+        "y": 8
+      },
+      "id": 44,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "alias": "Current",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "000000001"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "orderByTime": "ASC",
+          "policy": "one_year",
+          "query": "SELECT value FROM \"one_year\".\"electrical.batteries.house.current\" WHERE $timeFilter",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "title": "Current",
+      "transparent": true,
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "000000001"
+      },
+      "description": "House Battery Voltage",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "dark-purple",
+            "mode": "shades"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "axisSoftMax": 16,
+            "axisSoftMin": 11,
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 25,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineStyle": {
+              "fill": "solid"
+            },
+            "lineWidth": 2,
+            "pointSize": 7,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "always",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "dashed"
+            }
+          },
+          "decimals": 1,
+          "fieldMinMax": false,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "blue",
+                "value": 35
+              }
+            ]
+          },
+          "unit": "volt"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 5,
+        "x": 10,
+        "y": 8
+      },
+      "id": 42,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "alias": "Voltage",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "000000001"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "orderByTime": "ASC",
+          "policy": "one_year",
+          "query": "SELECT value FROM \"one_year\".\"electrical.batteries.house.voltage\" WHERE $timeFilter",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "title": "Voltage",
+      "transparent": true,
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "000000001"
+      },
+      "description": "House State of Charge",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineStyle": {
+              "fill": "solid"
+            },
+            "lineWidth": 2,
+            "pointSize": 7,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "always",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "dashed+area"
+            }
+          },
+          "decimals": 1,
+          "fieldMinMax": false,
+          "mappings": [],
+          "max": 100,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 10
+              },
+              {
+                "color": "yellow",
+                "value": 20
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 5,
+        "x": 15,
+        "y": 8
+      },
+      "id": 45,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "alias": "SOC",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "000000001"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "orderByTime": "ASC",
+          "policy": "one_year",
+          "query": "SELECT value FROM \"one_year\".\"electrical.batteries.house.capacity.stateOfCharge\" WHERE $timeFilter",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "title": "SoC",
+      "transparent": true,
+      "type": "timeseries"
+    },
+    {
+      "collapsed": false,
       "datasource": {
         "type": "influxdb",
         "uid": "000000001"
@@ -33,7 +1002,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 0
+        "y": 14
       },
       "id": 11,
       "panels": [],
@@ -82,10 +1051,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 5,
-        "w": 4,
+        "h": 4,
+        "w": 2,
         "x": 0,
-        "y": 1
+        "y": 15
       },
       "id": 14,
       "interval": "",
@@ -189,10 +1158,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 5,
-        "w": 4,
-        "x": 4,
-        "y": 1
+        "h": 4,
+        "w": 2,
+        "x": 2,
+        "y": 15
       },
       "id": 12,
       "interval": "",
@@ -296,10 +1265,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 5,
-        "w": 4,
-        "x": 8,
-        "y": 1
+        "h": 4,
+        "w": 2,
+        "x": 4,
+        "y": 15
       },
       "id": 24,
       "interval": "",
@@ -344,7 +1313,7 @@
           "measurement": "environment.inside.lituyamon.temperature",
           "orderByTime": "ASC",
           "policy": "boatdata",
-          "query": "SELECT (9/5)*(value-273.15)+32 FROM \"one_year\".\"environment.inside.engineroom.temperature\" WHERE $timeFilter\n",
+          "query": "SELECT (9/5)*(value)+32 FROM \"one_year\".\"environment.inside.engineroom.temperature\" WHERE $timeFilter\n",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -404,10 +1373,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 5,
-        "w": 4,
-        "x": 12,
-        "y": 1
+        "h": 4,
+        "w": 2,
+        "x": 6,
+        "y": 15
       },
       "id": 21,
       "interval": "",
@@ -495,10 +1464,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 5,
-        "w": 4,
-        "x": 16,
-        "y": 1
+        "h": 4,
+        "w": 2,
+        "x": 8,
+        "y": 15
       },
       "id": 17,
       "interval": "",
@@ -569,311 +1538,6 @@
       "type": "gauge"
     },
     {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": {
-        "type": "influxdb",
-        "uid": "000000001"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "links": []
-        },
-        "overrides": []
-      },
-      "fill": 0,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 7,
-        "w": 20,
-        "x": 0,
-        "y": 6
-      },
-      "hiddenSeries": false,
-      "id": 13,
-      "interval": "",
-      "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "rightSide": false,
-        "show": true,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 2,
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "10.2.3",
-      "pointradius": 3,
-      "points": true,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "alias": "Pilot",
-          "datasource": {
-            "type": "influxdb",
-            "uid": "000000001"
-          },
-          "groupBy": [
-            {
-              "params": [
-                "$__interval"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "hide": false,
-          "measurement": "environment.inside.lituyamon.temperature",
-          "orderByTime": "ASC",
-          "policy": "boatdata",
-          "query": "SELECT (9/5)*(value-273.15)+32 FROM \"one_year\".\"environment.inside.pilot.temperature\" WHERE $timeFilter\n ",
-          "rawQuery": true,
-          "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "value"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ]
-          ],
-          "tags": []
-        },
-        {
-          "alias": "Fwd Cabin",
-          "datasource": {
-            "type": "influxdb",
-            "uid": "000000001"
-          },
-          "groupBy": [
-            {
-              "params": [
-                "$__interval"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "hide": false,
-          "measurement": "environment.inside.lituyamon.temperature",
-          "orderByTime": "ASC",
-          "policy": "boatdata",
-          "query": "SELECT (9/5)*(value-273.15)+32 FROM \"one_year\".\"environment.inside.fwdcabin.temperature\" WHERE $timeFilter\n ",
-          "rawQuery": true,
-          "refId": "B",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "value"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ]
-          ],
-          "tags": []
-        },
-        {
-          "alias": "Engine Room",
-          "datasource": {
-            "type": "influxdb",
-            "uid": "000000001"
-          },
-          "groupBy": [
-            {
-              "params": [
-                "$__interval"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "hide": false,
-          "measurement": "environment.inside.lituyamon.temperature",
-          "orderByTime": "ASC",
-          "policy": "boatdata",
-          "query": "SELECT (9/5)*(value-273.15)+32 FROM \"one_year\".\"environment.inside.engineroom.temperature\" WHERE $timeFilter\n ",
-          "rawQuery": true,
-          "refId": "C",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "value"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ]
-          ],
-          "tags": []
-        },
-        {
-          "alias": "Lazarette",
-          "datasource": {
-            "type": "influxdb",
-            "uid": "000000001"
-          },
-          "groupBy": [
-            {
-              "params": [
-                "$__interval"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "hide": false,
-          "measurement": "environment.inside.lituyamon.temperature",
-          "orderByTime": "ASC",
-          "policy": "boatdata",
-          "query": "SELECT (9/5)*(value-273.15)+32 FROM \"one_year\".\"environment.inside.lazarette.temperature\" WHERE $timeFilter\n ",
-          "rawQuery": true,
-          "refId": "D",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "value"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ]
-          ],
-          "tags": []
-        },
-        {
-          "alias": "Engine Block",
-          "datasource": {
-            "type": "influxdb",
-            "uid": "000000001"
-          },
-          "groupBy": [
-            {
-              "params": [
-                "$__interval"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT (9/5)*(value-273.15)+32 FROM \"one_year\".\"propulsion.qsc83.temperature\" WHERE $timeFilter",
-          "rawQuery": true,
-          "refId": "E",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "value"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ]
-          ],
-          "tags": []
-        }
-      ],
-      "thresholds": [],
-      "timeRegions": [],
-      "title": "Temperature",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "transparent": true,
-      "type": "graph",
-      "xaxis": {
-        "mode": "time",
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:95",
-          "format": "fahrenheit",
-          "label": "",
-          "logBase": 1,
-          "show": true
-        },
-        {
-          "$$hashKey": "object:96",
-          "format": "short",
-          "logBase": 1,
-          "show": false
-        }
-      ],
-      "yaxis": {
-        "align": false
-      }
-    },
-    {
       "datasource": {
         "type": "influxdb",
         "uid": "000000001"
@@ -890,6 +1554,7 @@
             "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
+            "axisSoftMin": 30,
             "barAlignment": 0,
             "drawStyle": "line",
             "fillOpacity": 0,
@@ -901,12 +1566,15 @@
             },
             "insertNulls": false,
             "lineInterpolation": "linear",
+            "lineStyle": {
+              "fill": "solid"
+            },
             "lineWidth": 2,
             "pointSize": 7,
             "scaleDistribution": {
               "type": "linear"
             },
-            "showPoints": "auto",
+            "showPoints": "always",
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -916,6 +1584,8 @@
               "mode": "dashed"
             }
           },
+          "decimals": 1,
+          "fieldMinMax": false,
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
@@ -935,10 +1605,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 7,
+        "h": 8,
         "w": 20,
         "x": 0,
-        "y": 13
+        "y": 19
       },
       "id": 29,
       "options": {
@@ -1007,9 +1677,21 @@
           "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series"
+        },
+        {
+          "alias": "Engine room",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "000000001"
+          },
+          "hide": false,
+          "query": "SELECT (9/5)*(value)+32 FROM \"one_year\".\"environment.inside.engineroom.temperature\" WHERE $timeFilter",
+          "rawQuery": true,
+          "refId": "C",
+          "resultFormat": "time_series"
         }
       ],
-      "title": "Temp2",
+      "title": "Temperature",
       "transparent": true,
       "type": "timeseries"
     },
@@ -1023,7 +1705,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 20
+        "y": 27
       },
       "id": 19,
       "panels": [],
@@ -1054,8 +1736,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "red",
-                "value": null
+                "color": "red"
               },
               {
                 "color": "#EAB839",
@@ -1076,10 +1757,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 5,
+        "h": 7,
         "w": 4,
         "x": 0,
-        "y": 21
+        "y": 28
       },
       "id": 28,
       "interval": "",
@@ -1111,7 +1792,7 @@
           "measurement": "environment.inside.lituyamon.temperature",
           "orderByTime": "ASC",
           "policy": "one_year",
-          "query": "SELECT value FROM \"one_year\".\"electrical.batteries.house.voltage\" WHERE $timeFilter",
+          "query": "SELECT value FROM \"one_year\".\"sensors.lituyamon.voltage\" WHERE $timeFilter",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -1128,190 +1809,111 @@
           "tags": []
         }
       ],
-      "title": "House Battery",
+      "title": "Lituyamon Voltage",
       "transparent": true,
       "type": "stat"
     },
     {
-      "alert": {
-        "alertRuleTags": {},
-        "conditions": [
-          {
-            "evaluator": {
-              "params": [
-                13
-              ],
-              "type": "lt"
-            },
-            "operator": {
-              "type": "and"
-            },
-            "query": {
-              "params": [
-                "A",
-                "5m",
-                "now"
-              ]
-            },
-            "reducer": {
-              "params": [],
-              "type": "avg"
-            },
-            "type": "query"
-          }
-        ],
-        "executionErrorState": "alerting",
-        "for": "4m",
-        "frequency": "2m",
-        "handler": 1,
-        "message": "House battery voltage dropped below 13.8V.",
-        "name": "House Battery alert",
-        "noDataState": "no_data",
-        "notifications": [
-          {
-            "uid": "oi3xdRWgz"
-          }
-        ]
-      },
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
       "datasource": {
         "type": "influxdb",
         "uid": "000000001"
       },
-      "description": "",
       "fieldConfig": {
         "defaults": {
-          "links": []
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisGridShow": true,
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "axisSoftMax": 15,
+            "axisSoftMin": 12,
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "dashed+area"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red"
+              },
+              {
+                "color": "green",
+                "value": 12.2
+              },
+              {
+                "color": "dark-blue",
+                "value": 12.9
+              }
+            ]
+          },
+          "unit": "volt"
         },
         "overrides": []
       },
-      "fill": 1,
-      "fillGradient": 0,
       "gridPos": {
-        "h": 5,
-        "w": 5,
+        "h": 7,
+        "w": 6,
         "x": 4,
-        "y": 21
+        "y": 28
       },
-      "hiddenSeries": false,
-      "id": 26,
-      "legend": {
-        "avg": false,
-        "current": true,
-        "max": false,
-        "min": false,
-        "rightSide": false,
-        "show": false,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 2,
-      "nullPointMode": "null",
+      "id": 31,
       "options": {
-        "alertThreshold": true
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
       },
-      "percentage": false,
-      "pluginVersion": "10.2.3",
-      "pointradius": 3,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
       "targets": [
         {
-          "alias": "House Battery Voltage",
+          "alias": "House battery voltage",
           "datasource": {
             "type": "influxdb",
             "uid": "000000001"
           },
-          "groupBy": [
-            {
-              "params": [
-                "$__interval"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "measurement": "environment.inside.lituyamon.temperature",
-          "orderByTime": "ASC",
-          "policy": "boatdata",
-          "query": "SELECT value FROM \"one_year\".\"electrical.batteries.house.voltage\" WHERE $timeFilter\n",
+          "query": "SELECT value FROM \"one_year\".\"sensors.lituyamon.voltage\" WHERE $timeFilter",
           "rawQuery": true,
           "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "value"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ]
-          ],
-          "tags": []
+          "resultFormat": "time_series"
         }
       ],
-      "thresholds": [
-        {
-          "colorMode": "critical",
-          "fill": true,
-          "line": true,
-          "op": "lt",
-          "value": 13
-        }
-      ],
-      "timeRegions": [],
-      "title": "House Battery",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
+      "title": "Lituyamon Voltage",
       "transparent": true,
-      "type": "graph",
-      "xaxis": {
-        "mode": "time",
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:196",
-          "decimals": 1,
-          "format": "volt",
-          "label": "",
-          "logBase": 1,
-          "max": "15",
-          "min": "12",
-          "show": true
-        },
-        {
-          "$$hashKey": "object:197",
-          "format": "short",
-          "logBase": 1,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false
-      }
+      "type": "timeseries"
     },
     {
       "datasource": {
@@ -1329,8 +1931,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "#EAB839",
@@ -1349,8 +1950,8 @@
       "gridPos": {
         "h": 5,
         "w": 4,
-        "x": 9,
-        "y": 21
+        "x": 10,
+        "y": 28
       },
       "id": 2,
       "interval": "",
@@ -1395,7 +1996,7 @@
           "measurement": "environment.inside.lituyamon.temperature",
           "orderByTime": "ASC",
           "policy": "boatdata",
-          "query": "SELECT (9/5)*(value-273.15)+32 FROM \"one_year\".\"environment.inside.lituyamon.temperature\" WHERE $timeFilter\n",
+          "query": "SELECT (9/5)*(value-273.15)+32 FROM \"one_year\".\"sensors.lituyamon.temperature\" WHERE $timeFilter\n",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -1421,180 +2022,682 @@
       "type": "gauge"
     },
     {
-      "alert": {
-        "alertRuleTags": {},
-        "conditions": [
-          {
-            "evaluator": {
-              "params": [
-                190
-              ],
-              "type": "gt"
-            },
-            "operator": {
-              "type": "and"
-            },
-            "query": {
-              "params": [
-                "A",
-                "5m",
-                "now"
-              ]
-            },
-            "reducer": {
-              "params": [],
-              "type": "max"
-            },
-            "type": "query"
-          }
-        ],
-        "executionErrorState": "alerting",
-        "for": "0m",
-        "frequency": "1m",
-        "handler": 1,
-        "message": "Lituyamon CPU temperature alert",
-        "name": "CPU Temperature alert",
-        "noDataState": "no_data",
-        "notifications": [
-          {
-            "uid": "oi3xdRWgz"
-          }
-        ]
-      },
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
       "datasource": {
         "type": "influxdb",
         "uid": "000000001"
       },
       "fieldConfig": {
         "defaults": {
-          "links": []
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisGridShow": true,
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 0,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "fahrenheit"
         },
         "overrides": []
       },
-      "fill": 1,
-      "fillGradient": 0,
       "gridPos": {
-        "h": 5,
-        "w": 5,
-        "x": 13,
-        "y": 21
+        "h": 7,
+        "w": 6,
+        "x": 14,
+        "y": 28
       },
-      "hiddenSeries": false,
-      "id": 3,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "rightSide": false,
-        "show": false,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 2,
-      "nullPointMode": "null",
+      "id": 30,
       "options": {
-        "alertThreshold": true
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
       },
-      "percentage": false,
-      "pluginVersion": "10.2.3",
-      "pointradius": 3,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
       "targets": [
         {
-          "alias": "LituyaMon Temperature",
           "datasource": {
             "type": "influxdb",
             "uid": "000000001"
           },
-          "groupBy": [
-            {
-              "params": [
-                "$__interval"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "measurement": "environment.inside.lituyamon.temperature",
-          "orderByTime": "ASC",
-          "policy": "boatdata",
-          "query": "SELECT (9/5)*(value-273.15)+32 FROM \"one_year\".\"environment.inside.lituyamon.temperature\" WHERE $timeFilter\n ",
+          "query": "SELECT (9/5)*(value-273.15)+32 FROM \"one_year\".\"sensors.lituyamon.temperature\" WHERE $timeFilter",
           "rawQuery": true,
           "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "value"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ]
-          ],
-          "tags": []
+          "resultFormat": "time_series"
         }
       ],
-      "thresholds": [
-        {
-          "colorMode": "critical",
-          "fill": true,
-          "line": true,
-          "op": "gt",
-          "value": 190
-        }
-      ],
-      "timeRegions": [],
       "title": "CPU Temperature",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
       "transparent": true,
-      "type": "graph",
-      "xaxis": {
-        "mode": "time",
-        "show": true,
-        "values": []
+      "type": "timeseries"
+    },
+    {
+      "collapsed": true,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 35
       },
-      "yaxes": [
+      "id": 40,
+      "panels": [
         {
-          "$$hashKey": "object:962",
-          "format": "fahrenheit",
-          "logBase": 1,
-          "show": true
+          "datasource": {
+            "type": "grafana-mqtt-datasource",
+            "uid": "d54c4727-1d53-46cf-ad9b-16691e4be91c"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "red"
+                  },
+                  {
+                    "color": "#EAB839",
+                    "value": 30
+                  },
+                  {
+                    "color": "green",
+                    "value": 50
+                  }
+                ]
+              },
+              "unit": "percent"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 6,
+            "w": 4,
+            "x": 0,
+            "y": 44
+          },
+          "id": 33,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "textMode": "auto",
+            "wideLayout": true
+          },
+          "pluginVersion": "10.2.3",
+          "targets": [
+            {
+              "datasource": {
+                "type": "grafana-mqtt-datasource",
+                "uid": "d54c4727-1d53-46cf-ad9b-16691e4be91c"
+              },
+              "hide": false,
+              "refId": "A",
+              "topic": "N/c0619ab56440/system/0/Dc/Battery/Soc"
+            }
+          ],
+          "title": "House SoC",
+          "type": "stat"
         },
         {
-          "$$hashKey": "object:963",
-          "format": "short",
-          "logBase": 1,
-          "show": true
+          "datasource": {
+            "type": "grafana-mqtt-datasource",
+            "uid": "d54c4727-1d53-46cf-ad9b-16691e4be91c"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "red"
+                  },
+                  {
+                    "color": "#EAB839",
+                    "value": 12.6
+                  },
+                  {
+                    "color": "green",
+                    "value": 13
+                  },
+                  {
+                    "color": "blue",
+                    "value": 14
+                  }
+                ]
+              },
+              "unit": "volt"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 6,
+            "w": 4,
+            "x": 4,
+            "y": 44
+          },
+          "id": 32,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "textMode": "auto",
+            "wideLayout": true
+          },
+          "pluginVersion": "10.2.3",
+          "targets": [
+            {
+              "datasource": {
+                "type": "grafana-mqtt-datasource",
+                "uid": "d54c4727-1d53-46cf-ad9b-16691e4be91c"
+              },
+              "hide": false,
+              "refId": "A",
+              "topic": "N/c0619ab56440/system/0/Dc/Battery/Voltage"
+            },
+            {
+              "datasource": {
+                "type": "grafana-mqtt-datasource",
+                "uid": "d54c4727-1d53-46cf-ad9b-16691e4be91c"
+              },
+              "hide": false,
+              "refId": "B",
+              "topic": "R/c0619ab56440/keepalive"
+            }
+          ],
+          "title": "DC Voltage",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "grafana-mqtt-datasource",
+            "uid": "d54c4727-1d53-46cf-ad9b-16691e4be91c"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "blue"
+                  }
+                ]
+              },
+              "unit": "amp"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 6,
+            "w": 4,
+            "x": 8,
+            "y": 44
+          },
+          "id": 34,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "textMode": "auto",
+            "wideLayout": true
+          },
+          "pluginVersion": "10.2.3",
+          "targets": [
+            {
+              "datasource": {
+                "type": "grafana-mqtt-datasource",
+                "uid": "d54c4727-1d53-46cf-ad9b-16691e4be91c"
+              },
+              "hide": false,
+              "refId": "A",
+              "topic": "N/c0619ab56440/system/0/Dc/Battery/Current"
+            }
+          ],
+          "title": "DC Current",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "grafana-mqtt-datasource",
+            "uid": "d54c4727-1d53-46cf-ad9b-16691e4be91c"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "blue"
+                  }
+                ]
+              },
+              "unit": "watt"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 6,
+            "w": 4,
+            "x": 12,
+            "y": 44
+          },
+          "id": 35,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "textMode": "auto",
+            "wideLayout": true
+          },
+          "pluginVersion": "10.2.3",
+          "targets": [
+            {
+              "datasource": {
+                "type": "grafana-mqtt-datasource",
+                "uid": "d54c4727-1d53-46cf-ad9b-16691e4be91c"
+              },
+              "hide": false,
+              "refId": "A",
+              "topic": "N/c0619ab56440/system/0/Dc/Battery/Power"
+            }
+          ],
+          "title": "DC Power",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "grafana-mqtt-datasource",
+            "uid": "d54c4727-1d53-46cf-ad9b-16691e4be91c"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "decimals": 0,
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "blue"
+                  }
+                ]
+              },
+              "unit": "fahrenheit"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 6,
+            "w": 4,
+            "x": 0,
+            "y": 50
+          },
+          "id": 39,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "textMode": "auto",
+            "wideLayout": true
+          },
+          "pluginVersion": "10.2.3",
+          "targets": [
+            {
+              "datasource": {
+                "type": "grafana-mqtt-datasource",
+                "uid": "d54c4727-1d53-46cf-ad9b-16691e4be91c"
+              },
+              "hide": false,
+              "refId": "A",
+              "topic": "N/c0619ab56440/vebus/276/Dc/0/Temperature"
+            }
+          ],
+          "title": "EngineRm Temp",
+          "transformations": [
+            {
+              "id": "calculateField",
+              "options": {
+                "alias": "ptemp",
+                "binary": {
+                  "left": "value",
+                  "operator": "*",
+                  "right": "9"
+                },
+                "mode": "binary",
+                "reduce": {
+                  "include": [
+                    "value"
+                  ],
+                  "reducer": "sum"
+                },
+                "replaceFields": true
+              }
+            },
+            {
+              "id": "calculateField",
+              "options": {
+                "alias": "ptemp",
+                "binary": {
+                  "left": "ptemp",
+                  "operator": "/",
+                  "right": "5"
+                },
+                "mode": "binary",
+                "reduce": {
+                  "reducer": "sum"
+                },
+                "replaceFields": true
+              }
+            },
+            {
+              "id": "calculateField",
+              "options": {
+                "alias": "value",
+                "binary": {
+                  "left": "ptemp",
+                  "right": "32"
+                },
+                "mode": "binary",
+                "reduce": {
+                  "reducer": "sum"
+                },
+                "replaceFields": true
+              }
+            }
+          ],
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "grafana-mqtt-datasource",
+            "uid": "d54c4727-1d53-46cf-ad9b-16691e4be91c"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "blue"
+                  }
+                ]
+              },
+              "unit": "volt"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 6,
+            "w": 4,
+            "x": 4,
+            "y": 50
+          },
+          "id": 37,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "none",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "textMode": "auto",
+            "wideLayout": true
+          },
+          "pluginVersion": "10.2.3",
+          "targets": [
+            {
+              "datasource": {
+                "type": "grafana-mqtt-datasource",
+                "uid": "d54c4727-1d53-46cf-ad9b-16691e4be91c"
+              },
+              "hide": false,
+              "refId": "A",
+              "topic": "N/c0619ab56440/vebus/276/Ac/ActiveIn/L1/V"
+            }
+          ],
+          "title": "AC Voltage In",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "grafana-mqtt-datasource",
+            "uid": "d54c4727-1d53-46cf-ad9b-16691e4be91c"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "blue"
+                  }
+                ]
+              },
+              "unit": "amp"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 6,
+            "w": 4,
+            "x": 8,
+            "y": 50
+          },
+          "id": 38,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "none",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "textMode": "auto",
+            "wideLayout": true
+          },
+          "pluginVersion": "10.2.3",
+          "targets": [
+            {
+              "datasource": {
+                "type": "grafana-mqtt-datasource",
+                "uid": "d54c4727-1d53-46cf-ad9b-16691e4be91c"
+              },
+              "hide": false,
+              "refId": "A",
+              "topic": "N/c0619ab56440/vebus/276/Ac/ActiveIn/L1/I"
+            }
+          ],
+          "title": "AC Current In",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "grafana-mqtt-datasource",
+            "uid": "d54c4727-1d53-46cf-ad9b-16691e4be91c"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "blue"
+                  }
+                ]
+              },
+              "unit": "watt"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 6,
+            "w": 4,
+            "x": 12,
+            "y": 50
+          },
+          "id": 36,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "textMode": "auto",
+            "wideLayout": true
+          },
+          "pluginVersion": "10.2.3",
+          "targets": [
+            {
+              "datasource": {
+                "type": "grafana-mqtt-datasource",
+                "uid": "d54c4727-1d53-46cf-ad9b-16691e4be91c"
+              },
+              "hide": false,
+              "refId": "A",
+              "topic": "N/c0619ab56440/vebus/276/Ac/ActiveIn/L1/P"
+            }
+          ],
+          "title": "AC Power In",
+          "type": "stat"
         }
       ],
-      "yaxis": {
-        "align": false
-      }
+      "title": "Instant Electrical",
+      "type": "row"
     },
     {
       "collapsed": true,
@@ -1606,10 +2709,223 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 26
+        "y": 36
       },
-      "id": 7,
+      "id": 9,
       "panels": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "000000001"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "decimals": 1,
+              "links": [],
+              "mappings": [],
+              "max": 100,
+              "min": 0,
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "yellow"
+                  },
+                  {
+                    "color": "green",
+                    "value": 30
+                  },
+                  {
+                    "color": "red",
+                    "value": 70
+                  }
+                ]
+              },
+              "unit": "humidity"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 5,
+            "w": 4,
+            "x": 0,
+            "y": 45
+          },
+          "id": 27,
+          "interval": "",
+          "links": [],
+          "options": {
+            "minVizHeight": 200,
+            "minVizWidth": 200,
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "last"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showThresholdLabels": false,
+            "showThresholdMarkers": true,
+            "sizing": "auto"
+          },
+          "pluginVersion": "10.2.3",
+          "targets": [
+            {
+              "alias": "Humidity",
+              "datasource": {
+                "type": "influxdb",
+                "uid": "000000001"
+              },
+              "groupBy": [
+                {
+                  "params": [
+                    "$__interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "environment.inside.lituyamon.temperature",
+              "orderByTime": "ASC",
+              "policy": "boatdata",
+              "query": "SELECT value FROM \"one_year\".\"environment.inside.salon.humidity\" WHERE $timeFilter\n",
+              "rawQuery": true,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": []
+            }
+          ],
+          "title": "Salon Humidity",
+          "transparent": true,
+          "type": "gauge"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "000000001"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "decimals": 1,
+              "links": [],
+              "mappings": [],
+              "max": 100,
+              "min": 0,
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "yellow"
+                  },
+                  {
+                    "color": "green",
+                    "value": 30
+                  },
+                  {
+                    "color": "red",
+                    "value": 70
+                  }
+                ]
+              },
+              "unit": "humidity"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 5,
+            "w": 4,
+            "x": 5,
+            "y": 45
+          },
+          "id": 16,
+          "interval": "",
+          "links": [],
+          "options": {
+            "minVizHeight": 200,
+            "minVizWidth": 200,
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "last"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showThresholdLabels": false,
+            "showThresholdMarkers": true,
+            "sizing": "auto"
+          },
+          "pluginVersion": "10.2.3",
+          "targets": [
+            {
+              "alias": "Humidity",
+              "datasource": {
+                "type": "influxdb",
+                "uid": "000000001"
+              },
+              "groupBy": [
+                {
+                  "params": [
+                    "$__interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "environment.inside.lituyamon.temperature",
+              "orderByTime": "ASC",
+              "policy": "boatdata",
+              "query": "SELECT value FROM \"one_year\".\"environment.inside.engineroom.humidity\" WHERE $timeFilter\n",
+              "rawQuery": true,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": []
+            }
+          ],
+          "title": "ER Humidity",
+          "transparent": true,
+          "type": "gauge"
+        },
         {
           "alert": {
             "alertRuleTags": {},
@@ -1692,8 +3008,8 @@
           "gridPos": {
             "h": 5,
             "w": 5,
-            "x": 13,
-            "y": 28
+            "x": 11,
+            "y": 45
           },
           "hiddenSeries": false,
           "id": 23,
@@ -1821,247 +3137,6 @@
         }
       ],
       "type": "row"
-    },
-    {
-      "collapsed": true,
-      "datasource": {
-        "type": "influxdb",
-        "uid": "000000001"
-      },
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 27
-      },
-      "id": 9,
-      "panels": [
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "000000001"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "decimals": 1,
-              "links": [],
-              "mappings": [],
-              "max": 100,
-              "min": 0,
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "yellow",
-                    "value": null
-                  },
-                  {
-                    "color": "green",
-                    "value": 30
-                  },
-                  {
-                    "color": "red",
-                    "value": 70
-                  }
-                ]
-              },
-              "unit": "humidity"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 5,
-            "w": 4,
-            "x": 0,
-            "y": 29
-          },
-          "id": 27,
-          "interval": "",
-          "links": [],
-          "options": {
-            "minVizHeight": 200,
-            "minVizWidth": 200,
-            "orientation": "auto",
-            "reduceOptions": {
-              "calcs": [
-                "last"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "showThresholdLabels": false,
-            "showThresholdMarkers": true,
-            "sizing": "auto"
-          },
-          "pluginVersion": "10.2.3",
-          "targets": [
-            {
-              "alias": "Humidity",
-              "datasource": {
-                "type": "influxdb",
-                "uid": "000000001"
-              },
-              "groupBy": [
-                {
-                  "params": [
-                    "$__interval"
-                  ],
-                  "type": "time"
-                },
-                {
-                  "params": [
-                    "null"
-                  ],
-                  "type": "fill"
-                }
-              ],
-              "measurement": "environment.inside.lituyamon.temperature",
-              "orderByTime": "ASC",
-              "policy": "boatdata",
-              "query": "SELECT value FROM \"one_year\".\"environment.inside.salon.humidity\" WHERE $timeFilter\n",
-              "rawQuery": true,
-              "refId": "A",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "value"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "mean"
-                  }
-                ]
-              ],
-              "tags": []
-            }
-          ],
-          "title": "Salon Humidity",
-          "transparent": true,
-          "type": "gauge"
-        },
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "000000001"
-          },
-          "description": "",
-          "fieldConfig": {
-            "defaults": {
-              "decimals": 1,
-              "links": [],
-              "mappings": [],
-              "max": 100,
-              "min": 0,
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "yellow",
-                    "value": null
-                  },
-                  {
-                    "color": "green",
-                    "value": 30
-                  },
-                  {
-                    "color": "red",
-                    "value": 70
-                  }
-                ]
-              },
-              "unit": "humidity"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 5,
-            "w": 4,
-            "x": 5,
-            "y": 29
-          },
-          "id": 16,
-          "interval": "",
-          "links": [],
-          "options": {
-            "minVizHeight": 200,
-            "minVizWidth": 200,
-            "orientation": "auto",
-            "reduceOptions": {
-              "calcs": [
-                "last"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "showThresholdLabels": false,
-            "showThresholdMarkers": true,
-            "sizing": "auto"
-          },
-          "pluginVersion": "10.2.3",
-          "targets": [
-            {
-              "alias": "Humidity",
-              "datasource": {
-                "type": "influxdb",
-                "uid": "000000001"
-              },
-              "groupBy": [
-                {
-                  "params": [
-                    "$__interval"
-                  ],
-                  "type": "time"
-                },
-                {
-                  "params": [
-                    "null"
-                  ],
-                  "type": "fill"
-                }
-              ],
-              "measurement": "environment.inside.lituyamon.temperature",
-              "orderByTime": "ASC",
-              "policy": "boatdata",
-              "query": "SELECT value FROM \"one_year\".\"environment.inside.engineroom.humidity\" WHERE $timeFilter\n",
-              "rawQuery": true,
-              "refId": "A",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "value"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "mean"
-                  }
-                ]
-              ],
-              "tags": []
-            }
-          ],
-          "title": "ER Humidity",
-          "transparent": true,
-          "type": "gauge"
-        }
-      ],
-      "targets": [
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "000000001"
-          },
-          "refId": "A"
-        }
-      ],
-      "type": "row"
     }
   ],
   "refresh": "5s",
@@ -2071,7 +3146,7 @@
     "list": []
   },
   "time": {
-    "from": "now-5d",
+    "from": "now-30m",
     "to": "now"
   },
   "timepicker": {
@@ -2091,6 +3166,6 @@
   "timezone": "",
   "title": "Lituya Status",
   "uid": "wcuuRJkgz",
-  "version": 105,
+  "version": 134,
   "weekStart": ""
 }
