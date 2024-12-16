@@ -8,9 +8,9 @@
         "cputemp.1": {
             "name": "CPU Temperature",
             "class": "CPUTemp",
-            "location": "LituyaMon",
+            "location": "Pilot",
             "interval": 30,
-            "keys": ["environment.inside.lituyamon.temperature"],
+            "keys": ["sensors.lituyamon.temperature"],
             "enabled": true
         },
         "dht22.1": {
@@ -93,13 +93,13 @@
             "enabled": false
         },
         "voltage.1": {
-            "name": "House Battery Voltage",
+            "name": "Lituyamon Battery Voltage",
             "class": "MCP3008",
             "location": "Pilot",
             "interval": 60,
             "identifier": "0",
             "keys": [
-                "electrical.batteries.house.voltage"
+                "sensors.lituyamon.voltage"
             ],
             "enabled": true
         },
@@ -107,10 +107,87 @@
             "name": "Engine Room Temperature",
             "class": "MQTT",
             "location": "Engine Room",
-            "interval": 60,
+            "interval": 45,
             "identifier": "N/c0619ab56440/vebus/276/Dc/0/Temperature",
             "keys": [
                 "environment.inside.engineroom.temperature"
+            ],
+            "enabled": true
+        },
+        "mqtt.2": {
+            "name": "House Battery Voltage",
+            "class": "MQTT",
+            "location": "Engine Room",
+            "interval": 45,
+            "identifier": "N/c0619ab56440/vebus/276/Dc/0/Voltage",
+            "keys": [
+                "electrical.batteries.house.voltage"
+            ],
+            "enabled": true
+        },
+        "mqtt.3": {
+            "name": "House Battery Power",
+            "class": "MQTT",
+            "location": "Engine Room",
+            "interval": 45,
+            "identifier": "N/c0619ab56440/vebus/276/Dc/0/Power",
+            "keys": [
+                "electrical.batteries.house.power"
+            ],
+            "enabled": true
+        },
+        "mqtt.4": {
+            "name": "House Battery Current",
+            "class": "MQTT",
+            "location": "Engine Room",
+            "interval": 45,
+            "identifier": "N/c0619ab56440/vebus/276/Dc/0/Current",
+            "keys": [
+                "electrical.batteries.house.current"
+            ],
+            "enabled": true
+        },
+        "mqtt.5": {
+            "name": "House Battery State of Charge (SOC)",
+            "class": "MQTT",
+            "location": "Engine Room",
+            "interval": 45,
+            "identifier": "N/c0619ab56440/system/0/Dc/Battery/Soc",
+            "keys": [
+                "electrical.batteries.house.capacity.stateOfCharge"
+            ],
+            "enabled": true
+        },
+        "mqtt.6": {
+            "name": "Multiplus L1 In Voltage",
+            "class": "MQTT",
+            "location": "Engine Room",
+            "interval": 50,
+            "identifier": "N/c0619ab56440/vebus/276/Ac/ActiveIn/L1/V",
+            "keys": [
+                "electrical.inverters.multiplus.ac.lineLineVoltage"
+            ],
+            "enabled": true
+        },
+        "mqtt.7": {
+            "name": "Multiplus L1 In Power",
+            "class": "MQTT",
+            "location": "Engine Room",
+            "interval": 50,
+            "identifier": "N/c0619ab56440/vebus/276/Ac/ActiveIn/L1/P",
+            "keys": [
+                "electrical.inverters.multiplus.ac.power"
+            ],
+            "enabled": true
+        },
+        "mqtt.8": {
+            "name": "Multiplus L1 In Current",
+            "class": "MQTT",
+            "location": "Engine Room",
+            "interval": 50,
+            "identifier": "N/c0619ab56440/vebus/276/Ac/ActiveIn/L1/I",
+            "keys": [
+                "electrical.inverters.multiplus.ac.current"
             ],
             "enabled": true
         }
