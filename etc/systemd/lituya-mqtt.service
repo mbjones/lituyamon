@@ -1,7 +1,6 @@
 [Unit]
 Description=lituya mqtt keepalive service
-Requires=lituyamond.service
-After=network.target lituyamond.service
+After=network.target
 
 [Service]
 ExecStart=/usr/local/bin/lituya-cerbo-read.sh
