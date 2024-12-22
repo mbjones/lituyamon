@@ -300,6 +300,7 @@ class MQTT(Sensor):
     _identifer = None
     _mqttc = None
     _sensor_vals = {}
+    _msg_received = False
 
     def initialize(self):
         self._log = logging.getLogger("lituyamon.MQTT")
@@ -315,6 +316,7 @@ class MQTT(Sensor):
 
     def read_sensor(self, gpio=None, identifier=None):
         self._log.debug("Reading from: {}".format(identifier))
+        self._msg_received = False
         self._mqttc.publish('R/c0619ab56440/system/0/Dc/Battery', retain=False)
         self._mqttc.publish('R/c0619ab56440/vebus/276/Ac', retain=False)
         self._mqttc.publish('R/c0619ab56440/vebus/276/Dc/0', retain=False)
@@ -328,17 +330,21 @@ class MQTT(Sensor):
         # "identifier": "N/c0619ab56440/system/0/Dc/Battery/Soc",
         try:
             counter = 0
-            while identifier not in self._sensor_vals and counter < 10:
+            # Need to wait for the async on_message callback from the above callbacks
+            # Check if _msg_received is True, at least for the first mesaage
+            while self._msg_received != True and counter < 10:
                 counter = counter+1
                 time.sleep(1)
-    
-            self._mqttc.loop_stop() # Stop polling for new sensor values
+            
             if identifier in self._sensor_vals:
                 value = self._sensor_vals[identifier]
             else:
                 raise SensorNotFoundError(identifier)
         except:
             raise SensorNotFoundError(identifier)
+        finally:
+            self._mqttc.loop_stop() # Stop polling for new sensor values
+            self._mqttc.disconnect()
         return([value])
 
     # The callback for when the client receives a CONNACK response from the server.
@@ -353,20 +359,21 @@ class MQTT(Sensor):
     def on_disconnect(self, client, userdata, disconnect_flags, reason_code, properties):
         if reason_code != 0:
             try:
-                print("Unexpected disconnection with rc: " + str(reason_code) + "! Datetime: " + str(time.localtime()))
-                print("Reconnecting, please wait...")
+                self._log.warning("Unexpected disconnection with rc: " + str(reason_code) + " Datetime: " + datetime.now().isoformat())
+                self._log.warning("Reconnecting, please wait...")
                 time.sleep(3)
             except Exception as e:
-                print("General exception in MQTT with rc: " + str(reason_code))
-                print(e)
+                self._log.error("General exception in MQTT with rc: " + str(reason_code))
+                self._log.error(e)
         else:
-            print("Normal disconnect with rc: " + str(reason_code) + "! Datetime: " + str(time.localtime()))
+            self._log.debug("Normal disconnect with rc: " + str(reason_code) + " Datetime: " + datetime.now().isoformat())
 
     # The callback for when a PUBLISH message is received from the server.
     def on_message(self, client, userdata, msg):
         self._log.debug(msg.topic+" "+str(msg.payload))
         payload = json.loads(msg.payload)
         self._sensor_vals[msg.topic] = payload["value"]
+        self._msg_received = True
 
 
 class SensorNotFoundError(Exception):
