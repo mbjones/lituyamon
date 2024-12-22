@@ -1,5 +1,5 @@
 import asyncio
-import glob
+#import glob
 import json
 import logging
 import logging.config
@@ -13,13 +13,12 @@ import spidev
 import numpy as np
 import paho.mqtt.client as mqtt
 
-from Adafruit_IO import Client
 from datetime import datetime
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.schedulers.background import BackgroundScheduler
 from gpiozero import CPUTemperature
 from gpiozero import LED
-from watchgod import arun_process
+#from watchgod import arun_process
 
 class Monitor:
     _status = "Stopped"
@@ -59,11 +58,11 @@ class Monitor:
             logging.error("Config file not opened: " + e.strerror + " " + e.filename)
 
     # TODO: incorporate this into start() to register the watchdog
-    async def main():
-        await arun_process('/etc/lituyamon.json', self._reload, args=(1, 2, 3))
+    # async def main():
+    #     await arun_process('/etc/lituyamon.json', self._reload, args=(1, 2, 3))
 
-    def _reload(self, a, b, c):
-        self._log.debug("_reload called.")
+    # def _reload(self, a, b, c):
+    #     self._log.debug("_reload called.")
 
     def start(self):
         scheduler = AsyncIOScheduler()
@@ -153,13 +152,6 @@ class SignalK:
         self._log.debug(sk_delta_msg.encode())
         with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as _sock:
             _sock.sendto(sk_delta_msg.encode(), (self._host, self._port))
-
-        # Also send to AdaFruit.IO using their REST API
-        ADAFRUIT_IO_USERNAME = "UNAME_GOES_HERE"
-        ADAFRUIT_IO_KEY = "KEY_GOES_HERE"
-        #aio = Client(ADAFRUIT_IO_USERNAME, ADAFRUIT_IO_KEY)
-        #feed = aio.feeds('fwd-cabin-temperature')
-        #aio.send_data(feed.key, value)
 
 class Sensor:
     _status = "Unconfigured"
