@@ -92,6 +92,17 @@ class Monitor:
         # Execution will block here until Ctrl+C (Ctrl+Break on Windows) is pressed.
         try:
             loop = asyncio.get_event_loop()
+            # Event loop for code after python 3.10, but still deals with earlier versions
+            # import sys
+            # import asyncio
+            # if sys.version_info < (3, 10):
+            #     loop = asyncio.get_event_loop()
+            # else:
+            #     try:
+            #         loop = asyncio.get_running_loop()
+            #     except RuntimeError:
+            #         loop = asyncio.new_event_loop()
+            #     asyncio.set_event_loop(loop)
             self._red_led.off()
             loop.run_forever()
         except (KeyboardInterrupt, SystemExit):
@@ -296,6 +307,7 @@ class MQTT(Sensor):
 
         self._mqttc = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
         self._mqttc.on_connect = self.on_connect
+        self._mqttc.on_disconnect = self.on_disconnect
         self._mqttc.on_message = self.on_message
         self._mqttc.connect("venus.local", 1883, 60)
         self._mqttc.loop_start()
@@ -303,6 +315,17 @@ class MQTT(Sensor):
 
     def read_sensor(self, gpio=None, identifier=None):
         self._log.debug("Reading from: {}".format(identifier))
+        self._mqttc.publish('R/c0619ab56440/system/0/Dc/Battery', retain=False)
+        self._mqttc.publish('R/c0619ab56440/vebus/276/Ac', retain=False)
+        self._mqttc.publish('R/c0619ab56440/vebus/276/Dc/0', retain=False)
+        # "identifier": "N/c0619ab56440/vebus/276/Ac/Out/L1/V",
+	    # "identifier": "N/c0619ab56440/vebus/276/Ac/Out/L1/P",
+	    # "identifier": "N/c0619ab56440/vebus/276/Ac/Out/L1/I",
+        # "identifier": "N/c0619ab56440/vebus/276/Dc/0/Temperature",
+        # "identifier": "N/c0619ab56440/vebus/276/Dc/0/Voltage",
+        # "identifier": "N/c0619ab56440/vebus/276/Dc/0/Power",
+        # "identifier": "N/c0619ab56440/vebus/276/Dc/0/Current",
+        # "identifier": "N/c0619ab56440/system/0/Dc/Battery/Soc",
         try:
             counter = 0
             while identifier not in self._sensor_vals and counter < 10:
@@ -324,8 +347,20 @@ class MQTT(Sensor):
         # Subscribing in on_connect() means that if we lose the connection and
         # reconnect then subscriptions will be renewed.
         #client.subscribe("$SYS/#")
-        #client.subscribe("N/c0619ab56440/vebus/276/Dc/0/Temperature")
         client.subscribe("N/c0619ab56440/#")
+
+    # Callback if the MQTT connection is broken
+    def on_disconnect(self, client, userdata, disconnect_flags, reason_code, properties):
+        if reason_code != 0:
+            try:
+                print("Unexpected disconnection with rc: " + str(reason_code) + "! Datetime: " + str(time.localtime()))
+                print("Reconnecting, please wait...")
+                time.sleep(3)
+            except Exception as e:
+                print("General exception in MQTT with rc: " + str(reason_code))
+                print(e)
+        else:
+            print("Normal disconnect with rc: " + str(reason_code) + "! Datetime: " + str(time.localtime()))
 
     # The callback for when a PUBLISH message is received from the server.
     def on_message(self, client, userdata, msg):

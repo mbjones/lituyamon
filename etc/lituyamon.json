@@ -107,7 +107,7 @@
             "name": "Engine Room Temperature",
             "class": "MQTT",
             "location": "Engine Room",
-            "interval": 45,
+            "interval": 20,
             "identifier": "N/c0619ab56440/vebus/276/Dc/0/Temperature",
             "keys": [
                 "environment.inside.engineroom.temperature"
@@ -118,7 +118,7 @@
             "name": "House Battery Voltage",
             "class": "MQTT",
             "location": "Engine Room",
-            "interval": 45,
+            "interval": 22,
             "identifier": "N/c0619ab56440/vebus/276/Dc/0/Voltage",
             "keys": [
                 "electrical.batteries.house.voltage"
@@ -129,7 +129,7 @@
             "name": "House Battery Power",
             "class": "MQTT",
             "location": "Engine Room",
-            "interval": 45,
+            "interval": 24,
             "identifier": "N/c0619ab56440/vebus/276/Dc/0/Power",
             "keys": [
                 "electrical.batteries.house.power"
@@ -140,7 +140,7 @@
             "name": "House Battery Current",
             "class": "MQTT",
             "location": "Engine Room",
-            "interval": 45,
+            "interval": 26,
             "identifier": "N/c0619ab56440/vebus/276/Dc/0/Current",
             "keys": [
                 "electrical.batteries.house.current"
@@ -151,7 +151,7 @@
             "name": "House Battery State of Charge (SOC)",
             "class": "MQTT",
             "location": "Engine Room",
-            "interval": 45,
+            "interval": 28,
             "identifier": "N/c0619ab56440/system/0/Dc/Battery/Soc",
             "keys": [
                 "electrical.batteries.house.capacity.stateOfCharge"
@@ -162,8 +162,8 @@
             "name": "Multiplus L1 In Voltage",
             "class": "MQTT",
             "location": "Engine Room",
-            "interval": 50,
-            "identifier": "N/c0619ab56440/vebus/276/Ac/ActiveIn/L1/V",
+            "interval": 30,
+	    "identifier": "N/c0619ab56440/vebus/276/Ac/Out/L1/V",
             "keys": [
                 "electrical.inverters.multiplus.ac.lineLineVoltage"
             ],
@@ -173,8 +173,8 @@
             "name": "Multiplus L1 In Power",
             "class": "MQTT",
             "location": "Engine Room",
-            "interval": 50,
-            "identifier": "N/c0619ab56440/vebus/276/Ac/ActiveIn/L1/P",
+            "interval": 32,
+	    "identifier": "N/c0619ab56440/vebus/276/Ac/Out/L1/P",
             "keys": [
                 "electrical.inverters.multiplus.ac.power"
             ],
@@ -184,8 +184,8 @@
             "name": "Multiplus L1 In Current",
             "class": "MQTT",
             "location": "Engine Room",
-            "interval": 50,
-            "identifier": "N/c0619ab56440/vebus/276/Ac/ActiveIn/L1/I",
+            "interval": 34,
+	    "identifier": "N/c0619ab56440/vebus/276/Ac/Out/L1/I",
             "keys": [
                 "electrical.inverters.multiplus.ac.current"
             ],

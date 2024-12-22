@@ -28,6 +28,23 @@ sudo systemctl status lituyamond
 
 # Current Sensors
 
+## MQTT sensors
+
+The Victron CerboGX deployed on Lituya provides sensor values for all sensors networked to it, including values from the ve.can network. Each sensor has its own unique MQTT key, which are mapped onto SignalK keys, such as:
+
+| MQTT Path                                   | SignalK Key                                         |
+|---------------------------------------------|-----------------------------------------------------|
+| "N/c0619ab56440/vebus/276/Ac/Out/L1/V"      | "electrical.inverters.multiplus.ac.lineLineVoltage" |
+| "N/c0619ab56440/vebus/276/Ac/Out/L1/P"      | "electrical.inverters.multiplus.ac.power"           |
+| "N/c0619ab56440/vebus/276/Ac/Out/L1/I"      | "electrical.inverters.multiplus.ac.current"         |
+| "N/c0619ab56440/vebus/276/Dc/0/Temperature" | "environment.inside.engineroom.temperature"         |
+| "N/c0619ab56440/vebus/276/Dc/0/Voltage"     | "electrical.batteries.house.voltage"                |
+| "N/c0619ab56440/vebus/276/Dc/0/Power"       | "electrical.batteries.house.power"                  |
+| "N/c0619ab56440/vebus/276/Dc/0/Current"     | "electrical.batteries.house.current"                |
+| "N/c0619ab56440/system/0/Dc/Battery/Soc"    | "electrical.batteries.house.capacity.stateOfCharge" |
+
+The Lituyamon `MQTT` Sensor class reads the values from the MQTT path and publishes them on the SignalK path.
+
 ## DS18B20 temperature sensors
 
 The DS18B20 temperature sensor is a digital sensor that uses the 1-wire protocol for transmitting data to a digital GPIO port on the RPI.  Each sensor has its own unique digital identifier which is used by the RPI kernel module to organize a set of device files to be read from, which are located in a file `/sys/bus/w1/devices/$DEVICE_ID/w1_slave`, where `$DEVICE_ID` is the identifier of the device used s the directory name.  For Lituya, the five sensors are placed as follows:
@@ -110,11 +127,12 @@ gpio=16=op,dh
 ## Bilge water level
 
 - Need to determine the SignalK key for this
+  - Shoudl be in the `sensors` tree
 
 ## Battery voltage
 
 - /vessels/<RegExp>/electrical/batteries/<RegExp>/voltage
-  - electrical.batteries.house.voltage
+  - electrical.batteries.house.voltage # DONE
   - electrical.batteries.start.voltage
   - electrical.batteries.bowthruster.voltage
   - electrical.batteries.sternthruster.voltage
@@ -124,7 +142,7 @@ gpio=16=op,dh
 ## Battery current
 
 - /vessels/<RegExp>/electrical/batteries/<RegExp>/current
-  - electrical.batteries.house.current
+  - electrical.batteries.house.current # DONE
   - electrical.batteries.start.current
   - electrical.batteries.bowthruster.current
   - electrical.batteries.sternthruster.current

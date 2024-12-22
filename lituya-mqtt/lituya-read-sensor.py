@@ -37,7 +37,6 @@ def on_disconnect(client, userdata, disconnect_flags, reason_code, properties):
     if reason_code != 0:
         try:
             print("Unexpected disconnection with rc: " + str(reason_code) + "! Datetime: " + str(time.localtime()))
-            #print(error_string(rc))
             print("Reconnecting, please wait...")
             time.sleep(3)
         except Exception as e:
@@ -58,7 +57,7 @@ def main():
         #_mqttc.publish('R/c0619ab56440/keepalive', retain=False)
         _mqttc.publish('R/c0619ab56440/vebus/276/Ac', retain=False)
         _mqttc.publish('R/c0619ab56440/vebus/276/Dc', retain=False)
-        _mqttc.publish('R/c0619ab56440/system/0/Ac/ActiveIn/L1', retain=False)
+        _mqttc.publish('R/c0619ab56440/system/0/Ac', retain=False)
         _mqttc.publish('R/c0619ab56440/system/0/Dc/Battery', retain=False)
 
         #val = read_sensor(None, identifier='N/c0619ab56440/vebus/276/Dc/0/Temperature')
