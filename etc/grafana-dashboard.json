@@ -24,16 +24,14 @@
   "liveNow": false,
   "panels": [
     {
-      "collapsed": false,
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
         "y": 0
       },
-      "id": 46,
-      "panels": [],
-      "title": "Multiplus AC",
+      "id": 51,
+      "title": "AC Grid (Shore)",
       "type": "row"
     },
     {
@@ -41,49 +39,14 @@
         "type": "influxdb",
         "uid": "000000001"
       },
-      "description": "Multiplus AC Power",
+      "description": "AC Grid Power",
       "fieldConfig": {
         "defaults": {
           "color": {
             "fixedColor": "orange",
             "mode": "shades"
           },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 25,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineStyle": {
-              "fill": "solid"
-            },
-            "lineWidth": 2,
-            "pointSize": 7,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "always",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "dashed"
-            }
-          },
-          "decimals": 1,
+          "decimals": 2,
           "fieldMinMax": false,
           "mappings": [],
           "thresholds": {
@@ -105,19 +68,23 @@
         "x": 0,
         "y": 1
       },
-      "id": 47,
+      "id": 52,
       "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
         },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
+        "textMode": "auto",
+        "wideLayout": true
       },
+      "pluginVersion": "10.2.3",
       "targets": [
         {
           "alias": "Power",
@@ -141,7 +108,7 @@
           ],
           "orderByTime": "ASC",
           "policy": "one_year",
-          "query": "SELECT value FROM \"one_year\".\"electrical.inverters.multiplus.ac.power\" WHERE $timeFilter",
+          "query": "SELECT value FROM \"one_year\".\"electrical.ac.shore.phase.single.realPower\" WHERE $timeFilter",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -162,58 +129,21 @@
           "tags": []
         }
       ],
-      "title": "AC L1 In Power",
+      "title": "AC Grid Power",
       "transparent": true,
-      "type": "timeseries"
+      "type": "stat"
     },
     {
       "datasource": {
         "type": "influxdb",
         "uid": "000000001"
       },
-      "description": "Multiplus AC Current",
+      "description": "AC Grid Current",
       "fieldConfig": {
         "defaults": {
           "color": {
-            "fixedColor": "dark-blue",
+            "fixedColor": "green",
             "mode": "shades"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "axisSoftMax": 16,
-            "axisSoftMin": 11,
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 25,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineStyle": {
-              "fill": "solid"
-            },
-            "lineWidth": 2,
-            "pointSize": 7,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "always",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "dashed"
-            }
           },
           "decimals": 1,
           "fieldMinMax": false,
@@ -224,10 +154,6 @@
               {
                 "color": "green",
                 "value": null
-              },
-              {
-                "color": "blue",
-                "value": 35
               }
             ]
           },
@@ -241,19 +167,333 @@
         "x": 5,
         "y": 1
       },
+      "id": 53,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.2.3",
+      "targets": [
+        {
+          "alias": "Current",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "000000001"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "orderByTime": "ASC",
+          "policy": "one_year",
+          "query": "SELECT value FROM \"one_year\".\"electrical.ac.shore.phase.single.current\" WHERE $timeFilter",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "title": "AC Grid Current",
+      "transparent": true,
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "000000001"
+      },
+      "description": "AC Grid Voltage",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "dark-purple",
+            "mode": "shades"
+          },
+          "decimals": 1,
+          "fieldMinMax": false,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "volt"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 5,
+        "x": 10,
+        "y": 1
+      },
+      "id": 54,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.2.3",
+      "targets": [
+        {
+          "alias": "Voltage",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "000000001"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "orderByTime": "ASC",
+          "policy": "one_year",
+          "query": "SELECT value FROM \"one_year\".\"electrical.ac.shore.phase.single.lineNeutralVoltage\" WHERE $timeFilter",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "title": "AC Grid Voltage",
+      "transparent": true,
+      "type": "stat"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 7
+      },
+      "id": 46,
+      "panels": [],
+      "title": "AC Load (Multiplus Out)",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "000000001"
+      },
+      "description": "AC Load Power",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "orange",
+            "mode": "shades"
+          },
+          "decimals": 2,
+          "fieldMinMax": false,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "watt"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 5,
+        "x": 0,
+        "y": 8
+      },
+      "id": 47,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.2.3",
+      "targets": [
+        {
+          "alias": "Power",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "000000001"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "orderByTime": "ASC",
+          "policy": "one_year",
+          "query": "SELECT value FROM \"one_year\".\"electrical.inverters.multiplus.ac.realPower\" WHERE $timeFilter",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "title": "AC Load Power",
+      "transparent": true,
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "000000001"
+      },
+      "description": "AC Load Current",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "green",
+            "mode": "shades"
+          },
+          "decimals": 1,
+          "fieldMinMax": false,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "amp"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 5,
+        "x": 5,
+        "y": 8
+      },
       "id": 48,
       "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
         },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
+        "textMode": "auto",
+        "wideLayout": true
       },
+      "pluginVersion": "10.2.3",
       "targets": [
         {
           "alias": "Current",
@@ -298,58 +538,21 @@
           "tags": []
         }
       ],
-      "title": "AC L1 In Current",
+      "title": "AC Load Current",
       "transparent": true,
-      "type": "timeseries"
+      "type": "stat"
     },
     {
       "datasource": {
         "type": "influxdb",
         "uid": "000000001"
       },
-      "description": "House Battery Voltage",
+      "description": "AC Load Voltage",
       "fieldConfig": {
         "defaults": {
           "color": {
             "fixedColor": "dark-purple",
             "mode": "shades"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "axisSoftMax": 16,
-            "axisSoftMin": 11,
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 25,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineStyle": {
-              "fill": "solid"
-            },
-            "lineWidth": 2,
-            "pointSize": 7,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "always",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "dashed"
-            }
           },
           "decimals": 1,
           "fieldMinMax": false,
@@ -360,10 +563,6 @@
               {
                 "color": "green",
                 "value": null
-              },
-              {
-                "color": "blue",
-                "value": 35
               }
             ]
           },
@@ -375,21 +574,25 @@
         "h": 6,
         "w": 5,
         "x": 10,
-        "y": 1
+        "y": 8
       },
       "id": 49,
       "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
         },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
+        "textMode": "auto",
+        "wideLayout": true
       },
+      "pluginVersion": "10.2.3",
       "targets": [
         {
           "alias": "Voltage",
@@ -413,7 +616,7 @@
           ],
           "orderByTime": "ASC",
           "policy": "one_year",
-          "query": "SELECT value FROM \"one_year\".\"electrical.batteries.house.voltage\" WHERE $timeFilter",
+          "query": "SELECT value FROM \"one_year\".\"electrical.inverters.multiplus.ac.lineNeutralVoltage\" WHERE $timeFilter",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -434,9 +637,41 @@
           "tags": []
         }
       ],
-      "title": "Voltage",
+      "title": "AC Load Voltage",
       "transparent": true,
-      "type": "timeseries"
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "000000001"
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 5,
+        "x": 15,
+        "y": 8
+      },
+      "id": 50,
+      "options": {
+        "alertInstanceLabelFilter": "",
+        "alertName": "",
+        "dashboardAlerts": false,
+        "groupBy": [],
+        "groupMode": "default",
+        "maxItems": 20,
+        "sortOrder": 1,
+        "stateFilter": {
+          "error": true,
+          "firing": true,
+          "noData": true,
+          "normal": false,
+          "pending": true
+        },
+        "viewMode": "list"
+      },
+      "title": "Alerts",
+      "type": "alertlist"
     },
     {
       "collapsed": false,
@@ -444,7 +679,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 7
+        "y": 15
       },
       "id": 41,
       "panels": [],
@@ -463,42 +698,7 @@
             "fixedColor": "orange",
             "mode": "shades"
           },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 25,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineStyle": {
-              "fill": "solid"
-            },
-            "lineWidth": 2,
-            "pointSize": 7,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "always",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "dashed"
-            }
-          },
-          "decimals": 1,
+          "decimals": 0,
           "fieldMinMax": false,
           "mappings": [],
           "thresholds": {
@@ -518,21 +718,25 @@
         "h": 6,
         "w": 5,
         "x": 0,
-        "y": 8
+        "y": 16
       },
       "id": 43,
       "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
         },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
+        "textMode": "auto",
+        "wideLayout": true
       },
+      "pluginVersion": "10.2.3",
       "targets": [
         {
           "alias": "Power",
@@ -579,7 +783,7 @@
       ],
       "title": "Power",
       "transparent": true,
-      "type": "timeseries"
+      "type": "stat"
     },
     {
       "datasource": {
@@ -590,45 +794,8 @@
       "fieldConfig": {
         "defaults": {
           "color": {
-            "fixedColor": "dark-blue",
+            "fixedColor": "green",
             "mode": "shades"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "axisSoftMax": 16,
-            "axisSoftMin": 11,
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 25,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineStyle": {
-              "fill": "solid"
-            },
-            "lineWidth": 2,
-            "pointSize": 7,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "always",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "dashed"
-            }
           },
           "decimals": 1,
           "fieldMinMax": false,
@@ -639,10 +806,6 @@
               {
                 "color": "green",
                 "value": null
-              },
-              {
-                "color": "blue",
-                "value": 35
               }
             ]
           },
@@ -654,21 +817,25 @@
         "h": 6,
         "w": 5,
         "x": 5,
-        "y": 8
+        "y": 16
       },
       "id": 44,
       "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
         },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
+        "textMode": "auto",
+        "wideLayout": true
       },
+      "pluginVersion": "10.2.3",
       "targets": [
         {
           "alias": "Current",
@@ -715,7 +882,7 @@
       ],
       "title": "Current",
       "transparent": true,
-      "type": "timeseries"
+      "type": "stat"
     },
     {
       "datasource": {
@@ -728,43 +895,6 @@
           "color": {
             "fixedColor": "dark-purple",
             "mode": "shades"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "axisSoftMax": 16,
-            "axisSoftMin": 11,
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 25,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineStyle": {
-              "fill": "solid"
-            },
-            "lineWidth": 2,
-            "pointSize": 7,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "always",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "dashed"
-            }
           },
           "decimals": 1,
           "fieldMinMax": false,
@@ -790,21 +920,25 @@
         "h": 6,
         "w": 5,
         "x": 10,
-        "y": 8
+        "y": 16
       },
       "id": 42,
       "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
         },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
+        "textMode": "auto",
+        "wideLayout": true
       },
+      "pluginVersion": "10.2.3",
       "targets": [
         {
           "alias": "Voltage",
@@ -851,7 +985,7 @@
       ],
       "title": "Voltage",
       "transparent": true,
-      "type": "timeseries"
+      "type": "stat"
     },
     {
       "datasource": {
@@ -929,7 +1063,7 @@
         "h": 6,
         "w": 5,
         "x": 15,
-        "y": 8
+        "y": 16
       },
       "id": 45,
       "options": {
@@ -1002,7 +1136,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 14
+        "y": 22
       },
       "id": 11,
       "panels": [],
@@ -1054,7 +1188,7 @@
         "h": 4,
         "w": 2,
         "x": 0,
-        "y": 15
+        "y": 23
       },
       "id": 14,
       "interval": "",
@@ -1161,7 +1295,7 @@
         "h": 4,
         "w": 2,
         "x": 2,
-        "y": 15
+        "y": 23
       },
       "id": 12,
       "interval": "",
@@ -1268,7 +1402,7 @@
         "h": 4,
         "w": 2,
         "x": 4,
-        "y": 15
+        "y": 23
       },
       "id": 24,
       "interval": "",
@@ -1376,7 +1510,7 @@
         "h": 4,
         "w": 2,
         "x": 6,
-        "y": 15
+        "y": 23
       },
       "id": 21,
       "interval": "",
@@ -1467,7 +1601,7 @@
         "h": 4,
         "w": 2,
         "x": 8,
-        "y": 15
+        "y": 23
       },
       "id": 17,
       "interval": "",
@@ -1608,7 +1742,7 @@
         "h": 8,
         "w": 20,
         "x": 0,
-        "y": 19
+        "y": 27
       },
       "id": 29,
       "options": {
@@ -1705,7 +1839,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 27
+        "y": 35
       },
       "id": 19,
       "panels": [],
@@ -1736,7 +1870,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "red"
+                "color": "red",
+                "value": null
               },
               {
                 "color": "#EAB839",
@@ -1760,7 +1895,7 @@
         "h": 7,
         "w": 4,
         "x": 0,
-        "y": 28
+        "y": 36
       },
       "id": 28,
       "interval": "",
@@ -1863,7 +1998,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "red"
+                "color": "red",
+                "value": null
               },
               {
                 "color": "green",
@@ -1883,7 +2019,7 @@
         "h": 7,
         "w": 6,
         "x": 4,
-        "y": 28
+        "y": 36
       },
       "id": 31,
       "options": {
@@ -1931,7 +2067,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "#EAB839",
@@ -1951,7 +2088,7 @@
         "h": 5,
         "w": 4,
         "x": 10,
-        "y": 28
+        "y": 36
       },
       "id": 2,
       "interval": "",
@@ -2070,7 +2207,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -2086,7 +2224,7 @@
         "h": 7,
         "w": 6,
         "x": 14,
-        "y": 28
+        "y": 36
       },
       "id": 30,
       "options": {
@@ -2118,586 +2256,593 @@
       "type": "timeseries"
     },
     {
-      "collapsed": true,
+      "collapsed": false,
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 35
+        "y": 43
       },
       "id": 40,
-      "panels": [
-        {
-          "datasource": {
-            "type": "grafana-mqtt-datasource",
-            "uid": "d54c4727-1d53-46cf-ad9b-16691e4be91c"
-          },
-          "description": "",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "red"
-                  },
-                  {
-                    "color": "#EAB839",
-                    "value": 30
-                  },
-                  {
-                    "color": "green",
-                    "value": 50
-                  }
-                ]
-              },
-              "unit": "percent"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 6,
-            "w": 4,
-            "x": 0,
-            "y": 44
-          },
-          "id": 33,
-          "options": {
-            "colorMode": "value",
-            "graphMode": "area",
-            "justifyMode": "auto",
-            "orientation": "auto",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "textMode": "auto",
-            "wideLayout": true
-          },
-          "pluginVersion": "10.2.3",
-          "targets": [
-            {
-              "datasource": {
-                "type": "grafana-mqtt-datasource",
-                "uid": "d54c4727-1d53-46cf-ad9b-16691e4be91c"
-              },
-              "hide": false,
-              "refId": "A",
-              "topic": "N/c0619ab56440/system/0/Dc/Battery/Soc"
-            }
-          ],
-          "title": "House SoC",
-          "type": "stat"
-        },
-        {
-          "datasource": {
-            "type": "grafana-mqtt-datasource",
-            "uid": "d54c4727-1d53-46cf-ad9b-16691e4be91c"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "red"
-                  },
-                  {
-                    "color": "#EAB839",
-                    "value": 12.6
-                  },
-                  {
-                    "color": "green",
-                    "value": 13
-                  },
-                  {
-                    "color": "blue",
-                    "value": 14
-                  }
-                ]
-              },
-              "unit": "volt"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 6,
-            "w": 4,
-            "x": 4,
-            "y": 44
-          },
-          "id": 32,
-          "options": {
-            "colorMode": "value",
-            "graphMode": "area",
-            "justifyMode": "auto",
-            "orientation": "auto",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "textMode": "auto",
-            "wideLayout": true
-          },
-          "pluginVersion": "10.2.3",
-          "targets": [
-            {
-              "datasource": {
-                "type": "grafana-mqtt-datasource",
-                "uid": "d54c4727-1d53-46cf-ad9b-16691e4be91c"
-              },
-              "hide": false,
-              "refId": "A",
-              "topic": "N/c0619ab56440/system/0/Dc/Battery/Voltage"
-            },
-            {
-              "datasource": {
-                "type": "grafana-mqtt-datasource",
-                "uid": "d54c4727-1d53-46cf-ad9b-16691e4be91c"
-              },
-              "hide": false,
-              "refId": "B",
-              "topic": "R/c0619ab56440/keepalive"
-            }
-          ],
-          "title": "DC Voltage",
-          "type": "stat"
-        },
-        {
-          "datasource": {
-            "type": "grafana-mqtt-datasource",
-            "uid": "d54c4727-1d53-46cf-ad9b-16691e4be91c"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "blue"
-                  }
-                ]
-              },
-              "unit": "amp"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 6,
-            "w": 4,
-            "x": 8,
-            "y": 44
-          },
-          "id": 34,
-          "options": {
-            "colorMode": "value",
-            "graphMode": "area",
-            "justifyMode": "auto",
-            "orientation": "auto",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "textMode": "auto",
-            "wideLayout": true
-          },
-          "pluginVersion": "10.2.3",
-          "targets": [
-            {
-              "datasource": {
-                "type": "grafana-mqtt-datasource",
-                "uid": "d54c4727-1d53-46cf-ad9b-16691e4be91c"
-              },
-              "hide": false,
-              "refId": "A",
-              "topic": "N/c0619ab56440/system/0/Dc/Battery/Current"
-            }
-          ],
-          "title": "DC Current",
-          "type": "stat"
-        },
-        {
-          "datasource": {
-            "type": "grafana-mqtt-datasource",
-            "uid": "d54c4727-1d53-46cf-ad9b-16691e4be91c"
-          },
-          "description": "",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "blue"
-                  }
-                ]
-              },
-              "unit": "watt"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 6,
-            "w": 4,
-            "x": 12,
-            "y": 44
-          },
-          "id": 35,
-          "options": {
-            "colorMode": "value",
-            "graphMode": "area",
-            "justifyMode": "auto",
-            "orientation": "auto",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "textMode": "auto",
-            "wideLayout": true
-          },
-          "pluginVersion": "10.2.3",
-          "targets": [
-            {
-              "datasource": {
-                "type": "grafana-mqtt-datasource",
-                "uid": "d54c4727-1d53-46cf-ad9b-16691e4be91c"
-              },
-              "hide": false,
-              "refId": "A",
-              "topic": "N/c0619ab56440/system/0/Dc/Battery/Power"
-            }
-          ],
-          "title": "DC Power",
-          "type": "stat"
-        },
-        {
-          "datasource": {
-            "type": "grafana-mqtt-datasource",
-            "uid": "d54c4727-1d53-46cf-ad9b-16691e4be91c"
-          },
-          "description": "",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "decimals": 0,
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "blue"
-                  }
-                ]
-              },
-              "unit": "fahrenheit"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 6,
-            "w": 4,
-            "x": 0,
-            "y": 50
-          },
-          "id": 39,
-          "options": {
-            "colorMode": "value",
-            "graphMode": "area",
-            "justifyMode": "auto",
-            "orientation": "auto",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "textMode": "auto",
-            "wideLayout": true
-          },
-          "pluginVersion": "10.2.3",
-          "targets": [
-            {
-              "datasource": {
-                "type": "grafana-mqtt-datasource",
-                "uid": "d54c4727-1d53-46cf-ad9b-16691e4be91c"
-              },
-              "hide": false,
-              "refId": "A",
-              "topic": "N/c0619ab56440/vebus/276/Dc/0/Temperature"
-            }
-          ],
-          "title": "EngineRm Temp",
-          "transformations": [
-            {
-              "id": "calculateField",
-              "options": {
-                "alias": "ptemp",
-                "binary": {
-                  "left": "value",
-                  "operator": "*",
-                  "right": "9"
-                },
-                "mode": "binary",
-                "reduce": {
-                  "include": [
-                    "value"
-                  ],
-                  "reducer": "sum"
-                },
-                "replaceFields": true
-              }
-            },
-            {
-              "id": "calculateField",
-              "options": {
-                "alias": "ptemp",
-                "binary": {
-                  "left": "ptemp",
-                  "operator": "/",
-                  "right": "5"
-                },
-                "mode": "binary",
-                "reduce": {
-                  "reducer": "sum"
-                },
-                "replaceFields": true
-              }
-            },
-            {
-              "id": "calculateField",
-              "options": {
-                "alias": "value",
-                "binary": {
-                  "left": "ptemp",
-                  "right": "32"
-                },
-                "mode": "binary",
-                "reduce": {
-                  "reducer": "sum"
-                },
-                "replaceFields": true
-              }
-            }
-          ],
-          "type": "stat"
-        },
-        {
-          "datasource": {
-            "type": "grafana-mqtt-datasource",
-            "uid": "d54c4727-1d53-46cf-ad9b-16691e4be91c"
-          },
-          "description": "",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "blue"
-                  }
-                ]
-              },
-              "unit": "volt"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 6,
-            "w": 4,
-            "x": 4,
-            "y": 50
-          },
-          "id": 37,
-          "options": {
-            "colorMode": "value",
-            "graphMode": "none",
-            "justifyMode": "auto",
-            "orientation": "auto",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "textMode": "auto",
-            "wideLayout": true
-          },
-          "pluginVersion": "10.2.3",
-          "targets": [
-            {
-              "datasource": {
-                "type": "grafana-mqtt-datasource",
-                "uid": "d54c4727-1d53-46cf-ad9b-16691e4be91c"
-              },
-              "hide": false,
-              "refId": "A",
-              "topic": "N/c0619ab56440/vebus/276/Ac/ActiveIn/L1/V"
-            }
-          ],
-          "title": "AC Voltage In",
-          "type": "stat"
-        },
-        {
-          "datasource": {
-            "type": "grafana-mqtt-datasource",
-            "uid": "d54c4727-1d53-46cf-ad9b-16691e4be91c"
-          },
-          "description": "",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "blue"
-                  }
-                ]
-              },
-              "unit": "amp"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 6,
-            "w": 4,
-            "x": 8,
-            "y": 50
-          },
-          "id": 38,
-          "options": {
-            "colorMode": "value",
-            "graphMode": "none",
-            "justifyMode": "auto",
-            "orientation": "auto",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "textMode": "auto",
-            "wideLayout": true
-          },
-          "pluginVersion": "10.2.3",
-          "targets": [
-            {
-              "datasource": {
-                "type": "grafana-mqtt-datasource",
-                "uid": "d54c4727-1d53-46cf-ad9b-16691e4be91c"
-              },
-              "hide": false,
-              "refId": "A",
-              "topic": "N/c0619ab56440/vebus/276/Ac/ActiveIn/L1/I"
-            }
-          ],
-          "title": "AC Current In",
-          "type": "stat"
-        },
-        {
-          "datasource": {
-            "type": "grafana-mqtt-datasource",
-            "uid": "d54c4727-1d53-46cf-ad9b-16691e4be91c"
-          },
-          "description": "",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "blue"
-                  }
-                ]
-              },
-              "unit": "watt"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 6,
-            "w": 4,
-            "x": 12,
-            "y": 50
-          },
-          "id": 36,
-          "options": {
-            "colorMode": "value",
-            "graphMode": "area",
-            "justifyMode": "auto",
-            "orientation": "auto",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "textMode": "auto",
-            "wideLayout": true
-          },
-          "pluginVersion": "10.2.3",
-          "targets": [
-            {
-              "datasource": {
-                "type": "grafana-mqtt-datasource",
-                "uid": "d54c4727-1d53-46cf-ad9b-16691e4be91c"
-              },
-              "hide": false,
-              "refId": "A",
-              "topic": "N/c0619ab56440/vebus/276/Ac/ActiveIn/L1/P"
-            }
-          ],
-          "title": "AC Power In",
-          "type": "stat"
-        }
-      ],
+      "panels": [],
       "title": "Instant Electrical",
       "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "grafana-mqtt-datasource",
+        "uid": "d54c4727-1d53-46cf-ad9b-16691e4be91c"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 30
+              },
+              {
+                "color": "green",
+                "value": 50
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 4,
+        "x": 0,
+        "y": 44
+      },
+      "id": 33,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.2.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-mqtt-datasource",
+            "uid": "d54c4727-1d53-46cf-ad9b-16691e4be91c"
+          },
+          "hide": false,
+          "refId": "A",
+          "topic": "N/c0619ab56440/system/0/Dc/Battery/Soc"
+        }
+      ],
+      "title": "House SoC",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "grafana-mqtt-datasource",
+        "uid": "d54c4727-1d53-46cf-ad9b-16691e4be91c"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 12.6
+              },
+              {
+                "color": "green",
+                "value": 13
+              },
+              {
+                "color": "blue",
+                "value": 14
+              }
+            ]
+          },
+          "unit": "volt"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 4,
+        "x": 4,
+        "y": 44
+      },
+      "id": 32,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.2.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-mqtt-datasource",
+            "uid": "d54c4727-1d53-46cf-ad9b-16691e4be91c"
+          },
+          "hide": false,
+          "refId": "A",
+          "topic": "N/c0619ab56440/system/0/Dc/Battery/Voltage"
+        },
+        {
+          "datasource": {
+            "type": "grafana-mqtt-datasource",
+            "uid": "d54c4727-1d53-46cf-ad9b-16691e4be91c"
+          },
+          "hide": false,
+          "refId": "B",
+          "topic": "R/c0619ab56440/keepalive"
+        }
+      ],
+      "title": "DC Voltage",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "grafana-mqtt-datasource",
+        "uid": "d54c4727-1d53-46cf-ad9b-16691e4be91c"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              }
+            ]
+          },
+          "unit": "amp"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 4,
+        "x": 8,
+        "y": 44
+      },
+      "id": 34,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.2.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-mqtt-datasource",
+            "uid": "d54c4727-1d53-46cf-ad9b-16691e4be91c"
+          },
+          "hide": false,
+          "refId": "A",
+          "topic": "N/c0619ab56440/system/0/Dc/Battery/Current"
+        }
+      ],
+      "title": "DC Current",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "grafana-mqtt-datasource",
+        "uid": "d54c4727-1d53-46cf-ad9b-16691e4be91c"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              }
+            ]
+          },
+          "unit": "watt"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 4,
+        "x": 12,
+        "y": 44
+      },
+      "id": 35,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.2.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-mqtt-datasource",
+            "uid": "d54c4727-1d53-46cf-ad9b-16691e4be91c"
+          },
+          "hide": false,
+          "refId": "A",
+          "topic": "N/c0619ab56440/system/0/Dc/Battery/Power"
+        }
+      ],
+      "title": "DC Power",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "grafana-mqtt-datasource",
+        "uid": "d54c4727-1d53-46cf-ad9b-16691e4be91c"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 0,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              }
+            ]
+          },
+          "unit": "fahrenheit"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 4,
+        "x": 0,
+        "y": 50
+      },
+      "id": 39,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.2.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-mqtt-datasource",
+            "uid": "d54c4727-1d53-46cf-ad9b-16691e4be91c"
+          },
+          "hide": false,
+          "refId": "A",
+          "topic": "N/c0619ab56440/vebus/276/Dc/0/Temperature"
+        }
+      ],
+      "title": "EngineRm Temp",
+      "transformations": [
+        {
+          "id": "calculateField",
+          "options": {
+            "alias": "ptemp",
+            "binary": {
+              "left": "value",
+              "operator": "*",
+              "right": "9"
+            },
+            "mode": "binary",
+            "reduce": {
+              "include": [
+                "value"
+              ],
+              "reducer": "sum"
+            },
+            "replaceFields": true
+          }
+        },
+        {
+          "id": "calculateField",
+          "options": {
+            "alias": "ptemp",
+            "binary": {
+              "left": "ptemp",
+              "operator": "/",
+              "right": "5"
+            },
+            "mode": "binary",
+            "reduce": {
+              "reducer": "sum"
+            },
+            "replaceFields": true
+          }
+        },
+        {
+          "id": "calculateField",
+          "options": {
+            "alias": "value",
+            "binary": {
+              "left": "ptemp",
+              "right": "32"
+            },
+            "mode": "binary",
+            "reduce": {
+              "reducer": "sum"
+            },
+            "replaceFields": true
+          }
+        }
+      ],
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "grafana-mqtt-datasource",
+        "uid": "d54c4727-1d53-46cf-ad9b-16691e4be91c"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              }
+            ]
+          },
+          "unit": "volt"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 4,
+        "x": 4,
+        "y": 50
+      },
+      "id": 37,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.2.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-mqtt-datasource",
+            "uid": "d54c4727-1d53-46cf-ad9b-16691e4be91c"
+          },
+          "hide": false,
+          "refId": "A",
+          "topic": "N/c0619ab56440/vebus/276/Ac/ActiveIn/L1/V"
+        }
+      ],
+      "title": "AC Voltage In",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "grafana-mqtt-datasource",
+        "uid": "d54c4727-1d53-46cf-ad9b-16691e4be91c"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              }
+            ]
+          },
+          "unit": "amp"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 4,
+        "x": 8,
+        "y": 50
+      },
+      "id": 38,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.2.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-mqtt-datasource",
+            "uid": "d54c4727-1d53-46cf-ad9b-16691e4be91c"
+          },
+          "hide": false,
+          "refId": "A",
+          "topic": "N/c0619ab56440/vebus/276/Ac/ActiveIn/L1/I"
+        }
+      ],
+      "title": "AC Current In",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "grafana-mqtt-datasource",
+        "uid": "d54c4727-1d53-46cf-ad9b-16691e4be91c"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              }
+            ]
+          },
+          "unit": "watt"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 4,
+        "x": 12,
+        "y": 50
+      },
+      "id": 36,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.2.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-mqtt-datasource",
+            "uid": "d54c4727-1d53-46cf-ad9b-16691e4be91c"
+          },
+          "hide": false,
+          "refId": "A",
+          "topic": "N/c0619ab56440/vebus/276/Ac/ActiveIn/L1/P"
+        }
+      ],
+      "title": "AC Power In",
+      "type": "stat"
     },
     {
       "collapsed": true,
@@ -2709,7 +2854,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 36
+        "y": 56
       },
       "id": 9,
       "panels": [
@@ -2749,7 +2894,7 @@
             "h": 5,
             "w": 4,
             "x": 0,
-            "y": 45
+            "y": 77
           },
           "id": 27,
           "interval": "",
@@ -2856,7 +3001,7 @@
             "h": 5,
             "w": 4,
             "x": 5,
-            "y": 45
+            "y": 77
           },
           "id": 16,
           "interval": "",
@@ -3009,7 +3154,7 @@
             "h": 5,
             "w": 5,
             "x": 11,
-            "y": 45
+            "y": 77
           },
           "hiddenSeries": false,
           "id": 23,
@@ -3166,6 +3311,6 @@
   "timezone": "",
   "title": "Lituya Status",
   "uid": "wcuuRJkgz",
-  "version": 134,
+  "version": 141,
   "weekStart": ""
 }
