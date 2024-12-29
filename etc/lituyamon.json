@@ -119,7 +119,7 @@
             "class": "MQTT",
             "location": "Engine Room",
             "interval": 22,
-            "identifier": "N/c0619ab56440/vebus/276/Dc/0/Voltage",
+            "identifier": "N/c0619ab56440/system/0/Dc/Battery/Voltage",
             "keys": [
                 "electrical.batteries.house.voltage"
             ],
@@ -130,7 +130,7 @@
             "class": "MQTT",
             "location": "Engine Room",
             "interval": 24,
-            "identifier": "N/c0619ab56440/vebus/276/Dc/0/Power",
+            "identifier": "N/c0619ab56440/system/0/Dc/Battery/Power",
             "keys": [
                 "electrical.batteries.house.power"
             ],
@@ -141,7 +141,7 @@
             "class": "MQTT",
             "location": "Engine Room",
             "interval": 26,
-            "identifier": "N/c0619ab56440/vebus/276/Dc/0/Current",
+            "identifier": "N/c0619ab56440/system/0/Dc/Battery/Current",
             "keys": [
                 "electrical.batteries.house.current"
             ],
@@ -159,35 +159,68 @@
             "enabled": true
         },
         "mqtt.6": {
-            "name": "Multiplus L1 In Voltage",
+            "name": "Multiplus L1 Out Voltage",
             "class": "MQTT",
             "location": "Engine Room",
             "interval": 30,
 	    "identifier": "N/c0619ab56440/vebus/276/Ac/Out/L1/V",
             "keys": [
-                "electrical.inverters.multiplus.ac.lineLineVoltage"
+                "electrical.inverters.multiplus.ac.lineNeutralVoltage"
             ],
             "enabled": true
         },
         "mqtt.7": {
-            "name": "Multiplus L1 In Power",
+            "name": "Multiplus L1 Out Power",
             "class": "MQTT",
             "location": "Engine Room",
             "interval": 32,
 	    "identifier": "N/c0619ab56440/vebus/276/Ac/Out/L1/P",
             "keys": [
-                "electrical.inverters.multiplus.ac.power"
+                "electrical.inverters.multiplus.ac.realPower"
             ],
             "enabled": true
         },
         "mqtt.8": {
-            "name": "Multiplus L1 In Current",
+            "name": "Multiplus L1 Out Current",
             "class": "MQTT",
             "location": "Engine Room",
             "interval": 34,
 	    "identifier": "N/c0619ab56440/vebus/276/Ac/Out/L1/I",
             "keys": [
                 "electrical.inverters.multiplus.ac.current"
+            ],
+            "enabled": true
+        },
+        "mqtt.9": {
+            "name": "Shore In Voltage",
+            "class": "MQTT",
+            "location": "Engine Room",
+            "interval": 31,
+	    "identifier": "N/c0619ab56440/vebus/276/Ac/ActiveIn/L1/V",
+            "keys": [
+                "electrical.ac.shore.phase.single.lineNeutralVoltage"
+            ],
+            "enabled": true
+        },
+        "mqtt.10": {
+            "name": "Shore In Power",
+            "class": "MQTT",
+            "location": "Engine Room",
+            "interval": 33,
+	    "identifier": "N/c0619ab56440/vebus/276/Ac/ActiveIn/L1/P",
+            "keys": [
+                "electrical.ac.shore.phase.single.realPower"
+            ],
+            "enabled": true
+        },
+        "mqtt.11": {
+            "name": "Shore In Current",
+            "class": "MQTT",
+            "location": "Engine Room",
+            "interval": 35,
+	    "identifier": "N/c0619ab56440/vebus/276/Ac/ActiveIn/L1/I",
+            "keys": [
+                "electrical.ac.shore.phase.single.current"
             ],
             "enabled": true
         }
